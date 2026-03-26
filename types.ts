@@ -40,4 +40,5 @@ export interface DJConfig {
   googleApiKey?: string;
   facebookAccessToken?: string;
   facebookPixelId?: string;
+  manualBookedDates?: string[];
 }

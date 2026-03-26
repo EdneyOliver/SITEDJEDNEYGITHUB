@@ -19,7 +19,12 @@ export const APP_CONFIG: DJConfig = {
   googleApiKey: "AIzaSyBo8hopTJPtZpxRYW0E-3oCtOGv3spfR4c",
   facebookAccessToken: "1796210094399363|F9q3fGV4QVQFtTBl2bJ55zTOlhA",
   // ID do Pixel do Facebook configurado conforme solicitado
-  facebookPixelId: "25591008083842856" 
+  facebookPixelId: "25591008083842856",
+  // Datas manuais para caso a sincronização falhe ou para bloqueios rápidos
+  // Formato: "YYYY-MM-DD"
+  manualBookedDates: [
+    "2026-12-31" // Exemplo: 31 de Dezembro de 2026
+  ]
 };
 
 export const DJ_PACKAGES = [

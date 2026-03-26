@@ -37,28 +37,40 @@ export const CalendarView: React.FC = () => {
     setApiError(null);
     try {
       const icalUrl = `https://calendar.google.com/calendar/ical/${APP_CONFIG.googleCalendarId}/public/basic.ics`;
-      // CORREÇÃO: O primeiro parâmetro deve começar com '?' e não '&'
       const cacheBuster = `?t=${new Date().getTime()}`;
       
-      const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(icalUrl + cacheBuster)}`;
+      // Tentando primeiro o corsproxy.io
+      let proxyUrl = `https://corsproxy.io/?${encodeURIComponent(icalUrl + cacheBuster)}`;
+      let response = await fetch(proxyUrl);
+      
+      // Se falhar, tenta o allorigins como fallback
+      if (!response.ok) {
+        proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(icalUrl + cacheBuster)}`;
+        response = await fetch(proxyUrl);
+      }
 
-      const response = await fetch(proxyUrl);
       if (!response.ok) throw new Error(`Rede: ${response.status}`);
       
-      const data = await response.json();
-      const icsData = data.contents;
+      const icsData = await response.text();
       
       if (!icsData || !icsData.includes('BEGIN:VCALENDAR')) {
-        // Se o Google retornar HTML, ele redirecionou para login (privado)
-        if (icsData && icsData.includes('<html')) {
-           throw new Error("PRIVACY");
-        }
         throw new Error("INVALID_DATA");
       }
 
       const eventsDays: number[] = [];
-      const lines = icsData.split(/\r?\n/);
       
+      // Adiciona datas manuais do config
+      if (APP_CONFIG.manualBookedDates) {
+        APP_CONFIG.manualBookedDates.forEach(dateStr => {
+          const [dYear, dMonth, dDay] = dateStr.split('-').map(Number);
+          if (dYear === year && (dMonth - 1) === month) {
+            eventsDays.push(dDay);
+          }
+        });
+      }
+
+      // Split mais robusto para diferentes quebras de linha
+      const lines = icsData.split(/\r\n|\r|\n/);
       let currentStart: Date | null = null;
       let currentEnd: Date | null = null;
 
@@ -81,11 +93,11 @@ export const CalendarView: React.FC = () => {
           }
           return new Date(y, m, d, h, min, s);
         }
-        return new Date(y, m, d);
+        return new Date(y, m, d, 12, 0, 0);
       };
 
       for (let i = 0; i < lines.length; i++) {
-        const line = lines[i];
+        const line = lines[i].trim();
         if (line.startsWith('BEGIN:VEVENT')) {
           currentStart = null;
           currentEnd = null;
@@ -102,10 +114,10 @@ export const CalendarView: React.FC = () => {
             if (currentEnd) {
               let tempDate = new Date(currentStart);
               tempDate.setDate(tempDate.getDate() + 1);
-              while (tempDate <= currentEnd) {
-                if (tempDate.getTime() === currentEnd.getTime() && currentEnd.getHours() === 0 && currentEnd.getMinutes() === 0) {
-                  break;
-                }
+              tempDate.setHours(0, 0, 0, 0);
+              const endLimit = new Date(currentEnd);
+              
+              while (tempDate < endLimit) {
                 if (tempDate.getFullYear() === year && tempDate.getMonth() === month) {
                   eventsDays.push(tempDate.getDate());
                 }
@@ -119,9 +131,18 @@ export const CalendarView: React.FC = () => {
       setBookedDates([...new Set(eventsDays)]);
     } catch (error: any) {
       console.error("Erro na sincronização:", error);
-      // Se der erro, não mostramos mais o erro na tela para o cliente final
-      // Apenas deixamos o log para o desenvolvedor
-      setBookedDates([]);
+      
+      // Fallback para datas manuais se a API falhar totalmente
+      const fallbackDays: number[] = [];
+      if (APP_CONFIG.manualBookedDates) {
+        APP_CONFIG.manualBookedDates.forEach(dateStr => {
+          const [dYear, dMonth, dDay] = dateStr.split('-').map(Number);
+          if (dYear === year && (dMonth - 1) === month) {
+            fallbackDays.push(dDay);
+          }
+        });
+      }
+      setBookedDates(fallbackDays);
     } finally {
       setLoading(false);
     }
