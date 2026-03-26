@@ -36,15 +36,22 @@ export const CalendarView: React.FC = () => {
     setLoading(true);
     setApiError(null);
     try {
-      // Adicionado timestamp para evitar cache do proxy/navegador e garantir eventos novos
       const icalUrl = `https://calendar.google.com/calendar/ical/${APP_CONFIG.googleCalendarId}/public/basic.ics`;
-      const cacheBuster = `?t=${new Date().getTime()}`;
-      const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(icalUrl + cacheBuster)}`;
+      const cacheBuster = `&t=${new Date().getTime()}`;
+      // Tentando um proxy diferente (corsproxy.io) que costuma ser mais estável para o Google
+      const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(icalUrl + cacheBuster)}`;
 
       const response = await fetch(proxyUrl);
-      if (!response.ok) throw new Error("Não foi possível acessar os dados da agenda.");
+      
+      if (!response.ok) {
+        throw new Error(`Status: ${response.status}`);
+      }
       
       const icsData = await response.text();
+      
+      if (!icsData || !icsData.includes('BEGIN:VCALENDAR')) {
+        throw new Error("Dados inválidos recebidos da agenda.");
+      }
       
       const eventsDays: number[] = [];
       const lines = icsData.split(/\r?\n/);
