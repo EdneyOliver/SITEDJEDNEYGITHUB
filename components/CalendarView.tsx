@@ -36,31 +36,78 @@ export const CalendarView: React.FC = () => {
     setLoading(true);
     setApiError(null);
     try {
-      // Usando o link iCal público do Google via Proxy para evitar erro de CORS
+      // Adicionado timestamp para evitar cache do proxy/navegador e garantir eventos novos
       const icalUrl = `https://calendar.google.com/calendar/ical/${APP_CONFIG.googleCalendarId}/public/basic.ics`;
-      const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(icalUrl)}`;
+      const cacheBuster = `?t=${new Date().getTime()}`;
+      const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(icalUrl + cacheBuster)}`;
 
       const response = await fetch(proxyUrl);
       if (!response.ok) throw new Error("Não foi possível acessar os dados da agenda.");
       
       const icsData = await response.text();
       
-      // Parser simples para extrair datas do arquivo iCal (.ics)
-      // Procuramos por DTSTART;VALUE=DATE:20240326 ou DTSTART:20240326T120000Z
       const eventsDays: number[] = [];
       const lines = icsData.split(/\r?\n/);
       
+      let currentStart: Date | null = null;
+      let currentEnd: Date | null = null;
+
+      // Função auxiliar para converter data do iCal (YYYYMMDDTHHMMSSZ) para objeto Date
+      const parseICSDate = (str: string) => {
+        const datePart = str.split(':')[1] || str.split('=')[1]?.split(':')[1] || str;
+        if (!datePart) return null;
+
+        const y = parseInt(datePart.substring(0, 4));
+        const m = parseInt(datePart.substring(4, 6)) - 1;
+        const d = parseInt(datePart.substring(6, 8));
+
+        if (datePart.includes('T')) {
+          const h = parseInt(datePart.substring(9, 11));
+          const min = parseInt(datePart.substring(11, 13));
+          const s = parseInt(datePart.substring(13, 15));
+          
+          if (datePart.endsWith('Z')) {
+            return new Date(Date.UTC(y, m, d, h, min, s));
+          }
+          return new Date(y, m, d, h, min, s);
+        }
+        return new Date(y, m, d);
+      };
+
       for (let i = 0; i < lines.length; i++) {
-        if (lines[i].startsWith('DTSTART')) {
-          const dateMatch = lines[i].match(/:(\d{4})(\d{2})(\d{2})/);
-          if (dateMatch) {
-            const eYear = parseInt(dateMatch[1]);
-            const eMonth = parseInt(dateMatch[2]) - 1; // Meses no JS são 0-11
-            const eDay = parseInt(dateMatch[3]);
-            
-            // Verifica se o evento pertence ao mês e ano que estamos visualizando
-            if (eYear === year && eMonth === month) {
-              eventsDays.push(eDay);
+        const line = lines[i];
+        if (line.startsWith('BEGIN:VEVENT')) {
+          currentStart = null;
+          currentEnd = null;
+        } else if (line.startsWith('DTSTART')) {
+          currentStart = parseICSDate(line);
+        } else if (line.startsWith('DTEND')) {
+          currentEnd = parseICSDate(line);
+        } else if (line.startsWith('END:VEVENT')) {
+          if (currentStart) {
+            // Adiciona o dia de início (ajustado para o fuso local do navegador)
+            if (currentStart.getFullYear() === year && currentStart.getMonth() === month) {
+              eventsDays.push(currentStart.getDate());
+            }
+
+            // Se o evento durar mais de um dia ou virar a noite
+            if (currentEnd) {
+              let tempDate = new Date(currentStart);
+              tempDate.setDate(tempDate.getDate() + 1);
+              
+              // Se o evento termina após as 05:00 do dia seguinte, consideramos o dia seguinte ocupado
+              // (Comum para DJs que tocam até de madrugada)
+              while (tempDate <= currentEnd) {
+                // Se o evento termina exatamente à meia-noite do dia seguinte, não marcamos o dia seguinte
+                if (tempDate.getTime() === currentEnd.getTime() && currentEnd.getHours() === 0 && currentEnd.getMinutes() === 0) {
+                  break;
+                }
+                
+                if (tempDate.getFullYear() === year && tempDate.getMonth() === month) {
+                  eventsDays.push(tempDate.getDate());
+                }
+                tempDate.setDate(tempDate.getDate() + 1);
+              }
             }
           }
         }
@@ -70,7 +117,7 @@ export const CalendarView: React.FC = () => {
     } catch (error: any) {
       console.error("Erro na sincronização iCal:", error);
       setApiError({
-        message: "Ocorreu um erro ao tentar ler sua agenda via iCal. Verifique se ela está realmente como 'Pública'.",
+        message: "Ocorreu um erro ao sincronizar. Tente atualizar a página em alguns instantes.",
         isPrivacyError: true
       });
       setBookedDates([]);
