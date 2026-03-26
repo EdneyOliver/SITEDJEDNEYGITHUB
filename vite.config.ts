@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
-      base: '/', // Mantido como '/' para o domínio djedney.com.br
+      base: '/SITEDJEDNEYGITHUB/', // Ajustado para o nome do seu repositório no GitHub
       server: {
         port: 3000,
         host: '0.0.0.0',
