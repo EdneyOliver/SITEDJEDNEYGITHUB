@@ -28,7 +28,7 @@ export const CalendarView: React.FC = () => {
   ];
 
   const fetchCalendarEvents = useCallback(async () => {
-    if (!APP_CONFIG.googleCalendarId || !APP_CONFIG.googleApiKey) {
+    if (!APP_CONFIG.googleCalendarId) {
       setLoading(false);
       return;
     }
@@ -36,55 +36,48 @@ export const CalendarView: React.FC = () => {
     setLoading(true);
     setApiError(null);
     try {
-      const calendarId = encodeURIComponent(APP_CONFIG.googleCalendarId);
-      const apiKey = APP_CONFIG.googleApiKey;
-      
-      // Ajuste de range para pegar o mês inteiro corretamente
-      const timeMin = new Date(year, month, 1, 0, 0, 0).toISOString();
-      const timeMax = new Date(year, month, daysInMonth, 23, 59, 59).toISOString();
-      
-      const url = `https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events?key=${apiKey}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true`;
+      // Usando o link iCal público do Google via Proxy para evitar erro de CORS
+      const icalUrl = `https://calendar.google.com/calendar/ical/${APP_CONFIG.googleCalendarId}/public/basic.ics`;
+      const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(icalUrl)}`;
 
-      const response = await fetch(url);
-      const data = await response.json();
-
-      if (!response.ok) {
-        // Erro 404 em calendários costuma ser falta de permissão pública
-        const isPrivacy = response.status === 404 || response.status === 403;
-        throw {
-          message: isPrivacy 
-            ? "Sua agenda parece estar PRIVADA. O Google não permite que o site leia os dados." 
-            : (data.error?.message || "Erro na API do Google"),
-          code: data.error?.code || response.status,
-          isPrivacyError: isPrivacy
-        };
-      }
+      const response = await fetch(proxyUrl);
+      if (!response.ok) throw new Error("Não foi possível acessar os dados da agenda.");
       
-      const eventsDays = data.items?.map((event: any) => {
-        const start = event.start.date || event.start.dateTime;
-        // Garante que pegamos o dia correto independente do fuso horário
-        const eventDate = new Date(start);
-        // Se for evento de dia inteiro, o Google manda YYYY-MM-DD, o que pode causar erro de fuso
-        if (event.start.date) {
-           const [y, m, d] = event.start.date.split('-').map(Number);
-           return d;
+      const icsData = await response.text();
+      
+      // Parser simples para extrair datas do arquivo iCal (.ics)
+      // Procuramos por DTSTART;VALUE=DATE:20240326 ou DTSTART:20240326T120000Z
+      const eventsDays: number[] = [];
+      const lines = icsData.split(/\r?\n/);
+      
+      for (let i = 0; i < lines.length; i++) {
+        if (lines[i].startsWith('DTSTART')) {
+          const dateMatch = lines[i].match(/:(\d{4})(\d{2})(\d{2})/);
+          if (dateMatch) {
+            const eYear = parseInt(dateMatch[1]);
+            const eMonth = parseInt(dateMatch[2]) - 1; // Meses no JS são 0-11
+            const eDay = parseInt(dateMatch[3]);
+            
+            // Verifica se o evento pertence ao mês e ano que estamos visualizando
+            if (eYear === year && eMonth === month) {
+              eventsDays.push(eDay);
+            }
+          }
         }
-        return eventDate.getDate();
-      }) || [];
+      }
 
-      setBookedDates([...new Set(eventsDays)] as number[]);
+      setBookedDates([...new Set(eventsDays)]);
     } catch (error: any) {
-      console.error("Erro na sincronização:", error);
+      console.error("Erro na sincronização iCal:", error);
       setApiError({
-        message: error.message || "Erro de conexão",
-        code: error.code,
-        isPrivacyError: error.isPrivacyError
+        message: "Ocorreu um erro ao tentar ler sua agenda via iCal. Verifique se ela está realmente como 'Pública'.",
+        isPrivacyError: true
       });
       setBookedDates([]);
     } finally {
       setLoading(false);
     }
-  }, [month, year, daysInMonth]);
+  }, [month, year]);
 
   useEffect(() => {
     fetchCalendarEvents();
