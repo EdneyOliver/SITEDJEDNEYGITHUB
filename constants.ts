@@ -29,7 +29,7 @@ export const DJ_PACKAGES = [
     description: "Organização, música de qualidade e tranquilidade para eventos intimistas. Ideal para aniversários em salões de condomínio e reuniões familiares.",
     // Imagem do setup Essencial
     imageUrl: "https://i.postimg.cc/NjKWXkbY/Essencial.png", 
-    price: "R$ 990",
+    price: "R$ 900",
     features: [
       "DJ Edney com Leitura de Pista e Animação da Pista",
       "Período de 5 horas",
