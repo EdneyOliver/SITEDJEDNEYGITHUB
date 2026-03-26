@@ -1,0 +1,26 @@
+
+{
+  "name": "DJ Edney | Experience",
+  "short_name": "DJ Edney",
+  "description": "DJ Profissional para Eventos e Experiências Sonoras de alta qualidade.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#2563eb",
+  "orientation": "portrait",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "https://images.unsplash.com/photo-1768919533164-1695daa801e8?q=80&w=192&h=192&auto=format&fit=crop",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1768919533164-1695daa801e8?q=80&w=512&h=512&auto=format&fit=crop",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
