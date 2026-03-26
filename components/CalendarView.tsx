@@ -38,21 +38,24 @@ export const CalendarView: React.FC = () => {
     try {
       const icalUrl = `https://calendar.google.com/calendar/ical/${APP_CONFIG.googleCalendarId}/public/basic.ics`;
       const cacheBuster = `&t=${new Date().getTime()}`;
-      // Tentando um proxy diferente (corsproxy.io) que costuma ser mais estável para o Google
-      const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(icalUrl + cacheBuster)}`;
+      
+      // Usando allorigins.win com o formato /get que é mais resiliente
+      const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(icalUrl + cacheBuster)}`;
 
       const response = await fetch(proxyUrl);
+      if (!response.ok) throw new Error(`Erro de rede: ${response.status}`);
       
-      if (!response.ok) {
-        throw new Error(`Status: ${response.status}`);
-      }
-      
-      const icsData = await response.text();
+      const data = await response.json();
+      const icsData = data.contents;
       
       if (!icsData || !icsData.includes('BEGIN:VCALENDAR')) {
-        throw new Error("Dados inválidos recebidos da agenda.");
+        // Se o Google retornar uma página HTML em vez de um arquivo ICS, é erro de privacidade
+        if (icsData && icsData.includes('<html')) {
+           throw new Error("PRIVACY_ERROR");
+        }
+        throw new Error("Dados da agenda não encontrados ou inválidos.");
       }
-      
+
       const eventsDays: number[] = [];
       const lines = icsData.split(/\r?\n/);
       
@@ -61,17 +64,19 @@ export const CalendarView: React.FC = () => {
 
       // Função auxiliar para converter data do iCal (YYYYMMDDTHHMMSSZ) para objeto Date
       const parseICSDate = (str: string) => {
-        const datePart = str.split(':')[1] || str.split('=')[1]?.split(':')[1] || str;
-        if (!datePart) return null;
+        // Remove prefixos como DTSTART;VALUE=DATE: ou DTSTART:
+        const parts = str.split(':');
+        const datePart = parts[parts.length - 1];
+        if (!datePart || datePart.length < 8) return null;
 
         const y = parseInt(datePart.substring(0, 4));
         const m = parseInt(datePart.substring(4, 6)) - 1;
         const d = parseInt(datePart.substring(6, 8));
 
         if (datePart.includes('T')) {
-          const h = parseInt(datePart.substring(9, 11));
-          const min = parseInt(datePart.substring(11, 13));
-          const s = parseInt(datePart.substring(13, 15));
+          const h = parseInt(datePart.substring(9, 11)) || 0;
+          const min = parseInt(datePart.substring(11, 13)) || 0;
+          const s = parseInt(datePart.substring(13, 15)) || 0;
           
           if (datePart.endsWith('Z')) {
             return new Date(Date.UTC(y, m, d, h, min, s));
@@ -92,7 +97,7 @@ export const CalendarView: React.FC = () => {
           currentEnd = parseICSDate(line);
         } else if (line.startsWith('END:VEVENT')) {
           if (currentStart) {
-            // Adiciona o dia de início (ajustado para o fuso local do navegador)
+            // Adiciona o dia de início
             if (currentStart.getFullYear() === year && currentStart.getMonth() === month) {
               eventsDays.push(currentStart.getDate());
             }
@@ -102,8 +107,6 @@ export const CalendarView: React.FC = () => {
               let tempDate = new Date(currentStart);
               tempDate.setDate(tempDate.getDate() + 1);
               
-              // Se o evento termina após as 05:00 do dia seguinte, consideramos o dia seguinte ocupado
-              // (Comum para DJs que tocam até de madrugada)
               while (tempDate <= currentEnd) {
                 // Se o evento termina exatamente à meia-noite do dia seguinte, não marcamos o dia seguinte
                 if (tempDate.getTime() === currentEnd.getTime() && currentEnd.getHours() === 0 && currentEnd.getMinutes() === 0) {
@@ -123,9 +126,12 @@ export const CalendarView: React.FC = () => {
       setBookedDates([...new Set(eventsDays)]);
     } catch (error: any) {
       console.error("Erro na sincronização iCal:", error);
+      const isPrivacy = error.message === "PRIVACY_ERROR";
       setApiError({
-        message: "Ocorreu um erro ao sincronizar. Tente atualizar a página em alguns instantes.",
-        isPrivacyError: true
+        message: isPrivacy 
+          ? "Sua agenda ainda parece estar PRIVADA. O Google está bloqueando o acesso aos dados." 
+          : `Erro técnico: ${error.message}. Tente atualizar a página.`,
+        isPrivacyError: isPrivacy
       });
       setBookedDates([]);
     } finally {
