@@ -125,13 +125,13 @@ const App: React.FC = () => {
               <div className="max-w-7xl mx-auto px-6">
                 <div className="text-center mb-16">
                   <div className="inline-block px-4 py-1 rounded-full bg-purple-500/10 text-purple-500 text-[10px] font-black uppercase tracking-[0.3em] mb-4 border border-purple-500/20">
-                    Disponibilidade Real
+                    Consultar Data
                   </div>
                   <h2 className="text-4xl md:text-6xl font-sync font-black text-white uppercase tracking-tighter mb-4">
-                    Minha <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">Agenda</span>
+                    Disponibi<span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">lidade</span>
                   </h2>
                   <p className="text-gray-400 max-w-2xl mx-auto text-[10px] uppercase tracking-[0.3em] font-bold">
-                    Consulte as datas disponíveis e solicite sua reserva via WhatsApp
+                    Fale comigo agora para verificar se sua data está livre e garantir sua reserva
                   </p>
                 </div>
                 

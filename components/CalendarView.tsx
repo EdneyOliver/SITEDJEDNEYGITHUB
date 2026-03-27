@@ -1,315 +1,60 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import { APP_CONFIG } from '../constants';
 
-const getDaysInMonth = (month: number, year: number) => {
-  return new Date(year, month + 1, 0).getDate();
-};
-
-const getFirstDayOfMonth = (month: number, year: number) => {
-  return new Date(year, month, 1).getDay();
-};
-
 export const CalendarView: React.FC = () => {
-  const [currentViewDate, setCurrentViewDate] = useState(new Date());
-  const [bookedDates, setBookedDates] = useState<number[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [apiError, setApiError] = useState<{message: string, code?: any, isPrivacyError?: boolean} | null>(null);
-
-  const month = currentViewDate.getMonth();
-  const year = currentViewDate.getFullYear();
-  
-  const daysInMonth = getDaysInMonth(month, year);
-  const firstDay = getFirstDayOfMonth(month, year);
-
-  const monthNames = [
-    "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
-  ];
-
-  const fetchCalendarEvents = useCallback(async () => {
-    if (!APP_CONFIG.googleCalendarId) {
-      setLoading(false);
-      return;
-    }
-
-    setLoading(true);
-    setApiError(null);
-    try {
-      const icalUrl = `https://calendar.google.com/calendar/ical/${APP_CONFIG.googleCalendarId}/public/basic.ics`;
-      const cacheBuster = `?t=${new Date().getTime()}`;
-      
-      // Tentando primeiro o corsproxy.io
-      let proxyUrl = `https://corsproxy.io/?${encodeURIComponent(icalUrl + cacheBuster)}`;
-      let response = await fetch(proxyUrl);
-      
-      // Se falhar, tenta o allorigins como fallback
-      if (!response.ok) {
-        proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(icalUrl + cacheBuster)}`;
-        response = await fetch(proxyUrl);
-      }
-
-      if (!response.ok) throw new Error(`Rede: ${response.status}`);
-      
-      const icsData = await response.text();
-      
-      if (!icsData || !icsData.includes('BEGIN:VCALENDAR')) {
-        throw new Error("INVALID_DATA");
-      }
-
-      const eventsDays: number[] = [];
-      
-      // Adiciona datas manuais do config
-      if (APP_CONFIG.manualBookedDates) {
-        APP_CONFIG.manualBookedDates.forEach(dateStr => {
-          const [dYear, dMonth, dDay] = dateStr.split('-').map(Number);
-          if (dYear === year && (dMonth - 1) === month) {
-            eventsDays.push(dDay);
-          }
-        });
-      }
-
-      // Split mais robusto para diferentes quebras de linha
-      const lines = icsData.split(/\r\n|\r|\n/);
-      let currentStart: Date | null = null;
-      let currentEnd: Date | null = null;
-
-      const parseICSDate = (str: string) => {
-        const parts = str.split(':');
-        const datePart = parts[parts.length - 1];
-        if (!datePart || datePart.length < 8) return null;
-
-        const y = parseInt(datePart.substring(0, 4));
-        const m = parseInt(datePart.substring(4, 6)) - 1;
-        const d = parseInt(datePart.substring(6, 8));
-
-        if (datePart.includes('T')) {
-          const h = parseInt(datePart.substring(9, 11)) || 0;
-          const min = parseInt(datePart.substring(11, 13)) || 0;
-          const s = parseInt(datePart.substring(13, 15)) || 0;
-          
-          if (datePart.endsWith('Z')) {
-            return new Date(Date.UTC(y, m, d, h, min, s));
-          }
-          return new Date(y, m, d, h, min, s);
-        }
-        return new Date(y, m, d, 12, 0, 0);
-      };
-
-      for (let i = 0; i < lines.length; i++) {
-        const line = lines[i].trim();
-        if (line.startsWith('BEGIN:VEVENT')) {
-          currentStart = null;
-          currentEnd = null;
-        } else if (line.startsWith('DTSTART')) {
-          currentStart = parseICSDate(line);
-        } else if (line.startsWith('DTEND')) {
-          currentEnd = parseICSDate(line);
-        } else if (line.startsWith('END:VEVENT')) {
-          if (currentStart) {
-            if (currentStart.getFullYear() === year && currentStart.getMonth() === month) {
-              eventsDays.push(currentStart.getDate());
-            }
-
-            if (currentEnd) {
-              let tempDate = new Date(currentStart);
-              tempDate.setDate(tempDate.getDate() + 1);
-              tempDate.setHours(0, 0, 0, 0);
-              const endLimit = new Date(currentEnd);
-              
-              while (tempDate < endLimit) {
-                if (tempDate.getFullYear() === year && tempDate.getMonth() === month) {
-                  eventsDays.push(tempDate.getDate());
-                }
-                tempDate.setDate(tempDate.getDate() + 1);
-              }
-            }
-          }
-        }
-      }
-
-      setBookedDates([...new Set(eventsDays)]);
-    } catch (error: any) {
-      console.error("Erro na sincronização:", error);
-      
-      // Fallback para datas manuais se a API falhar totalmente
-      const fallbackDays: number[] = [];
-      if (APP_CONFIG.manualBookedDates) {
-        APP_CONFIG.manualBookedDates.forEach(dateStr => {
-          const [dYear, dMonth, dDay] = dateStr.split('-').map(Number);
-          if (dYear === year && (dMonth - 1) === month) {
-            fallbackDays.push(dDay);
-          }
-        });
-      }
-      setBookedDates(fallbackDays);
-    } finally {
-      setLoading(false);
-    }
-  }, [month, year]);
-
-  useEffect(() => {
-    fetchCalendarEvents();
-  }, [fetchCalendarEvents]);
-
-  const changeMonth = (offset: number) => {
-    const newDate = new Date(year, month + offset, 1);
-    setCurrentViewDate(newDate);
-  };
-
-  const handleDayClick = (day: number) => {
-    const isBooked = bookedDates.includes(day);
-    const formattedDate = `${day < 10 ? '0' + day : day}/${(month + 1) < 10 ? '0' + (month + 1) : month + 1}`;
-    
-    let message = "";
-    if (isBooked) {
-      message = `Olá DJ Edney! Vi que a data ${formattedDate} está reservada na sua agenda, mas gostaria de tirar uma dúvida sobre disponibilidade.`;
-    } else {
-      message = `Olá DJ Edney! Vi que a data ${formattedDate} está livre e gostaria de solicitar um orçamento para meu evento.`;
-    }
-
-    const whatsappUrl = `https://wa.me/${APP_CONFIG.phone.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-  };
+  const whatsappUrl = `https://wa.me/${APP_CONFIG.phone.replace(/\D/g, '')}?text=${encodeURIComponent('Olá DJ Edney! Gostaria de verificar a disponibilidade para o meu evento.')}`;
 
   return (
-    <div className="glass rounded-3xl p-6 sm:p-10 neon-border max-w-4xl mx-auto relative overflow-hidden transition-all duration-500 min-h-[400px]">
-      {loading && (
-        <div className="absolute inset-0 bg-black/80 backdrop-blur-sm z-20 flex items-center justify-center rounded-3xl">
-          <div className="flex flex-col items-center text-center px-6">
-            <i className="fas fa-compact-disc animate-spin text-purple-500 text-5xl mb-4"></i>
-            <p className="font-sync text-[10px] tracking-[0.4em] text-white uppercase animate-pulse">Sincronizando com Google Agenda...</p>
-          </div>
-        </div>
-      )}
-
-      {apiError && !loading && (
-        <div className="mb-6 p-6 bg-red-900/20 border border-red-500/30 rounded-2xl animate-fade-in">
-          <div className="flex items-center gap-3 mb-4">
-            <i className="fas fa-lock text-red-500 text-xl"></i>
-            <h4 className="text-red-400 text-xs font-bold uppercase tracking-widest">Atenção DJ Edney: Erro de Privacidade</h4>
+    <div className="max-w-4xl mx-auto">
+      <div className="glass rounded-3xl p-8 md:p-12 neon-border relative overflow-hidden group">
+        {/* Elementos Decorativos de Fundo */}
+        <div className="absolute -top-24 -right-24 w-64 h-64 bg-purple-600/20 rounded-full blur-3xl group-hover:bg-purple-500/30 transition-all duration-700"></div>
+        <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl group-hover:bg-blue-500/30 transition-all duration-700"></div>
+        
+        <div className="relative z-10 flex flex-col items-center text-center">
+          <div className="w-20 h-20 bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(147,51,234,0.3)] group-hover:scale-110 transition-transform duration-500">
+            <i className="fas fa-calendar-check text-3xl text-white"></i>
           </div>
           
-          <p className="text-gray-300 text-[11px] mb-6 leading-relaxed">
-            {apiError.message}
+          <h3 className="text-2xl md:text-4xl font-sync font-black text-white uppercase tracking-tighter mb-6 leading-tight">
+            Sua data ainda está <span className="text-purple-500">disponível?</span>
+          </h3>
+          
+          <p className="text-gray-400 text-sm md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed uppercase tracking-widest font-medium">
+            Minha agenda é atualizada diariamente. Para garantir a <span className="text-white">precisão total</span> e reservar seu evento, clique no botão abaixo e fale comigo agora mesmo!
           </p>
-
-          {apiError.isPrivacyError && (
-            <div className="bg-black/40 p-4 rounded-xl mb-6">
-              <p className="text-white text-[10px] font-bold uppercase mb-3 tracking-widest">Como resolver (Passo a Passo):</p>
-              <ol className="text-[10px] text-gray-400 space-y-2 list-decimal list-inside">
-                <li>Abra o seu <span className="text-white">Google Agenda</span> no computador.</li>
-                <li>No menu lateral, clique nos <span className="text-white">3 pontinhos</span> ao lado da sua agenda ({APP_CONFIG.googleCalendarId}).</li>
-                <li>Vá em <span className="text-white">"Configurações e Compartilhamento"</span>.</li>
-                <li>Role até <span className="text-white">"Autorizações de acesso"</span>.</li>
-                <li>Marque a caixa <span className="text-white">"Disponibilizar ao público"</span>.</li>
-                <li>Clique no botão abaixo para tentar novamente.</li>
-              </ol>
-            </div>
-          )}
-
-          <div className="flex flex-wrap gap-3">
-            <button 
-              onClick={fetchCalendarEvents}
-              className="px-6 py-2 bg-red-600 text-white rounded-full text-[9px] font-black uppercase tracking-tighter hover:bg-red-500 transition-all"
-            >
-              Tentar Sincronizar Novamente
-            </button>
-            <a 
-              href="https://calendar.google.com" 
-              target="_blank" 
-              className="px-6 py-2 bg-white/10 text-white rounded-full text-[9px] font-black uppercase tracking-tighter hover:bg-white/20 transition-all flex items-center gap-2"
-            >
-              Abrir Google Agenda <i className="fas fa-external-link-alt"></i>
-            </a>
-          </div>
-        </div>
-      )}
-
-      {/* Header do Calendário */}
-      <div className="flex justify-between items-center mb-10">
-        <button 
-          onClick={() => changeMonth(-1)}
-          className="w-10 h-10 rounded-full bg-white/5 hover:bg-purple-600/30 flex items-center justify-center transition-all border border-white/10"
-        >
-          <i className="fas fa-chevron-left text-xs"></i>
-        </button>
-        
-        <div className="text-center relative group">
-          <h2 className="text-xl md:text-2xl font-sync font-bold uppercase tracking-widest text-white flex items-center gap-3">
-            {monthNames[month]}
-            <button 
-              onClick={fetchCalendarEvents}
-              className="text-gray-600 hover:text-purple-500 transition-colors text-sm"
-              title="Sincronizar agora"
-            >
-              <i className={`fas fa-sync-alt ${loading ? 'animate-spin' : ''}`}></i>
-            </button>
-          </h2>
-          <span className="text-[10px] text-purple-400 font-bold tracking-[0.3em]">{year}</span>
-        </div>
-
-        <button 
-          onClick={() => changeMonth(1)}
-          className="w-10 h-10 rounded-full bg-white/5 hover:bg-purple-600/30 flex items-center justify-center transition-all border border-white/10"
-        >
-          <i className="fas fa-chevron-right text-xs"></i>
-        </button>
-      </div>
-
-      {/* Dias da Semana */}
-      <div className="grid grid-cols-7 gap-2 mb-4 text-center">
-        {['D', 'S', 'T', 'Q', 'Q', 'S', 'S'].map((d, i) => (
-          <div key={`${d}-${i}`} className="text-[10px] font-bold text-gray-500 uppercase py-2">{d}</div>
-        ))}
-      </div>
-
-      {/* Grid de Dias */}
-      <div className="grid grid-cols-7 gap-2">
-        {Array.from({ length: firstDay }).map((_, i) => (
-          <div key={`empty-${i}`} className="h-14 sm:h-24 opacity-0"></div>
-        ))}
-
-        {Array.from({ length: daysInMonth }).map((_, i) => {
-          const day = i + 1;
-          const isBooked = bookedDates.includes(day);
-          const isToday = new Date().toDateString() === new Date(year, month, day).toDateString();
-
-          return (
-            <button
-              key={day}
-              onClick={() => handleDayClick(day)}
-              className={`
-                h-14 sm:h-24 rounded-xl flex flex-col items-center justify-center relative transition-all duration-300 group
-                ${isBooked 
-                  ? 'bg-red-500/10 text-red-300 border border-red-500/40 hover:bg-red-500/20' 
-                  : 'bg-white/5 hover:bg-purple-600/20 hover:border-purple-500/50 border border-white/10 active:scale-95'}
-                ${isToday ? 'ring-2 ring-purple-500 ring-offset-2 ring-offset-[#0a0a0a]' : ''}
-              `}
-            >
-              <span className={`text-lg sm:text-2xl font-bold ${isBooked ? 'text-red-400' : 'group-hover:text-purple-400'}`}>
-                {day}
-              </span>
-              <span className={`text-[7px] sm:text-[9px] mt-1 uppercase font-black tracking-tighter ${isBooked ? 'text-red-500' : 'text-green-500'}`}>
-                {isBooked ? 'OCUPADO' : 'LIVRE'}
-              </span>
-              
-              <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <i className={`fab fa-whatsapp ${isBooked ? 'text-red-400' : 'text-green-400'} text-[10px]`}></i>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mb-12">
+            {[
+              { icon: 'fa-bolt', title: 'Resposta Rápida', desc: 'Retorno em poucos minutos' },
+              { icon: 'fa-check-circle', title: 'Garantia de Data', desc: 'Reserva imediata após sinal' },
+              { icon: 'fa-clock', title: 'Flexibilidade', desc: 'Horários personalizados' }
+            ].map((item, i) => (
+              <div key={i} className="bg-white/5 border border-white/10 p-4 rounded-2xl hover:bg-white/10 transition-colors">
+                <i className={`fas ${item.icon} text-purple-500 mb-2`}></i>
+                <h4 className="text-white text-[10px] font-black uppercase tracking-widest mb-1">{item.title}</h4>
+                <p className="text-gray-500 text-[9px] uppercase tracking-wider">{item.desc}</p>
               </div>
-            </button>
-          );
-        })}
-      </div>
+            ))}
+          </div>
 
-      <div className="mt-8 flex flex-wrap gap-6 justify-center text-[9px] font-bold uppercase tracking-[0.2em]">
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 bg-red-500 rounded-full shadow-[0_0_8px_rgba(239,68,68,0.5)]"></div>
-          <span className="text-gray-400">Datas Reservadas</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 bg-green-500 rounded-full shadow-[0_0_8px_rgba(34,197,94,0.5)]"></div>
-          <span className="text-gray-400">Datas Disponíveis</span>
+          <a 
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group/btn relative inline-flex items-center gap-4 px-10 py-5 bg-green-600 hover:bg-green-500 text-white rounded-full transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(22,163,74,0.4)]"
+          >
+            <i className="fab fa-whatsapp text-2xl animate-bounce"></i>
+            <span className="font-sync font-black text-xs md:text-sm uppercase tracking-widest">
+              Consultar Disponibilidade Agora
+            </span>
+            <div className="absolute inset-0 rounded-full bg-white/20 scale-0 group-hover/btn:scale-100 transition-transform duration-500 opacity-0 group-hover/btn:opacity-100"></div>
+          </a>
+          
+          <p className="mt-8 text-[9px] text-gray-600 uppercase tracking-[0.4em] font-bold">
+            Atendimento Personalizado via WhatsApp
+          </p>
         </div>
       </div>
     </div>
