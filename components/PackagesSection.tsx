@@ -48,6 +48,7 @@ export const PackagesSection: React.FC = () => {
                 <img 
                   src={(pkg as any).imageUrl} 
                   alt={pkg.name}
+                  referrerPolicy="no-referrer"
                   className={`w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700 ${(pkg as any).imagePosition || 'object-center'}`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-80"></div>
@@ -114,7 +115,7 @@ export const PackagesSection: React.FC = () => {
               >
                 <div className="w-24 h-24 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 text-2xl group-hover:bg-blue-600 group-hover:text-white transition-all overflow-hidden shadow-lg border border-white/10 shrink-0">
                   {(addon as any).imageUrl ? (
-                    <img src={(addon as any).imageUrl} alt={addon.name} className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700" />
+                    <img src={(addon as any).imageUrl} alt={addon.name} referrerPolicy="no-referrer" className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700" />
                   ) : (
                     <i className={addon.icon}></i>
                   )}
@@ -143,7 +144,7 @@ export const PackagesSection: React.FC = () => {
               >
                 <div className="w-20 h-20 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 text-2xl group-hover:bg-blue-600 group-hover:text-white transition-all overflow-hidden border border-white/5">
                   {(addon as any).imageUrl ? (
-                    <img src={(addon as any).imageUrl} alt={addon.name} className="w-full h-full object-cover" />
+                    <img src={(addon as any).imageUrl} alt={addon.name} referrerPolicy="no-referrer" className="w-full h-full object-cover" />
                   ) : (
                     <i className={addon.icon}></i>
                   )}

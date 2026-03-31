@@ -89,6 +89,7 @@ export const ContactSection: React.FC = () => {
                   <img 
                     src={`https://quickchart.io/qr?text=${encodeURIComponent(officialAppUrl)}&size=200&margin=1&ecLevel=M`} 
                     alt="QR Code DJ Edney" 
+                    referrerPolicy="no-referrer"
                     className="w-44 h-44"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(officialAppUrl)}`;

@@ -67,6 +67,7 @@ export const SocialMediaFeed: React.FC = () => {
                 <div className="relative aspect-[1/1] overflow-hidden rounded-[2rem] border border-white/5 bg-gray-900 shadow-2xl">
                   <img 
                     src={item.thumbnailUrl} 
+                    referrerPolicy="no-referrer"
                     className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110" 
                     alt={item.caption}
                   />

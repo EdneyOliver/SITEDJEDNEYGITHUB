@@ -26,6 +26,7 @@ export const Hero: React.FC = () => {
               <img 
                 src="https://images.unsplash.com/photo-1768919533164-1695daa801e8?q=100&w=800&auto=format&fit=crop" 
                 alt={`Foto de Perfil ${APP_CONFIG.name}`} 
+                referrerPolicy="no-referrer"
                 style={{ objectPosition: 'center 20%' }}
                 className="w-full h-full object-cover rounded-full transition-all duration-700 hd-img"
               />
