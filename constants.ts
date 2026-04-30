@@ -50,7 +50,7 @@ export const DJ_PACKAGES = [
     name: "Experiência",
     description: "Festa animada com clima de pista e leitura de público. Para quem quer que a festa realmente aconteça do começo ao fim.",
     // Nova imagem real do setup Experiência enviada pelo usuário
-    imageUrl: "https://i.postimg.cc/Nj6DR2SB/IMG-20251122-175048.jpg",
+    imageUrl: "https://i.postimg.cc/nLtHCXjB/Screenshot-2026-03-16-16-50-12-560-com-miui-mediaviewer.jpg",
     imagePosition: "object-center",
     price: "R$ 1200",
     features: [
