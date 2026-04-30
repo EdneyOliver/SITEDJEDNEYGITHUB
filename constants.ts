@@ -36,12 +36,11 @@ export const DJ_PACKAGES = [
     imageUrl: "https://i.postimg.cc/NjKWXkbY/Essencial.png", 
     price: "R$ 900",
     features: [
-      "DJ Edney com Leitura de Pista e Animação da Pista",
+      "DJ Edney com Playlist Personalizada, Curadoria Musical, Leitura de Pista e Animação",
       "Período de 5 horas",
       "Sonorização de alta qualidade equilibrada",
       "Iluminação decorativa para valorizar o espaço",
-      "Microfone sem fio para recados e parabéns",
-      "Playlist personalizada conforme o perfil"
+      "Microfone sem fio para recados e parabéns"
     ],
     highlight: false
   },
@@ -54,13 +53,12 @@ export const DJ_PACKAGES = [
     imagePosition: "object-center",
     price: "R$ 1200",
     features: [
-      "DJ Edney com Leitura de Pista e Animação da Pista",
+      "DJ Edney com Playlist Personalizada, Curadoria Musical, Leitura de Pista e Animação",
       "Período de 5 horas",
       "Sonorização potente para ambientes médios/grandes",
       "Iluminação estilo balada com movimentos",
       "Máquina de fumaça inclusa",
-      "Microfone sem fio para interações",
-      "Playlist personalizada conforme o público"
+      "Microfone sem fio para interações"
     ],
     highlight: true
   },
@@ -71,12 +69,11 @@ export const DJ_PACKAGES = [
     imageUrl: "https://images.unsplash.com/photo-1768916055541-26e3e97ac16e?q=100&w=1000&auto=format&fit=crop",
     price: "R$ 1300",
     features: [
-      "DJ Edney com Leitura de Pista e Animação da Pista",
+      "DJ Edney com Playlist Personalizada, Curadoria Musical, Leitura de Pista e Animação",
       "Período de 5 horas",
       "Toda a estrutura do Pacote Experiência",
       "Estruturas Box Truss (elevação de iluminação)",
-      "Layout imponente com maior impacto visual",
-      "Playlist ajustada em tempo real"
+      "Layout imponente com maior impacto visual"
     ],
     highlight: false
   }
