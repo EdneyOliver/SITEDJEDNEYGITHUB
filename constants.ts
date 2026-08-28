@@ -31,9 +31,9 @@ export const DJ_PACKAGES = [
   {
     id: "essencial",
     name: "Essencial",
-    description: "Organização, música de qualidade e tranquilidade para eventos intimistas. Ideal para aniversários em salões de condomínio e reuniões familiares.",
+    description: "Recomendado para ambientes fechados e de pequeno porte. Organização, música de qualidade e tranquilidade para eventos intimistas em salões de condomínio e reuniões familiares.",
     // Imagem do setup Essencial
-    imageUrl: "https://i.postimg.cc/6QK6NrR0/essencial-02.png", 
+    imageUrl: "https://i.postimg.cc/xjbn4pNH/essencial-02-sem-moving.png", 
     imagePosition: "center 50%",
     price: "R$ 950",
     features: [
@@ -50,9 +50,9 @@ export const DJ_PACKAGES = [
     name: "Experiência",
     description: "Festa animada com clima de pista e leitura de público. Para quem quer que a festa realmente aconteça do começo ao fim.",
     // Nova imagem real do setup Experiência enviada pelo usuário
-    imageUrl: "https://i.postimg.cc/nLtHCXjB/Screenshot-2026-03-16-16-50-12-560-com-miui-mediaviewer.jpg",
-    imagePosition: "object-center",
-    price: "R$ 1.350",
+    imageUrl: "https://i.postimg.cc/C1FQY1mj/EXPERIENCIA-TOP.png",
+    imagePosition: "center 20%",
+    price: "R$ 1.500",
     features: [
       "DJ Edney com Playlist Personalizada, Curadoria Musical, Leitura de Pista e Animação",
       "Período de 5 horas",
@@ -69,7 +69,7 @@ export const DJ_PACKAGES = [
     description: "A mesma energia da pista com visual marcante e elegante. Estrutura Box Truss que transforma o layout do seu espaço.",
     imageUrl: "https://i.postimg.cc/D0NsCjS5/Premium-top.png",
     imagePosition: "object-center",
-    price: "R$ 1.450",
+    price: "R$ 1.600",
     features: [
       "DJ Edney com Playlist Personalizada, Curadoria Musical, Leitura de Pista e Animação",
       "Período de 5 horas",
@@ -84,21 +84,17 @@ export const DJ_PACKAGES = [
 export const DJ_ADDONS = [
   {
     name: "Pista Paris",
-    description: "Pista de dança iluminada disponível nos tamanhos 4x4 e 3x3. O toque de luxo que seu evento merece.",
+    description: "Pista de dança iluminada disponível nos tamanhos 4x4 e 3x3. O toque de luxo e sofisticação que seu evento merece.",
     imageUrl: "https://i.postimg.cc/tgXH2qVV/PISTA-PARIS-4x4-5.png",
-    icon: "fas fa-star"
+    icon: "fas fa-star",
+    badge: "Destaque Luxo"
   },
   {
     name: "Projetor",
-    description: "Para homenagens com fotos e vídeos.",
+    description: "Projetor de alta definição e tela para homenagens, retrospectivas com fotos e vídeos emocionantes.",
     imageUrl: "https://i.postimg.cc/fb6p1MVv/VPL-DX130B.jpg",
-    icon: "fas fa-video"
-  },
-  {
-    name: "Karaokê",
-    description: "Som + dois microfones e monitor de 19 polegadas.",
-    imageUrl: "https://i.postimg.cc/SsfdV4CM/pngtree-karaoke-lable-png-and-psd-png-image-6947629.png",
-    icon: "fas fa-microphone-alt"
+    icon: "fas fa-video",
+    badge: "Homenagens & Vídeos"
   }
 ];
 
