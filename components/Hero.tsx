@@ -60,40 +60,6 @@ export const Hero: React.FC = () => {
              </p>
           </div>
         </div>
-
-        <div className="flex flex-wrap justify-center gap-3 mt-10">
-          <button 
-            onClick={() => {
-              const el = document.getElementById('servicos');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="px-7 py-3 bg-white text-black font-black uppercase text-[9px] tracking-widest rounded-full hover:bg-gray-200 transition-all shadow-[0_10px_20px_rgba(255,255,255,0.05)] active:scale-95"
-          >
-            Serviços
-          </button>
-          
-          <button 
-            onClick={() => {
-              const el = document.getElementById('agenda-section');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="px-7 py-3 bg-purple-600/20 border border-purple-500/30 text-purple-400 font-black uppercase text-[9px] tracking-widest rounded-full hover:bg-purple-600 hover:text-white transition-all shadow-[0_10px_20px_rgba(124,58,237,0.1)] active:scale-95"
-          >
-            Ver Agenda
-          </button>
-
-          <a 
-            href={`https://wa.me/${APP_CONFIG.phone.replace(/\D/g, '')}`}
-            target="_blank"
-            onClick={handleWhatsAppClick}
-            className="px-7 py-3 bg-green-600/10 border border-green-500/30 text-white font-black uppercase text-[9px] tracking-widest rounded-full hover:bg-green-600 transition-all flex items-center gap-2 active:scale-95 animate-pulse-green relative overflow-hidden group/btn"
-          >
-            <span className="relative z-10 flex items-center gap-2">
-              Orçamento <i className="fab fa-whatsapp text-base text-green-500 group-hover/btn:text-white transition-colors"></i>
-            </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_2s_infinite] transition-all"></div>
-          </a>
-        </div>
       </div>
     </section>
   );
