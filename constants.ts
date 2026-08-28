@@ -51,7 +51,7 @@ export const DJ_PACKAGES = [
     description: "Festa animada com clima de pista e leitura de público. Para quem quer que a festa realmente aconteça do começo ao fim.",
     // Nova imagem real do setup Experiência enviada pelo usuário
     imageUrl: "https://i.postimg.cc/C1FQY1mj/EXPERIENCIA-TOP.png",
-    imagePosition: "center 20%",
+    imagePosition: "center 35%",
     price: "R$ 1.500",
     features: [
       "DJ Edney com Playlist Personalizada, Curadoria Musical, Leitura de Pista e Animação",
