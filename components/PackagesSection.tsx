@@ -36,15 +36,15 @@ export const PackagesSection: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-10 items-stretch">
           {DJ_PACKAGES.map((pkg) => (
             <div 
               key={pkg.id}
               className={`relative glass rounded-[2.5rem] border transition-all duration-500 flex flex-col h-full group overflow-hidden
-                ${pkg.highlight ? 'border-blue-500/40 bg-blue-500/5 shadow-[0_30px_60px_-15px_rgba(59,130,246,0.2)] scale-105 z-10' : 'border-white/5 hover:border-white/20'}
+                ${pkg.highlight ? 'border-blue-500/40 bg-blue-500/5 shadow-[0_30px_60px_-15px_rgba(59,130,246,0.2)] md:scale-105 z-10' : 'border-white/5 hover:border-white/20'}
               `}
             >
-              <div className="h-64 overflow-hidden relative">
+              <div className="h-72 sm:h-80 md:h-72 lg:h-80 overflow-hidden relative bg-black/40">
                 <img 
                   src={(pkg as any).imageUrl} 
                   alt={pkg.name}
@@ -52,7 +52,7 @@ export const PackagesSection: React.FC = () => {
                   style={{
                     objectPosition: (pkg as any).objectPosition || ((pkg as any).imagePosition && !(pkg as any).imagePosition.startsWith('object-') ? (pkg as any).imagePosition : undefined)
                   }}
-                  className={`w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700 ${(pkg as any).imagePosition?.startsWith('object-') ? (pkg as any).imagePosition : 'object-center'}`}
+                  className={`w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ${(pkg as any).imagePosition?.startsWith('object-') ? (pkg as any).imagePosition : 'object-center'}`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-80"></div>
                 {pkg.highlight && (
@@ -62,29 +62,29 @@ export const PackagesSection: React.FC = () => {
                 )}
               </div>
 
-              <div className="p-8 flex-grow flex flex-col">
-                <div className="mb-8">
-                  <h3 className="text-2xl font-sync font-bold text-white mb-4 uppercase tracking-tighter">{pkg.name}</h3>
-                  <p className="text-gray-400 text-[11px] leading-relaxed uppercase tracking-wider">{pkg.description}</p>
+              <div className="p-6 lg:p-8 flex-grow flex flex-col">
+                <div className="mb-6 text-center">
+                  <h3 className="text-xl md:text-lg lg:text-xl xl:text-2xl font-sync font-bold text-white mb-3 uppercase tracking-tight text-center">{pkg.name}</h3>
+                  <p className="text-gray-400 text-[11px] leading-relaxed uppercase tracking-wider text-center">{pkg.description}</p>
                 </div>
 
-                <div className="flex-grow space-y-4 mb-10">
+                <div className="flex-grow space-y-3 mb-8">
                   {pkg.features.map((feature, i) => (
                     <div key={i} className="flex items-start gap-3">
-                      <i className="fas fa-check-circle text-blue-500 mt-1 text-sm"></i>
+                      <i className="fas fa-check-circle text-blue-500 mt-1 text-sm shrink-0"></i>
                       <span className="text-gray-300 text-[11px] font-medium leading-tight">{feature}</span>
                     </div>
                   ))}
                 </div>
 
-                <div className="text-center mb-6">
-                  <div className="text-blue-500 font-sync font-black text-3xl">{(pkg as any).price}</div>
-                  <div className="text-gray-500 text-[8px] uppercase tracking-widest mt-1">Investimento</div>
+                <div className="text-center mb-6 pt-4 border-t border-white/5">
+                  <div className="text-blue-500 font-sync font-black text-2xl md:text-xl lg:text-2xl tracking-tight">{(pkg as any).price}</div>
+                  <div className="text-gray-500 text-[9px] uppercase tracking-widest mt-1 font-semibold">Investimento</div>
                 </div>
 
                 <button 
                   onClick={() => handleQuoteRequest(pkg.name, (pkg as any).price)}
-                  className="w-full py-5 rounded-2xl bg-blue-600 text-white font-black text-[10px] uppercase tracking-widest hover:bg-blue-500 transition-all shadow-[0_10px_30px_-5px_rgba(37,99,235,0.4)] active:scale-95 flex items-center justify-center gap-3"
+                  className="w-full py-4 lg:py-5 rounded-2xl bg-blue-600 text-white font-black text-[10px] uppercase tracking-widest hover:bg-blue-500 transition-all shadow-[0_10px_30px_-5px_rgba(37,99,235,0.4)] active:scale-95 flex items-center justify-center gap-3"
                 >
                   Solicitar <i className="fab fa-whatsapp text-lg"></i>
                 </button>

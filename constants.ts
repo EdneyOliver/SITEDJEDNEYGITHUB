@@ -34,7 +34,7 @@ export const DJ_PACKAGES = [
     description: "Organização, música de qualidade e tranquilidade para eventos intimistas. Ideal para aniversários em salões de condomínio e reuniões familiares.",
     // Imagem do setup Essencial
     imageUrl: "https://i.postimg.cc/6QK6NrR0/essencial-02.png", 
-    imagePosition: "center 65%",
+    imagePosition: "center 50%",
     price: "R$ 950",
     features: [
       "DJ Edney com Playlist Personalizada, Curadoria Musical, Leitura de Pista e Animação",
@@ -67,7 +67,8 @@ export const DJ_PACKAGES = [
     id: "impacto",
     name: "Impacto",
     description: "A mesma energia da pista com visual marcante e elegante. Estrutura Box Truss que transforma o layout do seu espaço.",
-    imageUrl: "https://images.unsplash.com/photo-1768916055541-26e3e97ac16e?q=100&w=1000&auto=format&fit=crop",
+    imageUrl: "https://i.postimg.cc/D0NsCjS5/Premium-top.png",
+    imagePosition: "object-center",
     price: "R$ 1.450",
     features: [
       "DJ Edney com Playlist Personalizada, Curadoria Musical, Leitura de Pista e Animação",
