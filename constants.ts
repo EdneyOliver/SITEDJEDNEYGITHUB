@@ -85,7 +85,7 @@ export const DJ_ADDONS = [
   {
     name: "Pista Paris",
     description: "Pista de dança iluminada disponível nos tamanhos 4x4 e 3x3. O toque de luxo e sofisticação que seu evento merece.",
-    imageUrl: "https://i.postimg.cc/tgXH2qVV/PISTA-PARIS-4x4-5.png",
+    imageUrl: "https://i.postimg.cc/jjsjV609/paris-jat-11.jpg",
     icon: "fas fa-star",
     badge: "Destaque Luxo"
   },
