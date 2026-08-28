@@ -35,7 +35,7 @@ export const DJ_PACKAGES = [
     // Imagem ultra-otimizada do setup Essencial
     imageUrl: "/images/essencial.webp", 
     fallbackUrl: "https://i.postimg.cc/xjbn4pNH/essencial-02-sem-moving.png",
-    imagePosition: "center 50%",
+    imagePosition: "center 80%",
     price: "R$ 950",
     features: [
       "DJ Edney com Playlist Personalizada, Curadoria Musical, Leitura de Pista e Animação",
