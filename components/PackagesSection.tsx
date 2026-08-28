@@ -49,7 +49,10 @@ export const PackagesSection: React.FC = () => {
                   src={(pkg as any).imageUrl} 
                   alt={pkg.name}
                   referrerPolicy="no-referrer"
-                  className={`w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700 ${(pkg as any).imagePosition || 'object-center'}`}
+                  style={{
+                    objectPosition: (pkg as any).objectPosition || ((pkg as any).imagePosition && !(pkg as any).imagePosition.startsWith('object-') ? (pkg as any).imagePosition : undefined)
+                  }}
+                  className={`w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700 ${(pkg as any).imagePosition?.startsWith('object-') ? (pkg as any).imagePosition : 'object-center'}`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-80"></div>
                 {pkg.highlight && (
