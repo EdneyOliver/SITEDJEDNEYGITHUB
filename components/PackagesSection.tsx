@@ -49,6 +49,13 @@ export const PackagesSection: React.FC = () => {
                   src={(pkg as any).imageUrl} 
                   alt={pkg.name}
                   referrerPolicy="no-referrer"
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => {
+                    if ((pkg as any).fallbackUrl && (e.currentTarget.src !== (pkg as any).fallbackUrl)) {
+                      e.currentTarget.src = (pkg as any).fallbackUrl;
+                    }
+                  }}
                   style={{
                     objectPosition: (pkg as any).objectPosition || ((pkg as any).imagePosition && !(pkg as any).imagePosition.startsWith('object-') ? (pkg as any).imagePosition : undefined)
                   }}
@@ -147,6 +154,13 @@ export const PackagesSection: React.FC = () => {
                       src={(addon as any).imageUrl} 
                       alt={addon.name} 
                       referrerPolicy="no-referrer" 
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => {
+                        if ((addon as any).fallbackUrl && (e.currentTarget.src !== (addon as any).fallbackUrl)) {
+                          e.currentTarget.src = (addon as any).fallbackUrl;
+                        }
+                      }}
                       className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" 
                     />
                   ) : (

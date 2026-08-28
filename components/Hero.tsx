@@ -24,9 +24,12 @@ export const Hero: React.FC = () => {
           <div className="relative group/avatar">
             <div className="w-28 h-28 md:w-44 md:h-44 rounded-full overflow-hidden border-4 border-blue-500/40 p-1.5 bg-black shadow-[0_0_40px_rgba(59,130,246,0.3)] transition-all duration-500 group-hover/avatar:scale-105 group-hover/avatar:border-blue-400">
               <img 
-                src="https://images.unsplash.com/photo-1768919533164-1695daa801e8?q=100&w=800&auto=format&fit=crop" 
+                src="/images/hero-edney.webp" 
                 alt={`Foto de Perfil ${APP_CONFIG.name}`} 
                 referrerPolicy="no-referrer"
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
                 style={{ objectPosition: 'center 20%' }}
                 className="w-full h-full object-cover rounded-full transition-all duration-700 hd-img"
               />

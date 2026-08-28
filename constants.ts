@@ -32,8 +32,9 @@ export const DJ_PACKAGES = [
     id: "essencial",
     name: "Essencial",
     description: "Recomendado para ambientes fechados e de pequeno porte. Organização, música de qualidade e tranquilidade para eventos intimistas em salões de condomínio e reuniões familiares.",
-    // Imagem do setup Essencial
-    imageUrl: "https://i.postimg.cc/xjbn4pNH/essencial-02-sem-moving.png", 
+    // Imagem ultra-otimizada do setup Essencial
+    imageUrl: "/images/essencial.webp", 
+    fallbackUrl: "https://i.postimg.cc/xjbn4pNH/essencial-02-sem-moving.png",
     imagePosition: "center 50%",
     price: "R$ 950",
     features: [
@@ -49,8 +50,9 @@ export const DJ_PACKAGES = [
     id: "experiencia",
     name: "Experiência",
     description: "Festa animada com clima de pista e leitura de público. Para quem quer que a festa realmente aconteça do começo ao fim.",
-    // Nova imagem real do setup Experiência enviada pelo usuário
-    imageUrl: "https://i.postimg.cc/C1FQY1mj/EXPERIENCIA-TOP.png",
+    // Imagem ultra-otimizada do setup Experiência
+    imageUrl: "/images/experiencia.webp",
+    fallbackUrl: "https://i.postimg.cc/C1FQY1mj/EXPERIENCIA-TOP.png",
     imagePosition: "center 35%",
     price: "R$ 1.500",
     features: [
@@ -67,7 +69,8 @@ export const DJ_PACKAGES = [
     id: "impacto",
     name: "Impacto",
     description: "A mesma energia da pista com visual marcante e elegante. Estrutura Box Truss que transforma o layout do seu espaço.",
-    imageUrl: "https://i.postimg.cc/D0NsCjS5/Premium-top.png",
+    imageUrl: "/images/impacto.webp",
+    fallbackUrl: "https://i.postimg.cc/D0NsCjS5/Premium-top.png",
     imagePosition: "object-center",
     price: "R$ 1.600",
     features: [
@@ -85,14 +88,16 @@ export const DJ_ADDONS = [
   {
     name: "Pista Paris",
     description: "Pista de dança iluminada disponível nos tamanhos 4x4 e 3x3. O toque de luxo e sofisticação que seu evento merece.",
-    imageUrl: "https://i.postimg.cc/jjsjV609/paris-jat-11.jpg",
+    imageUrl: "/images/pista-paris.webp",
+    fallbackUrl: "https://i.postimg.cc/jjsjV609/paris-jat-11.jpg",
     icon: "fas fa-star",
     badge: "Destaque Luxo"
   },
   {
     name: "Projetor",
     description: "Projetor de alta definição e tela para homenagens, retrospectivas com fotos e vídeos emocionantes.",
-    imageUrl: "https://i.postimg.cc/fb6p1MVv/VPL-DX130B.jpg",
+    imageUrl: "/images/projetor.webp",
+    fallbackUrl: "https://i.postimg.cc/fb6p1MVv/VPL-DX130B.jpg",
     icon: "fas fa-video",
     badge: "Homenagens & Vídeos"
   }
@@ -154,7 +159,7 @@ export const MOCK_SOCIAL_FEED: SocialMediaItem[] = [
     id: 'ig1',
     platform: 'instagram',
     type: 'image',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1514525253361-b83f859b73c0?auto=format&fit=crop&q=100&w=800',
+    thumbnailUrl: '/images/insta-1.webp',
     url: APP_CONFIG.instagram,
     caption: 'Equipamento de alta qualidade e tecnologia. #DjEdney'
   },
@@ -162,7 +167,7 @@ export const MOCK_SOCIAL_FEED: SocialMediaItem[] = [
     id: 'ig2',
     platform: 'instagram',
     type: 'video',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=100&w=800',
+    thumbnailUrl: '/images/insta-2.webp',
     url: APP_CONFIG.instagram,
     caption: 'O som é o meio. A experiência é o resultado.'
   },
@@ -170,7 +175,7 @@ export const MOCK_SOCIAL_FEED: SocialMediaItem[] = [
     id: 'ig3',
     platform: 'instagram',
     type: 'image',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1459749411177-042180ce673c?auto=format&fit=crop&q=100&w=800',
+    thumbnailUrl: '/images/insta-3.webp',
     url: APP_CONFIG.instagram,
     caption: 'Repertório personalizado e leitura de pista.'
   }
