@@ -1,5 +1,6 @@
 {
   "name": "GITHUB_DJ Edney | djedney.com.br",
   "description": "Portfólio Oficial DJ Edney Oliver - Som, Iluminação e Experiência para Casamentos e Eventos. Confira agenda e pacotes em www.djedney.com.br",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
