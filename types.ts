@@ -26,6 +26,24 @@ export interface SocialMediaItem {
   caption?: string;
 }
 
+export interface YouTubeShortItem {
+  id: string;
+  title: string;
+  thumbnailUrl: string;
+  youtubeUrl: string;
+}
+
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+export interface DifferentialItem {
+  icon: string;
+  title: string;
+  description: string;
+}
+
 export interface DJConfig {
   name: string;
   phone: string;

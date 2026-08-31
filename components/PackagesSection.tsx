@@ -1,204 +1,182 @@
-
 import React from 'react';
-import { DJ_PACKAGES, DJ_ADDONS, APP_CONFIG } from '../constants';
+import { DJ_PACKAGES, ALL_PACKAGES_INCLUDE, APP_CONFIG } from '../constants';
 
 export const PackagesSection: React.FC = () => {
-  const handleQuoteRequest = (packageName: string, price?: string) => {
-    // Rastreamento do Pixel
+  const handleSelectPackage = (pkgName: string, price: string) => {
     const fbq = (window as any).fbq;
     if (fbq) {
-      fbq('track', 'Lead', { 
-        content_name: packageName,
-        content_category: 'Pacotes DJ',
-        value: price ? parseFloat(price.replace(/\D/g, '')) : 0,
-        currency: 'BRL'
-      });
+      fbq('track', 'Contact', { content_name: `WhatsApp Pacote - ${pkgName}` });
     }
+    const message = `Olá DJ Edney! Gostaria de consultar a disponibilidade e solicitar um orçamento para o *Pacote ${pkgName}* (${price}).`;
+    const whatsappUrl = `https://wa.me/${APP_CONFIG.phone.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
 
-    const priceText = price ? ` (${price})` : '';
-    const message = `Olá DJ Edney! Vi seu site e gostaria de solicitar um orçamento para o ${packageName}${priceText}. Poderia me ajudar?`;
+  const handleCustomPackage = () => {
+    const fbq = (window as any).fbq;
+    if (fbq) {
+      fbq('track', 'Contact', { content_name: 'WhatsApp Pacote Personalizado' });
+    }
+    const message = "Olá DJ Edney! Gostaria de montar um pacote personalizado de som e iluminação para o meu evento.";
     const whatsappUrl = `https://wa.me/${APP_CONFIG.phone.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
   return (
-    <section className="py-24 bg-[#050505] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
-          <div className="inline-block px-4 py-1 rounded-full bg-blue-500/10 text-blue-500 text-[10px] font-black uppercase tracking-[0.3em] mb-4 border border-blue-500/20">
-            Nossos Serviços
+    <section id="pacotes-section" className="py-20 sm:py-28 bg-[#070707] border-t border-white/5 relative overflow-hidden">
+      {/* Background Orbs */}
+      <div className="absolute top-1/3 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-10 left-0 w-96 h-96 bg-purple-600/10 rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 relative z-10">
+        
+        {/* Cabeçalho da Seção de Pacotes */}
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <div className="inline-block px-4 py-1 rounded-full bg-blue-500/10 text-blue-400 text-[10px] font-black uppercase tracking-[0.3em] mb-4 border border-blue-500/20">
+            Estrutura & Investimento
           </div>
-          <h2 className="text-4xl md:text-6xl font-sync font-black text-white uppercase tracking-tighter mb-4">
-            Escolha seu <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">Pacote</span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-sync font-black text-white uppercase tracking-tight mb-4">
+            Escolha o formato ideal para a sua pista
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-sm uppercase tracking-widest font-light">
-            Experiências personalizadas para cada tipo de celebração.
+          <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed font-normal">
+            Estruturas completas planejadas para atender do evento intimista à grande celebração.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-10 items-stretch">
+        {/* 1. SEÇÃO: TODOS OS PACOTES INCLUEM */}
+        <div className="glass p-6 sm:p-8 rounded-3xl border border-blue-500/20 bg-blue-500/[0.03] mb-12 sm:mb-16 shadow-[0_10px_35px_rgba(0,0,0,0.3)]">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="text-center md:text-left max-w-sm">
+              <div className="inline-flex items-center gap-2 text-blue-400 text-xs font-sync font-bold uppercase tracking-widest mb-1">
+                <i className="fas fa-shield-check"></i> Padrão de Qualidade
+              </div>
+              <h3 className="text-xl sm:text-2xl font-sync font-bold text-white uppercase tracking-tight">
+                Todos os pacotes incluem
+              </h3>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 w-full md:max-w-3xl">
+              {ALL_PACKAGES_INCLUDE.map((item, idx) => (
+                <div key={idx} className="flex items-center gap-3 p-2.5 rounded-xl bg-white/5 border border-white/5">
+                  <div className="w-5 h-5 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-[10px] shrink-0">
+                    <i className="fas fa-check"></i>
+                  </div>
+                  <span className="text-gray-200 text-xs sm:text-[13px] font-medium leading-tight">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* 2. CARDS DOS PACOTES */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch mb-16">
           {DJ_PACKAGES.map((pkg) => (
             <div 
-              key={pkg.id}
-              className={`relative glass rounded-[2.5rem] border transition-all duration-500 flex flex-col h-full group overflow-hidden
-                ${pkg.highlight ? 'border-blue-500/40 bg-blue-500/5 shadow-[0_30px_60px_-15px_rgba(59,130,246,0.2)] md:scale-105 z-10' : 'border-white/5 hover:border-white/20'}
+              key={pkg.id} 
+              className={`
+                rounded-3xl flex flex-col justify-between transition-all duration-500 relative overflow-hidden group
+                ${pkg.highlight 
+                  ? 'glass border-2 border-blue-500/60 bg-gradient-to-b from-blue-900/20 via-[#0d1117] to-[#080808] shadow-[0_20px_50px_rgba(59,130,246,0.2)] md:-translate-y-2' 
+                  : 'glass border border-white/10 bg-[#0d0d0d] hover:border-white/20 shadow-lg'}
               `}
             >
-              <div className="h-72 sm:h-80 md:h-72 lg:h-80 overflow-hidden relative bg-black/40">
+              {/* Imagem do Setup */}
+              <div className="relative aspect-[16/10] overflow-hidden bg-black/60 border-b border-white/5">
                 <img 
-                  src={(pkg as any).imageUrl} 
-                  alt={pkg.name}
-                  referrerPolicy="no-referrer"
+                  src={pkg.imageUrl} 
+                  alt={`Setup ${pkg.name}`}
                   loading="lazy"
                   decoding="async"
+                  style={{ objectPosition: pkg.imagePosition || 'center center' }}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   onError={(e) => {
-                    if ((pkg as any).fallbackUrl && (e.currentTarget.src !== (pkg as any).fallbackUrl)) {
-                      e.currentTarget.src = (pkg as any).fallbackUrl;
+                    if (pkg.fallbackUrl && (e.target as HTMLImageElement).src !== pkg.fallbackUrl) {
+                      (e.target as HTMLImageElement).src = pkg.fallbackUrl;
                     }
                   }}
-                  style={{
-                    objectPosition: (pkg as any).objectPosition || ((pkg as any).imagePosition && !(pkg as any).imagePosition.startsWith('object-') ? (pkg as any).imagePosition : undefined)
-                  }}
-                  className={`w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ${(pkg as any).imagePosition?.startsWith('object-') ? (pkg as any).imagePosition : 'object-center'}`}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-80"></div>
-                {pkg.highlight && (
-                  <div className="absolute top-4 right-4 px-4 py-1 bg-blue-600 text-white text-[8px] font-black uppercase tracking-widest rounded-full shadow-lg z-20">
-                    Mais Escolhido
-                  </div>
-                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-transparent opacity-80" />
               </div>
 
-              <div className="p-6 lg:p-8 flex-grow flex flex-col">
-                <div className="mb-6 text-center">
-                  <h3 className="text-xl md:text-lg lg:text-xl xl:text-2xl font-sync font-bold text-white mb-3 uppercase tracking-tight text-center">{pkg.name}</h3>
-                  <p className="text-gray-400 text-[11px] leading-relaxed uppercase tracking-wider text-center">{pkg.description}</p>
-                </div>
+              {/* Conteúdo do Card */}
+              <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="text-2xl font-sync font-bold text-white mb-2 uppercase tracking-tight">
+                    {pkg.name}
+                  </h3>
+                  
+                  <p className="text-blue-400 text-xs font-semibold mb-4 leading-snug">
+                    {pkg.subtitle}
+                  </p>
 
-                <div className="flex-grow space-y-3 mb-8">
-                  {pkg.features.map((feature, i) => (
-                    <div key={i} className="flex items-start gap-3">
-                      <i className="fas fa-check-circle text-blue-500 mt-1 text-sm shrink-0"></i>
-                      <span className="text-gray-300 text-[11px] font-medium leading-tight">{feature}</span>
+                  <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-6">
+                    {pkg.description}
+                  </p>
+
+                  {/* Diferenciais exclusivos deste pacote */}
+                  <div className="space-y-3 mb-8 pt-4 border-t border-white/5">
+                    <div className="text-[10px] font-sync font-bold text-gray-500 uppercase tracking-wider">
+                      Estrutura específica:
                     </div>
-                  ))}
+                    {pkg.features.map((feature, i) => (
+                      <div key={i} className="flex items-start gap-2.5">
+                        <i className={`fas fa-check-circle text-xs mt-0.5 shrink-0 ${pkg.highlight ? 'text-blue-400' : 'text-purple-400'}`}></i>
+                        <span className="text-gray-300 text-xs leading-snug">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="text-center mb-6 pt-4 border-t border-white/5">
-                  <div className="text-blue-500 font-sync font-black text-2xl md:text-xl lg:text-2xl tracking-tight">{(pkg as any).price}</div>
-                  <div className="text-gray-500 text-[9px] uppercase tracking-widest mt-1 font-semibold">Investimento</div>
-                </div>
+                {/* Preço e Botão */}
+                <div className="pt-6 border-t border-white/5">
+                  <div className="mb-4">
+                    <span className="text-[10px] text-gray-500 uppercase tracking-widest font-bold block mb-1">Investimento</span>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-3xl sm:text-4xl font-sync font-black text-white">{pkg.price}</span>
+                      <span className="text-xs text-gray-400">/ evento</span>
+                    </div>
+                  </div>
 
-                <button 
-                  onClick={() => handleQuoteRequest(pkg.name, (pkg as any).price)}
-                  className="w-full py-4 lg:py-5 rounded-2xl bg-blue-600 text-white font-black text-[10px] uppercase tracking-widest hover:bg-blue-500 transition-all shadow-[0_10px_30px_-5px_rgba(37,99,235,0.4)] active:scale-95 flex items-center justify-center gap-3"
-                >
-                  Solicitar <i className="fab fa-whatsapp text-lg"></i>
-                </button>
+                  <button
+                    onClick={() => handleSelectPackage(pkg.name, pkg.price)}
+                    className={`w-full py-4 rounded-xl font-sync font-bold text-xs uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer ${
+                      pkg.highlight
+                        ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-[0_10px_25px_rgba(59,130,246,0.4)] active:scale-95'
+                        : 'bg-white/10 hover:bg-white/20 text-white border border-white/10 active:scale-95'
+                    }`}
+                  >
+                    <span>Solicitar {pkg.name}</span>
+                    <i className="fab fa-whatsapp text-sm"></i>
+                  </button>
+                </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Informação sobre evento sob medida / personalizado */}
-        <div className="max-w-3xl mx-auto mb-16">
-          <div className="glass p-8 md:p-10 rounded-3xl border border-blue-500/20 bg-gradient-to-b from-blue-500/5 to-transparent text-center relative overflow-hidden">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-400 mb-4 border border-blue-500/20">
-              <i className="fas fa-sliders-h text-xl"></i>
+        {/* 3. SEÇÃO: PERSONALIZAÇÃO DOS PACOTES ("Seu evento, do seu jeito") */}
+        <div className="glass p-8 sm:p-12 rounded-3xl border border-white/10 bg-gradient-to-r from-purple-950/20 via-black to-blue-950/20 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 text-[10px] font-black uppercase tracking-widest mb-3 border border-purple-500/20">
+              <i className="fas fa-sliders"></i> Flexibilidade Total
             </div>
-            
-            <h3 className="text-xl md:text-2xl font-sync font-bold text-white mb-3 uppercase tracking-tight">
-              Precisa de algo <span className="text-blue-500">diferente?</span>
+            <h3 className="text-2xl sm:text-3xl font-sync font-bold text-white uppercase tracking-tight mb-3">
+              Seu evento, do seu jeito.
             </h3>
-            
-            <p className="text-gray-300 text-xs md:text-sm leading-relaxed mb-6 max-w-2xl mx-auto font-normal">
-              Cada evento é único. Os pacotes e layouts apresentados são apenas sugestões e podem ser personalizados de acordo com a sua necessidade, espaço e número de convidados. Entre em contato e solicite uma proposta sob medida.
+            <p className="text-gray-300 text-xs sm:text-sm md:text-base leading-relaxed">
+              Os pacotes apresentados são sugestões de estrutura para facilitar sua escolha. Cada evento é único e podemos personalizar equipamentos, iluminação e serviços de acordo com o espaço, número de convidados e proposta da sua festa.
             </p>
-
-            <button 
-              onClick={() => handleQuoteRequest("Proposta Personalizada / Sob Medida")}
-              className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-500 text-white font-black text-xs uppercase tracking-widest hover:from-blue-500 hover:to-blue-400 transition-all shadow-[0_10px_30px_-5px_rgba(37,99,235,0.4)] active:scale-95 cursor-pointer"
-            >
-              <span>Solicitar Proposta Sob Medida</span>
-              <i className="fab fa-whatsapp text-lg text-white"></i>
-            </button>
-          </div>
-        </div>
-
-        {/* Nota informativa */}
-        <div className="text-center mb-20">
-          <p className="text-gray-500 text-[10px] font-bold uppercase tracking-[0.2em] max-w-2xl mx-auto flex items-center justify-center gap-3">
-            <i className="fas fa-info-circle text-blue-500"></i>
-            Os valores variam de acordo com data, local e perfil do evento. Entre em contato para uma proposta personalizada.
-          </p>
-        </div>
-
-        <div className="pt-16 border-t border-white/5">
-          <div className="text-center mb-12">
-            <h3 className="text-xl md:text-2xl font-sync font-bold text-white mb-2 uppercase tracking-widest">
-              Serviços <span className="text-blue-500">Adicionais</span>
-            </h3>
-            <p className="text-gray-400 text-xs uppercase tracking-[0.25em]">Complemente seu evento com estruturas e tecnologia de ponta</p>
           </div>
 
-          {/* Serviços Adicionais Lado a Lado com Layout Expandido */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {DJ_ADDONS.map((addon, i) => (
-              <div 
-                key={i} 
-                className="glass p-6 sm:p-8 rounded-3xl border border-white/10 hover:border-blue-500/40 bg-gradient-to-b from-white/[0.04] to-transparent flex flex-col group transition-all duration-500 hover:-translate-y-1.5 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.5)]"
-              >
-                <div className="h-52 sm:h-60 w-full rounded-2xl overflow-hidden relative mb-6 bg-black/50 border border-white/10 shrink-0">
-                  {(addon as any).imageUrl ? (
-                    <img 
-                      src={(addon as any).imageUrl} 
-                      alt={addon.name} 
-                      referrerPolicy="no-referrer" 
-                      loading="lazy"
-                      decoding="async"
-                      onError={(e) => {
-                        if ((addon as any).fallbackUrl && (e.currentTarget.src !== (addon as any).fallbackUrl)) {
-                          e.currentTarget.src = (addon as any).fallbackUrl;
-                        }
-                      }}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" 
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-blue-500 text-4xl">
-                      <i className={addon.icon}></i>
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                  
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 rounded-full bg-blue-500/80 backdrop-blur-md text-white text-[9px] font-black uppercase tracking-widest border border-blue-400/30 shadow-lg">
-                      {(addon as any).badge || "Opcional"}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex-grow flex flex-col justify-between">
-                  <div>
-                    <h4 className="font-sync font-bold text-white text-lg sm:text-xl uppercase mb-3 tracking-tight">
-                      {addon.name}
-                    </h4>
-                    <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-6 font-normal">
-                      {addon.description}
-                    </p>
-                  </div>
-
-                  <button
-                    onClick={() => handleQuoteRequest(`Adicional: ${addon.name}`)}
-                    className="w-full py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-500 text-white font-black text-[11px] uppercase tracking-widest hover:from-blue-500 hover:to-blue-400 transition-all shadow-[0_10px_25px_-5px_rgba(37,99,235,0.3)] active:scale-95 flex items-center justify-center gap-3 cursor-pointer"
-                  >
-                    <span>Solicitar Adicional</span>
-                    <i className="fab fa-whatsapp text-lg"></i>
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+          <button
+            onClick={handleCustomPackage}
+            className="shrink-0 px-8 py-4 sm:py-5 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-sync font-bold text-xs uppercase tracking-widest transition-all duration-300 shadow-[0_10px_30px_rgba(168,85,247,0.4)] active:scale-95 cursor-pointer inline-flex items-center gap-3"
+          >
+            <span>Montar meu pacote</span>
+            <i className="fab fa-whatsapp text-base"></i>
+          </button>
         </div>
+
       </div>
     </section>
   );
