@@ -135,37 +135,37 @@ export const YOUTUBE_SHORTS: YouTubeShortItem[] = [
   {
     id: "u8I3zOSSwz8",
     title: "Aniversário Vanessa - Pista Animada",
-    thumbnailUrl: "https://i.ytimg.com/vi/u8I3zOSSwz8/hqdefault.jpg",
+    thumbnailUrl: "https://i.ytimg.com/vi/u8I3zOSSwz8/maxresdefault.jpg",
     youtubeUrl: "https://www.youtube.com/shorts/u8I3zOSSwz8"
   },
   {
     id: "dBVgAvi8TNM",
     title: "Aniversário Paula - Momentos Especiais",
-    thumbnailUrl: "https://i.ytimg.com/vi/dBVgAvi8TNM/hqdefault.jpg",
+    thumbnailUrl: "https://i.ytimg.com/vi/dBVgAvi8TNM/maxresdefault.jpg",
     youtubeUrl: "https://www.youtube.com/shorts/dBVgAvi8TNM"
   },
   {
     id: "OyB3lHrt00U",
     title: "Festa de 15 Anos - Lara",
-    thumbnailUrl: "https://i.ytimg.com/vi/OyB3lHrt00U/hqdefault.jpg",
+    thumbnailUrl: "https://i.ytimg.com/vi/OyB3lHrt00U/maxresdefault.jpg",
     youtubeUrl: "https://www.youtube.com/shorts/OyB3lHrt00U"
   },
   {
     id: "ErZpFVgzf0g",
     title: "Festa Temática - Muita Energia",
-    thumbnailUrl: "https://i.ytimg.com/vi/ErZpFVgzf0g/hqdefault.jpg",
+    thumbnailUrl: "https://i.ytimg.com/vi/ErZpFVgzf0g/maxresdefault.jpg",
     youtubeUrl: "https://www.youtube.com/shorts/ErZpFVgzf0g"
   },
   {
     id: "JguYy1VSVdw",
     title: "15 Anos da Ana - Pista Cheia",
-    thumbnailUrl: "https://i.ytimg.com/vi/JguYy1VSVdw/hqdefault.jpg",
+    thumbnailUrl: "https://i.ytimg.com/vi/JguYy1VSVdw/maxresdefault.jpg",
     youtubeUrl: "https://www.youtube.com/shorts/JguYy1VSVdw"
   },
   {
     id: "Vj1wUYybyQs",
     title: "15 Anos da Rafa - Momento Inesquecível",
-    thumbnailUrl: "https://i.ytimg.com/vi/Vj1wUYybyQs/hqdefault.jpg",
+    thumbnailUrl: "https://i.ytimg.com/vi/Vj1wUYybyQs/maxresdefault.jpg",
     youtubeUrl: "https://www.youtube.com/shorts/Vj1wUYybyQs"
   }
 ];
