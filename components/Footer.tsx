@@ -4,7 +4,7 @@ import { APP_CONFIG } from '../constants';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="py-12 bg-[#050505]">
+    <footer className="py-12 bg-[#050505] border-t border-white/5">
       <div className="max-w-6xl mx-auto px-4 text-center">
         <div className="flex justify-center gap-6 mb-8">
           <a href={APP_CONFIG.instagram} target="_blank" rel="noopener noreferrer" className="text-2xl text-gray-500 hover:text-white transition-colors" title="Instagram">
@@ -35,3 +35,4 @@ export const Footer: React.FC = () => {
     </footer>
   );
 };
+

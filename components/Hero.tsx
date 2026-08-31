@@ -48,11 +48,11 @@ export const Hero: React.FC = () => {
           {APP_CONFIG.name}
         </div>
 
-        {/* Título Principal Solicitado */}
-        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-sync font-black mb-4 sm:mb-6 leading-[1.15] sm:leading-[1.1] tracking-tight uppercase text-white max-w-3xl">
-          Sua festa merece <br className="hidden sm:inline" />
+        {/* Título Principal */}
+        <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl font-sync font-black mb-4 sm:mb-6 leading-[1.2] sm:leading-[1.15] tracking-tight uppercase text-white max-w-3xl">
+          O som é o meio. <br className="hidden sm:inline" />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-500">
-            mais do que música.
+            A experiência é o resultado.
           </span>
         </h1>
 
