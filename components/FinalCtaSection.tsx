@@ -63,13 +63,13 @@ export const FinalCtaSection: React.FC = () => {
             Conte a data, cidade e tipo do seu evento e vamos encontrar a estrutura ideal para você.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto mb-10">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-lg mx-auto mb-10">
             <button
               onClick={handleWhatsAppClick}
-              className="w-full py-4 sm:py-5 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-sync font-bold text-xs uppercase tracking-widest transition-all duration-300 shadow-[0_10px_35px_rgba(37,99,235,0.4)] active:scale-95 cursor-pointer inline-flex items-center justify-center gap-3"
+              className="w-full py-4 px-6 sm:px-8 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-sans font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-[0_10px_35px_rgba(37,99,235,0.4)] active:scale-95 cursor-pointer inline-flex items-center justify-center gap-2.5 sm:gap-3 text-center"
             >
               <span>Consultar disponibilidade no WhatsApp</span>
-              <i className="fab fa-whatsapp text-xl"></i>
+              <i className="fab fa-whatsapp text-lg sm:text-xl shrink-0"></i>
             </button>
           </div>
 
@@ -126,19 +126,21 @@ export const FinalCtaSection: React.FC = () => {
         </div>
 
         {/* Links de Redes Sociais */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           <a 
             href={APP_CONFIG.instagram} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="glass p-5 rounded-2xl border border-white/5 hover:border-pink-500/40 transition-all duration-300 flex items-center gap-3.5 group"
+            className="glass p-4 sm:p-5 rounded-2xl border border-white/5 hover:border-pink-500/40 transition-all duration-300 flex items-center gap-3.5 group min-w-0"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 flex items-center justify-center text-white text-lg shrink-0 group-hover:scale-110 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 flex items-center justify-center text-white text-lg shrink-0 group-hover:scale-110 transition-transform shadow-md">
               <i className="fab fa-instagram"></i>
             </div>
-            <div>
-              <div className="text-[10px] text-gray-400 uppercase font-bold">Instagram</div>
-              <div className="font-sync text-xs font-bold text-white group-hover:text-pink-400 transition-colors">@djedneyoliver</div>
+            <div className="min-w-0 flex-1">
+              <div className="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Instagram</div>
+              <div className="font-sans text-xs sm:text-sm font-bold text-white group-hover:text-pink-400 transition-colors truncate">
+                @djedneyoliver
+              </div>
             </div>
           </a>
 
@@ -146,14 +148,16 @@ export const FinalCtaSection: React.FC = () => {
             href={APP_CONFIG.youtube} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="glass p-5 rounded-2xl border border-white/5 hover:border-red-500/40 transition-all duration-300 flex items-center gap-3.5 group"
+            className="glass p-4 sm:p-5 rounded-2xl border border-white/5 hover:border-red-500/40 transition-all duration-300 flex items-center gap-3.5 group min-w-0"
           >
-            <div className="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center text-white text-lg shrink-0 group-hover:scale-110 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center text-white text-lg shrink-0 group-hover:scale-110 transition-transform shadow-md">
               <i className="fab fa-youtube"></i>
             </div>
-            <div>
-              <div className="text-[10px] text-gray-400 uppercase font-bold">YouTube</div>
-              <div className="font-sync text-xs font-bold text-white group-hover:text-red-400 transition-colors">DJ Edney Oliver</div>
+            <div className="min-w-0 flex-1">
+              <div className="text-[10px] text-gray-400 uppercase font-bold tracking-wider">YouTube</div>
+              <div className="font-sans text-xs sm:text-sm font-bold text-white group-hover:text-red-400 transition-colors truncate">
+                DJ Edney Oliver
+              </div>
             </div>
           </a>
 
@@ -161,14 +165,16 @@ export const FinalCtaSection: React.FC = () => {
             href={APP_CONFIG.tiktok} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="glass p-5 rounded-2xl border border-white/5 hover:border-white/40 transition-all duration-300 flex items-center gap-3.5 group"
+            className="glass p-4 sm:p-5 rounded-2xl border border-white/5 hover:border-white/40 transition-all duration-300 flex items-center gap-3.5 group min-w-0"
           >
-            <div className="w-10 h-10 rounded-xl bg-black border border-white/20 flex items-center justify-center text-white text-lg shrink-0 group-hover:scale-110 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-black border border-white/20 flex items-center justify-center text-white text-lg shrink-0 group-hover:scale-110 transition-transform shadow-md">
               <i className="fab fa-tiktok"></i>
             </div>
-            <div>
-              <div className="text-[10px] text-gray-400 uppercase font-bold">TikTok</div>
-              <div className="font-sync text-xs font-bold text-white group-hover:text-gray-300 transition-colors">@djedneyoliver</div>
+            <div className="min-w-0 flex-1">
+              <div className="text-[10px] text-gray-400 uppercase font-bold tracking-wider">TikTok</div>
+              <div className="font-sans text-xs sm:text-sm font-bold text-white group-hover:text-gray-300 transition-colors truncate">
+                @djedneyoliver
+              </div>
             </div>
           </a>
 
@@ -176,14 +182,16 @@ export const FinalCtaSection: React.FC = () => {
             href={APP_CONFIG.facebook} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="glass p-5 rounded-2xl border border-white/5 hover:border-blue-500/40 transition-all duration-300 flex items-center gap-3.5 group"
+            className="glass p-4 sm:p-5 rounded-2xl border border-white/5 hover:border-blue-500/40 transition-all duration-300 flex items-center gap-3.5 group min-w-0"
           >
-            <div className="w-10 h-10 rounded-xl bg-[#1877F2] flex items-center justify-center text-white text-lg shrink-0 group-hover:scale-110 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-[#1877F2] flex items-center justify-center text-white text-lg shrink-0 group-hover:scale-110 transition-transform shadow-md">
               <i className="fab fa-facebook-f"></i>
             </div>
-            <div>
-              <div className="text-[10px] text-gray-400 uppercase font-bold">Facebook</div>
-              <div className="font-sync text-xs font-bold text-white group-hover:text-blue-400 transition-colors">DJ Edney</div>
+            <div className="min-w-0 flex-1">
+              <div className="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Facebook</div>
+              <div className="font-sans text-xs sm:text-sm font-bold text-white group-hover:text-blue-400 transition-colors truncate">
+                DJ Edney Oliver
+              </div>
             </div>
           </a>
         </div>

@@ -7,7 +7,6 @@ import { PackagesSection } from './components/PackagesSection';
 import { YouTubeShortsSection } from './components/YouTubeShortsSection';
 import { AddonsSection } from './components/AddonsSection';
 import { NewsFeed } from './components/NewsFeed';
-import { AvailabilitySection } from './components/AvailabilitySection';
 import { FaqSection } from './components/FaqSection';
 import { FinalCtaSection } from './components/FinalCtaSection';
 import { Footer } from './components/Footer';
@@ -126,9 +125,6 @@ const App: React.FC = () => {
             <NewsFeed />
           </div>
         </section>
-
-        {/* 9. DISPONIBILIDADE SIMPLIFICADA */}
-        <AvailabilitySection />
 
         {/* 10 & 11. FAQ ACCORDION & CURADORIA */}
         <FaqSection />

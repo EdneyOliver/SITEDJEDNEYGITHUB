@@ -75,7 +75,7 @@ export const AddonsSection: React.FC = () => {
               <div className="p-6 sm:p-7 pt-0">
                 <button
                   onClick={() => handleRequestAddon(addon.name)}
-                  className="w-full py-3.5 rounded-xl bg-white/5 hover:bg-blue-600 hover:text-white border border-white/10 text-gray-200 font-sync font-bold text-xs uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+                  className="w-full py-3.5 px-4 rounded-xl bg-white/5 hover:bg-blue-600 hover:text-white border border-white/10 text-gray-200 font-sans font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer active:scale-95"
                 >
                   <span>Solicitar adicional</span>
                   <i className="fab fa-whatsapp text-sm"></i>

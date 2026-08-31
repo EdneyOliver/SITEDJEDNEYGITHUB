@@ -65,7 +65,7 @@ export const Hero: React.FC = () => {
         <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
           <button
             onClick={handleWhatsAppClick}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 sm:py-5 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 text-white font-sync font-bold text-xs sm:text-sm uppercase tracking-widest hover:from-blue-500 hover:to-blue-400 transition-all duration-300 shadow-[0_10px_35px_-5px_rgba(37,99,235,0.5)] active:scale-95 cursor-pointer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 sm:py-5 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 text-white font-sans font-bold text-sm sm:text-base uppercase tracking-wider hover:from-blue-500 hover:to-blue-400 transition-all duration-300 shadow-[0_10px_35px_-5px_rgba(37,99,235,0.5)] active:scale-95 cursor-pointer"
           >
             <span>Consultar minha data</span>
             <i className="fab fa-whatsapp text-lg sm:text-xl"></i>

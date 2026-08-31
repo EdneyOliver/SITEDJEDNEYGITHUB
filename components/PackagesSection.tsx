@@ -128,25 +128,25 @@ export const PackagesSection: React.FC = () => {
                 </div>
 
                 {/* Preço e Botão */}
-                <div className="pt-6 border-t border-white/5">
+                <div className="pt-5 border-t border-white/5">
                   <div className="mb-4">
                     <span className="text-[10px] text-gray-500 uppercase tracking-widest font-bold block mb-1">Investimento</span>
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-3xl sm:text-4xl font-sync font-black text-white">{pkg.price}</span>
-                      <span className="text-xs text-gray-400">/ evento</span>
+                    <div className="flex items-baseline gap-1.5 flex-wrap">
+                      <span className="text-2xl sm:text-3xl font-sync font-black text-white whitespace-nowrap tracking-tight">{pkg.price}</span>
+                      <span className="text-xs text-gray-400 whitespace-nowrap">/ evento</span>
                     </div>
                   </div>
 
                   <button
                     onClick={() => handleSelectPackage(pkg.name, pkg.price)}
-                    className={`w-full py-4 rounded-xl font-sync font-bold text-xs uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer ${
+                    className={`w-full py-3.5 px-4 rounded-xl font-sans font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer ${
                       pkg.highlight
                         ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-[0_10px_25px_rgba(59,130,246,0.4)] active:scale-95'
-                        : 'bg-white/10 hover:bg-white/20 text-white border border-white/10 active:scale-95'
+                        : 'bg-white/5 hover:bg-blue-600 hover:text-white text-gray-200 border border-white/10 active:scale-95'
                     }`}
                   >
                     <span>Solicitar {pkg.name}</span>
-                    <i className="fab fa-whatsapp text-sm"></i>
+                    <i className="fab fa-whatsapp text-sm shrink-0"></i>
                   </button>
                 </div>
               </div>

@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { APP_CONFIG } from '../constants';
-import { CalendarView } from './CalendarView';
 
 export const AvailabilitySection: React.FC = () => {
-  const [showCalendar, setShowCalendar] = useState(false);
-
   const handleWhatsAppClick = () => {
     const fbq = (window as any).fbq;
     if (fbq) {
@@ -36,30 +33,15 @@ export const AvailabilitySection: React.FC = () => {
             Consulte agora e receba uma resposta diretamente pelo WhatsApp.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex items-center justify-center">
             <button
               onClick={handleWhatsAppClick}
-              className="w-full sm:w-auto px-10 py-4 sm:py-5 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-sync font-bold text-xs uppercase tracking-widest transition-all duration-300 shadow-[0_10px_35px_rgba(37,99,235,0.4)] active:scale-95 cursor-pointer inline-flex items-center justify-center gap-3"
+              className="w-full sm:w-auto px-10 py-4 sm:py-5 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-sans font-bold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-[0_10px_35px_rgba(37,99,235,0.4)] active:scale-95 cursor-pointer inline-flex items-center justify-center gap-3"
             >
               <span>Consultar minha data</span>
-              <i className="fab fa-whatsapp text-lg"></i>
-            </button>
-
-            <button
-              onClick={() => setShowCalendar(!showCalendar)}
-              className="w-full sm:w-auto px-6 py-4 sm:py-5 rounded-full bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 font-sync font-bold text-xs uppercase tracking-widest transition-all duration-300 active:scale-95 cursor-pointer inline-flex items-center justify-center gap-2"
-            >
-              <i className="fas fa-calendar-days text-sm"></i>
-              <span>{showCalendar ? 'Ocultar calendário' : 'Ver calendário'}</span>
+              <i className="fab fa-whatsapp text-lg sm:text-xl"></i>
             </button>
           </div>
-
-          {/* Calendário opcional sob demanda */}
-          {showCalendar && (
-            <div className="mt-10 pt-8 border-t border-white/10 animate-fade-in text-left">
-              <CalendarView />
-            </div>
-          )}
 
         </div>
 
