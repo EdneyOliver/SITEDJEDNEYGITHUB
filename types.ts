@@ -31,6 +31,7 @@ export interface YouTubeShortItem {
   title: string;
   thumbnailUrl: string;
   youtubeUrl: string;
+  category?: string;
 }
 
 export interface FaqItem {

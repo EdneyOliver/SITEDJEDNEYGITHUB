@@ -119,7 +119,7 @@ export const DJ_PACKAGES = [
     description: "A mesma energia da pista com visual imponente. Estrutura Box Truss que valoriza o layout do seu espaço.",
     imageUrl: "/images/impacto.webp",
     fallbackUrl: "https://i.postimg.cc/D0NsCjS5/Premium-top.png",
-    imagePosition: "object-center",
+    imagePosition: "center 60%",
     price: "R$ 1.600",
     features: [
       "Toda a sonorização e iluminação do Pacote Experiência",

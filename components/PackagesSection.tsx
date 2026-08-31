@@ -70,94 +70,105 @@ export const PackagesSection: React.FC = () => {
 
         {/* 2. CARDS DOS PACOTES */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch mb-16">
-          {DJ_PACKAGES.map((pkg) => (
-            <div 
-              key={pkg.id} 
-              className={`
-                rounded-3xl flex flex-col justify-between transition-all duration-500 relative overflow-hidden group
-                ${pkg.highlight 
-                  ? 'glass border-2 border-blue-500/60 bg-gradient-to-b from-blue-900/20 via-[#0d1117] to-[#080808] shadow-[0_20px_50px_rgba(59,130,246,0.2)] md:-translate-y-2' 
-                  : 'glass border border-white/10 bg-[#0d0d0d] hover:border-white/20 shadow-lg'}
-              `}
-            >
-              {/* Imagem do Setup */}
-              <div className="relative aspect-[16/10] overflow-hidden bg-black/60 border-b border-white/5">
-                <img 
-                  src={pkg.imageUrl} 
-                  alt={`Estrutura e Sonorização do ${pkg.name} - DJ Edney em Campinas e região`}
-                  loading="lazy"
-                  decoding="async"
-                  style={{ objectPosition: pkg.imagePosition || 'center center' }}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  onError={(e) => {
-                    if (pkg.fallbackUrl && (e.target as HTMLImageElement).src !== pkg.fallbackUrl) {
-                      (e.target as HTMLImageElement).src = pkg.fallbackUrl;
-                    }
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-transparent opacity-80" />
-              </div>
+          {DJ_PACKAGES.map((pkg) => {
+            const isImpacto = pkg.id === 'impacto';
+            const isExperiencia = pkg.id === 'experiencia';
 
-              {/* Conteúdo do Card */}
-              <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
-                <div>
-                  <h3 className="text-2xl font-sync font-bold text-white mb-2 uppercase tracking-tight">
-                    {pkg.name}
-                  </h3>
-                  
-                  <p className="text-blue-400 text-xs font-semibold mb-4 leading-snug">
-                    {pkg.subtitle}
-                  </p>
+            return (
+              <div 
+                key={pkg.id} 
+                className={`
+                  rounded-3xl flex flex-col justify-between transition-all duration-500 relative overflow-hidden group
+                  ${isImpacto 
+                    ? 'border-2 border-indigo-500/70 bg-gradient-to-b from-indigo-950/30 via-[#0e121e] to-[#070707] shadow-[0_20px_50px_rgba(99,102,241,0.25)] md:-translate-y-3 z-10 ring-1 ring-indigo-500/30' 
+                    : isExperiencia
+                    ? 'border border-blue-500/40 bg-gradient-to-b from-blue-950/20 via-[#0d1017] to-[#070707] shadow-lg'
+                    : 'border border-white/10 bg-[#0d0d0d] hover:border-white/20 shadow-md'}
+                `}
+              >
+                {/* Imagem do Setup */}
+                <div className="relative aspect-[16/10] overflow-hidden bg-black/60 border-b border-white/5">
+                  <img 
+                    src={pkg.imageUrl} 
+                    alt={`Estrutura e Sonorização do ${pkg.name} - DJ Edney em Campinas e região`}
+                    loading="lazy"
+                    decoding="async"
+                    style={{ objectPosition: pkg.imagePosition || 'center center' }}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    onError={(e) => {
+                      if (pkg.fallbackUrl && (e.target as HTMLImageElement).src !== pkg.fallbackUrl) {
+                        (e.target as HTMLImageElement).src = pkg.fallbackUrl;
+                      }
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-transparent opacity-80" />
+                </div>
 
-                  <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-6">
-                    {pkg.description}
-                  </p>
+                {/* Conteúdo do Card */}
+                <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-2xl font-sync font-bold text-white mb-2 uppercase tracking-tight flex items-center justify-between">
+                      <span>{pkg.name}</span>
+                    </h3>
+                    
+                    <p className={`text-xs font-semibold mb-4 leading-snug ${isImpacto ? 'text-indigo-300' : 'text-blue-400'}`}>
+                      {pkg.subtitle}
+                    </p>
 
-                  {/* Diferenciais exclusivos deste pacote */}
-                  <div className="space-y-3 mb-8 pt-4 border-t border-white/5">
-                    <div className="text-[10px] font-sync font-bold text-gray-500 uppercase tracking-wider">
-                      Estrutura específica:
-                    </div>
-                    {pkg.features.map((feature, i) => (
-                      <div key={i} className="flex items-start gap-2.5">
-                        <i className={`fas fa-check-circle text-xs mt-0.5 shrink-0 ${pkg.highlight ? 'text-blue-400' : 'text-purple-400'}`}></i>
-                        <span className="text-gray-300 text-xs leading-snug">{feature}</span>
+                    <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-6">
+                      {pkg.description}
+                    </p>
+
+                    {/* Diferenciais exclusivos deste pacote */}
+                    <div className="space-y-3 mb-8 pt-4 border-t border-white/5">
+                      <div className="text-[10px] font-sync font-bold text-gray-500 uppercase tracking-wider">
+                        Estrutura específica:
                       </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Preço e Botão */}
-                <div className="pt-5 border-t border-white/5">
-                  <div className="mb-4">
-                    <span className="text-[10px] text-gray-500 uppercase tracking-widest font-bold block mb-1">Investimento</span>
-                    <div className="flex items-baseline gap-1.5 flex-wrap">
-                      <span className="text-2xl sm:text-3xl font-sync font-black text-white whitespace-nowrap tracking-tight">{pkg.price}</span>
-                      <span className="text-xs text-gray-400 whitespace-nowrap">/ evento</span>
+                      {pkg.features.map((feature, i) => (
+                        <div key={i} className="flex items-start gap-2.5">
+                          <i className={`fas fa-check-circle text-xs mt-0.5 shrink-0 ${isImpacto ? 'text-indigo-400' : isExperiencia ? 'text-blue-400' : 'text-purple-400'}`}></i>
+                          <span className="text-gray-200 text-xs leading-snug">{feature}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
 
-                  <button
-                    onClick={() => handleSelectPackage(pkg.name, pkg.price)}
-                    className={`w-full py-3.5 px-4 rounded-xl font-sans font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer ${
-                      pkg.highlight
-                        ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-[0_10px_25px_rgba(59,130,246,0.4)] active:scale-95'
-                        : 'bg-white/5 hover:bg-blue-600 hover:text-white text-gray-200 border border-white/10 active:scale-95'
-                    }`}
-                  >
-                    <span>Solicitar {pkg.name}</span>
-                    <i className="fab fa-whatsapp text-sm shrink-0"></i>
-                  </button>
+                  {/* Preço e Botão */}
+                  <div className="pt-5 border-t border-white/5">
+                    <div className="mb-4">
+                      <span className="text-[10px] text-gray-400 uppercase tracking-widest font-bold block mb-1">Investimento</span>
+                      <div className="flex items-baseline gap-1.5 flex-wrap">
+                        <span className={`text-2xl sm:text-3xl font-sync font-black whitespace-nowrap tracking-tight ${isImpacto ? 'text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 via-white to-purple-300' : 'text-white'}`}>
+                          {pkg.price}
+                        </span>
+                        <span className="text-xs text-gray-400 whitespace-nowrap">/ evento</span>
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={() => handleSelectPackage(pkg.name, pkg.price)}
+                      className={`w-full py-3.5 px-4 rounded-xl font-sans font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer ${
+                        isImpacto
+                          ? 'bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-[0_10px_30px_rgba(99,102,241,0.45)] active:scale-95'
+                          : isExperiencia
+                          ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-[0_10px_25px_rgba(59,130,246,0.35)] active:scale-95'
+                          : 'bg-white/5 hover:bg-blue-600 hover:text-white text-gray-200 border border-white/10 active:scale-95'
+                      }`}
+                    >
+                      <span>Solicitar {pkg.name}</span>
+                      <i className="fab fa-whatsapp text-sm shrink-0"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* 3. SEÇÃO: PERSONALIZAÇÃO DOS PACOTES ("Seu evento, do seu jeito") */}
-        <div className="glass p-8 sm:p-12 rounded-3xl border border-white/10 bg-gradient-to-r from-purple-950/20 via-black to-blue-950/20 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="glass p-8 sm:p-12 rounded-3xl border border-purple-500/20 bg-gradient-to-r from-purple-950/30 via-[#0a0a0f] to-blue-950/30 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 text-[10px] font-black uppercase tracking-widest mb-3 border border-purple-500/20">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/15 text-purple-300 text-[10px] font-black uppercase tracking-widest mb-3 border border-purple-500/30">
               <i className="fas fa-sliders"></i> Flexibilidade Total
             </div>
             <h3 className="text-2xl sm:text-3xl font-sync font-bold text-white uppercase tracking-tight mb-3">
@@ -170,7 +181,7 @@ export const PackagesSection: React.FC = () => {
 
           <button
             onClick={handleCustomPackage}
-            className="shrink-0 px-8 py-4 sm:py-5 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-sync font-bold text-xs uppercase tracking-widest transition-all duration-300 shadow-[0_10px_30px_rgba(168,85,247,0.4)] active:scale-95 cursor-pointer inline-flex items-center gap-3"
+            className="shrink-0 px-8 py-4 sm:py-5 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-sans font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-[0_10px_30px_rgba(168,85,247,0.4)] active:scale-95 cursor-pointer inline-flex items-center gap-3"
           >
             <span>Montar meu pacote</span>
             <i className="fab fa-whatsapp text-base"></i>
@@ -181,3 +192,4 @@ export const PackagesSection: React.FC = () => {
     </section>
   );
 };
+

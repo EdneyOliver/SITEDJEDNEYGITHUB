@@ -41,18 +41,18 @@ export const FinalCtaSection: React.FC = () => {
   return (
     <section id="contato-section" className="py-20 sm:py-28 bg-[#050505] border-t border-white/5 relative overflow-hidden">
       {/* Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-blue-600/10 via-purple-600/10 to-transparent rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-blue-600/15 via-purple-600/15 to-transparent rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-5xl mx-auto px-5 sm:px-6 relative z-10">
         
         {/* Bloco Principal de Conversão */}
-        <div className="glass p-8 sm:p-14 md:p-16 rounded-3xl border border-blue-500/30 bg-gradient-to-b from-blue-950/30 via-[#0d0d0d] to-[#080808] text-center shadow-[0_20px_50px_rgba(0,0,0,0.6)] mb-12">
+        <div className="p-8 sm:p-14 md:p-16 rounded-3xl border border-blue-500/40 bg-gradient-to-b from-blue-950/30 via-[#0d1017] to-[#070707] text-center shadow-[0_25px_60px_rgba(0,0,0,0.8)] mb-12 ring-1 ring-blue-500/20">
           
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-blue-500/10 text-blue-400 text-[10px] font-black uppercase tracking-[0.3em] mb-6 border border-blue-500/20">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/15 text-blue-300 text-[10px] font-black uppercase tracking-[0.3em] mb-6 border border-blue-500/30">
             <i className="fas fa-paper-plane text-xs"></i> Próximo Passo
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sync font-black text-white uppercase tracking-tight mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sync font-black text-white uppercase tracking-tight mb-6 leading-tight">
             Vamos fazer sua festa <br className="hidden sm:inline" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400">
               acontecer?
@@ -66,10 +66,10 @@ export const FinalCtaSection: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-lg mx-auto mb-10">
             <button
               onClick={handleWhatsAppClick}
-              className="w-full py-4 px-6 sm:px-8 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-sans font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-[0_10px_35px_rgba(37,99,235,0.4)] active:scale-95 cursor-pointer inline-flex items-center justify-center gap-2.5 sm:gap-3 text-center"
+              className="w-full py-4 sm:py-5 px-6 sm:px-8 rounded-full bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-sans font-bold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-[0_12px_40px_rgba(37,99,235,0.5)] active:scale-95 cursor-pointer inline-flex items-center justify-center gap-3 text-center"
             >
               <span>Consultar disponibilidade no WhatsApp</span>
-              <i className="fab fa-whatsapp text-lg sm:text-xl shrink-0"></i>
+              <i className="fab fa-whatsapp text-xl shrink-0"></i>
             </button>
           </div>
 
@@ -200,3 +200,4 @@ export const FinalCtaSection: React.FC = () => {
     </section>
   );
 };
+

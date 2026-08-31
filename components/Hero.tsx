@@ -14,20 +14,31 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden bg-[#050505]">
-      {/* Background Glows */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] bg-gradient-to-tr from-blue-600/15 via-purple-600/15 to-transparent rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute -top-10 right-0 w-72 h-72 bg-blue-500/10 rounded-full blur-[90px] pointer-events-none" />
+    <section className="relative min-h-[92vh] flex items-center justify-center pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden bg-[#050505]">
+      {/* Imagem de Fundo de Festa Real com Tratamento Atmosférico Cinematográfico */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <img 
+          src="/images/insta-2.webp" 
+          alt="Atmosfera de Festa e Pista de Dança Real com DJ Edney"
+          className="w-full h-full object-cover object-center opacity-25 scale-105 filter blur-[2px]"
+          loading="eager"
+          decoding="async"
+        />
+        {/* Camadas de Gradientes Escuros e Iluminação Cênica */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/80 via-[#050505]/90 to-[#050505]" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[350px] sm:w-[650px] h-[350px] sm:h-[650px] bg-gradient-to-tr from-blue-600/20 via-purple-600/20 to-pink-600/10 rounded-full blur-[130px]" />
+        <div className="absolute -top-10 right-0 w-80 h-80 bg-blue-500/15 rounded-full blur-[100px]" />
+      </div>
       
       <div className="max-w-4xl mx-auto px-5 sm:px-6 w-full relative z-10 text-center flex flex-col items-center">
         
-        {/* Foto de Apresentação Real */}
-        <div className="mb-6 md:mb-8 flex flex-col items-center">
+        {/* 1. QUEM É O PROFISSIONAL (Foto Real do DJ + Identificação) */}
+        <div className="mb-5 sm:mb-7 flex flex-col items-center">
           <div className="relative group/avatar">
-            <div className="w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full overflow-hidden border-2 sm:border-4 border-blue-500/40 p-1 bg-black shadow-[0_0_40px_rgba(59,130,246,0.35)] transition-all duration-500 group-hover/avatar:scale-105 group-hover/avatar:border-blue-400">
+            <div className="w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-full overflow-hidden border-2 sm:border-4 border-blue-500/50 p-1 bg-black shadow-[0_0_45px_rgba(59,130,246,0.45)] transition-all duration-500 group-hover/avatar:scale-105 group-hover/avatar:border-blue-400">
               <img 
                 src="/images/hero-edney.webp" 
-                alt="DJ Edney Oliver - DJ Profissional para Casamentos e Eventos em Campinas, Paulínia e região" 
+                alt="DJ Edney Oliver - DJ Profissional para Casamentos e Eventos em Campinas, Paulínia e Região Metropolitana" 
                 referrerPolicy="no-referrer"
                 loading="eager"
                 decoding="async"
@@ -42,38 +53,59 @@ export const Hero: React.FC = () => {
           </div>
         </div>
         
-        {/* Identificação */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/5 border border-white/10 text-blue-400 text-[10px] sm:text-xs font-black uppercase tracking-[0.25em] mb-4 shadow-sm">
-          <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-          {APP_CONFIG.name}
+        {/* Identificação & Localização Principal */}
+        <div className="inline-flex flex-wrap items-center justify-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-blue-400 text-[10px] sm:text-xs font-black uppercase tracking-[0.25em] mb-4 shadow-sm backdrop-blur-md">
+          <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse shrink-0"></span>
+          <span>{APP_CONFIG.name}</span>
+          <span className="text-gray-500 hidden sm:inline">•</span>
+          <span className="text-gray-300 font-medium normal-case tracking-normal text-[11px] sm:text-xs">
+            Campinas, Paulínia e Região Metropolitana
+          </span>
         </div>
 
         {/* Título Principal */}
         <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl font-sync font-black mb-4 sm:mb-6 leading-[1.2] sm:leading-[1.15] tracking-tight uppercase text-white max-w-3xl">
           O som é o meio. <br className="hidden sm:inline" />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-500">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400">
             A experiência é o resultado.
           </span>
         </h1>
 
-        {/* Texto Complementar Solicitado */}
+        {/* Texto Complementar */}
         <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed font-normal">
           Som, iluminação e curadoria musical para transformar seu evento em uma experiência.
         </p>
 
         {/* Botão Principal de Conversão */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
           <button
             onClick={handleWhatsAppClick}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 sm:py-5 rounded-full bg-gradient-to-r from-blue-600 to-blue-500 text-white font-sans font-bold text-sm sm:text-base uppercase tracking-wider hover:from-blue-500 hover:to-blue-400 transition-all duration-300 shadow-[0_10px_35px_-5px_rgba(37,99,235,0.5)] active:scale-95 cursor-pointer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 sm:py-5 rounded-full bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 text-white font-sans font-bold text-sm sm:text-base uppercase tracking-wider hover:from-blue-500 hover:to-indigo-500 transition-all duration-300 shadow-[0_10px_35px_-5px_rgba(37,99,235,0.6)] active:scale-95 cursor-pointer"
           >
             <span>Consultar minha data</span>
             <i className="fab fa-whatsapp text-lg sm:text-xl"></i>
           </button>
         </div>
 
+        {/* Selos de Confiança Sutil */}
+        <div className="mt-8 sm:mt-10 pt-6 border-t border-white/5 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-[11px] sm:text-xs text-gray-400 font-medium">
+          <div className="flex items-center gap-2">
+            <i className="fas fa-calendar-check text-blue-400"></i>
+            <span>Agenda 2026/2027</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <i className="fas fa-sliders text-purple-400"></i>
+            <span>Repertório Personalizado</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <i className="fas fa-shield-alt text-emerald-400"></i>
+            <span>Contrato & Segurança</span>
+          </div>
+        </div>
+
       </div>
     </section>
   );
 };
+
 

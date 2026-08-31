@@ -10,7 +10,7 @@ export const DifferentialsSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-5 sm:px-6 relative z-10">
         
         {/* Cabeçalho */}
-        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
           <div className="inline-block px-4 py-1 rounded-full bg-purple-500/10 text-purple-400 text-[10px] font-black uppercase tracking-[0.3em] mb-4 border border-purple-500/20">
             Diferenciais
           </div>
@@ -28,14 +28,14 @@ export const DifferentialsSection: React.FC = () => {
         </div>
 
         {/* Grid dos 7 Diferenciais */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mb-14 sm:mb-16">
           {DIFFERENTIALS.map((item, index) => (
             <div 
               key={index}
-              className={`glass p-6 sm:p-7 rounded-3xl border transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 ${
+              className={`p-6 sm:p-7 rounded-3xl border transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 ${
                 index === 0 
-                  ? 'border-blue-500/30 bg-blue-500/5 shadow-[0_10px_30px_rgba(59,130,246,0.1)] sm:col-span-2 xl:col-span-1' 
-                  : 'border-white/5 hover:border-white/20 bg-white/[0.02]'
+                  ? 'border-blue-500/40 bg-gradient-to-b from-blue-950/20 to-black/60 shadow-[0_10px_30px_rgba(59,130,246,0.15)] sm:col-span-2 xl:col-span-1' 
+                  : 'border-white/10 hover:border-white/20 bg-white/[0.02]'
               }`}
             >
               <div>
@@ -47,12 +47,12 @@ export const DifferentialsSection: React.FC = () => {
                   {item.title}
                 </h3>
                 
-                <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
+                <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
                   {item.description}
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-[10px] text-gray-400 uppercase font-black tracking-widest">
+              <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-[10px] text-gray-500 uppercase font-black tracking-widest">
                 <span>0{index + 1}</span>
                 <i className="fas fa-check text-blue-500/40 group-hover:text-blue-400 transition-colors"></i>
               </div>
@@ -60,7 +60,41 @@ export const DifferentialsSection: React.FC = () => {
           ))}
         </div>
 
+        {/* BANNER VISUAL DE TRANSIÇÃO (Respiro Visual com Pista & Luz Real) */}
+        <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl group">
+          <div className="aspect-[21/9] sm:aspect-[24/8] w-full relative">
+            <img 
+              src="/images/insta-3.webp" 
+              alt="Estrutura de Iluminação e Pista Real - DJ Edney"
+              loading="lazy"
+              decoding="async"
+              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-black/80" />
+            
+            <div className="absolute inset-0 flex flex-col sm:flex-row items-center justify-between p-6 sm:p-10 z-10 gap-4 text-center sm:text-left">
+              <div className="max-w-xl">
+                <span className="inline-block px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-[10px] font-sync font-bold uppercase tracking-wider mb-2 border border-purple-500/30">
+                  Experiência Visual & Sonora
+                </span>
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-sync font-black text-white uppercase tracking-tight">
+                  Cada detalhe projetado para valorizar o seu espaço
+                </h3>
+              </div>
+              <div className="flex items-center gap-3 shrink-0">
+                <span className="text-xs text-gray-300 font-sync font-bold uppercase tracking-wider hidden md:inline">
+                  Conheça os Pacotes
+                </span>
+                <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white">
+                  <i className="fas fa-arrow-down text-xs animate-bounce"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   );
 };
+
