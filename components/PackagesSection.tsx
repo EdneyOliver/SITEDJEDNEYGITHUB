@@ -84,7 +84,7 @@ export const PackagesSection: React.FC = () => {
               <div className="relative aspect-[16/10] overflow-hidden bg-black/60 border-b border-white/5">
                 <img 
                   src={pkg.imageUrl} 
-                  alt={`Setup ${pkg.name}`}
+                  alt={`Estrutura e Sonorização do ${pkg.name} - DJ Edney em Campinas e região`}
                   loading="lazy"
                   decoding="async"
                   style={{ objectPosition: pkg.imagePosition || 'center center' }}

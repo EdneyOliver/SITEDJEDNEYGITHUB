@@ -212,7 +212,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     question: "Vocês atendem outras cidades?",
-    answer: "Sim! Atendemos Campinas e diversas cidades da região. Entre em contato informando o local do evento para verificarmos a disponibilidade e os detalhes de deslocamento."
+    answer: "Sim! Atendemos Campinas, Paulínia e diversas cidades da região de Campinas. Entre em contato informando o local do evento para verificarmos a disponibilidade e os detalhes de deslocamento."
   },
   {
     question: "Quais são as formas de pagamento aceitas?",

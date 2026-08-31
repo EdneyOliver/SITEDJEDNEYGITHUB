@@ -67,7 +67,7 @@ export const YouTubeShortsSection: React.FC = () => {
                     {/* Thumbnail Imagem com fallback otimizado */}
                     <img 
                       src={item.thumbnailUrl} 
-                      alt={item.title}
+                      alt={`Vídeo de Festa / Evento: ${item.title} - DJ Edney em Campinas`}
                       loading="lazy"
                       decoding="async"
                       className="absolute inset-0 w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"

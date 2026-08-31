@@ -27,7 +27,7 @@ export const Hero: React.FC = () => {
             <div className="w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 rounded-full overflow-hidden border-2 sm:border-4 border-blue-500/40 p-1 bg-black shadow-[0_0_40px_rgba(59,130,246,0.35)] transition-all duration-500 group-hover/avatar:scale-105 group-hover/avatar:border-blue-400">
               <img 
                 src="/images/hero-edney.webp" 
-                alt={`DJ Edney - Profissional para Eventos`} 
+                alt="DJ Edney Oliver - DJ Profissional para Casamentos e Eventos em Campinas, Paulínia e região" 
                 referrerPolicy="no-referrer"
                 loading="eager"
                 decoding="async"

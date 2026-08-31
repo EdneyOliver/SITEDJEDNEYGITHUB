@@ -44,7 +44,7 @@ export const AddonsSection: React.FC = () => {
                 <div className="relative aspect-[16/11] overflow-hidden bg-black/50">
                   <img 
                     src={addon.imageUrl} 
-                    alt={addon.name}
+                    alt={`Adicional ${addon.name} para Casamentos e Eventos - DJ Edney em Campinas`}
                     loading="lazy"
                     decoding="async"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
