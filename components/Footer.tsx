@@ -24,6 +24,16 @@ export const Footer: React.FC = () => {
           </a>
         </div>
         
+        {/* Área de Atendimento */}
+        <div className="max-w-3xl mx-auto mb-8">
+          <p className="text-xs sm:text-sm text-gray-400 font-medium mb-1.5">
+            Atendimento em Campinas, Paulínia e toda a Região Metropolitana de Campinas.
+          </p>
+          <p className="text-[11px] sm:text-xs text-gray-600 font-normal">
+            Demais cidades atendidas: Americana, Sumaré, Hortolândia, Valinhos, Vinhedo, Indaiatuba, Jundiaí, Piracicaba, Limeira, Santa Bárbara d'Oeste e outras.
+          </p>
+        </div>
+        
         <div className="font-sync font-bold text-sm tracking-widest text-gray-600 mb-4 uppercase">
           {APP_CONFIG.name}
         </div>
