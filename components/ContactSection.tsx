@@ -6,8 +6,8 @@ export const ContactSection: React.FC = () => {
   const [showQR, setShowQR] = useState(false);
   const [copyStatus, setCopyStatus] = useState<'copiar' | 'copiado'>('copiar');
   
-  // URL oficial sem WWW para garantir funcionamento imediato
-  const officialAppUrl = "https://djedney.com.br";
+  // URL oficial canônica
+  const officialAppUrl = "https://www.djedney.com.br";
 
   const handleShare = async () => {
     if (navigator.share) {

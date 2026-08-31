@@ -8,7 +8,7 @@ import { DJConfig, SocialMediaItem, YouTubeShortItem, FaqItem, DifferentialItem 
 export const APP_CONFIG: DJConfig = {
   name: "DJ Edney",
   phone: "+55 (019) 9.9226-8163",
-  appUrl: "https://djedney.com.br", 
+  appUrl: "https://www.djedney.com.br", 
   instagram: "https://www.instagram.com/djedneyoliver/",
   facebook: "https://www.facebook.com/djedneyoliver",
   youtube: "https://www.youtube.com/@djedneyoliver",
