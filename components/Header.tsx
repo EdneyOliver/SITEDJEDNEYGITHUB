@@ -60,13 +60,13 @@ export const Header: React.FC<HeaderProps> = ({ scrolled, activeTab, onTabChange
           </span>
         </div>
 
-        {/* Navegação Desktop (Visível a partir de md) */}
-        <nav className="hidden md:flex items-center gap-4 lg:gap-6">
+        {/* Navegação Desktop (Visível a partir de lg) */}
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
           {navItems.map((item) => (
             <button 
               key={item.id}
               onClick={() => handleItemClick(item.id)}
-              className={`text-[10px] lg:text-xs font-sync font-bold uppercase tracking-wider transition-all duration-200 whitespace-nowrap px-1.5 py-1 cursor-pointer ${
+              className={`text-[11px] xl:text-xs font-sync font-bold uppercase tracking-wider transition-all duration-200 whitespace-nowrap px-1.5 py-1 cursor-pointer ${
                 activeTab === item.id 
                   ? 'text-blue-400 border-b-2 border-blue-400 pb-0.5' 
                   : 'text-gray-400 hover:text-white'
@@ -85,8 +85,8 @@ export const Header: React.FC<HeaderProps> = ({ scrolled, activeTab, onTabChange
           </button>
         </nav>
 
-        {/* Controles Mobile (Compartilhar + Menu Hambúrguer) */}
-        <div className="flex md:hidden items-center gap-2">
+        {/* Controles Mobile & Tablet (Compartilhar + Menu Hambúrguer) */}
+        <div className="flex lg:hidden items-center gap-2">
           <button 
             onClick={handleShare}
             className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-blue-400 hover:bg-blue-600 hover:text-white transition-all active:scale-95 cursor-pointer"
@@ -108,10 +108,10 @@ export const Header: React.FC<HeaderProps> = ({ scrolled, activeTab, onTabChange
         </div>
       </div>
 
-      {/* Menu Dropdown Mobile */}
+      {/* Menu Dropdown Mobile & Tablet */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-white/10 bg-[#050505]/95 backdrop-blur-2xl px-5 py-4 mt-3 shadow-2xl transition-all duration-300">
-          <nav className="flex flex-col gap-1">
+        <div className="lg:hidden border-t border-white/10 bg-[#050505]/95 backdrop-blur-2xl px-5 sm:px-8 py-4 mt-3 shadow-2xl transition-all duration-300">
+          <nav className="flex flex-col gap-1 max-w-lg mx-auto">
             {navItems.map((item) => {
               const isActive = activeTab === item.id;
               return (
