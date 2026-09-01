@@ -3,19 +3,19 @@ import { DIFFERENTIALS } from '../constants';
 
 export const DifferentialsSection: React.FC = () => {
   return (
-    <section className="py-20 sm:py-24 bg-[#050505] relative overflow-hidden border-t border-white/5">
+    <section className="py-16 sm:py-24 bg-[#050505] relative overflow-hidden border-t border-white/5">
       {/* Background radial glow */}
       <div className="absolute top-1/2 left-0 w-80 h-80 bg-purple-600/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-5 sm:px-6 relative z-10">
         
         {/* Cabeçalho */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-block px-4 py-1 rounded-full bg-purple-500/10 text-purple-400 text-[10px] font-black uppercase tracking-[0.3em] mb-4 border border-purple-500/20">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="inline-block px-4 py-1 rounded-full bg-purple-500/10 text-purple-400 text-[10px] font-black uppercase tracking-[0.3em] mb-3.5 border border-purple-500/20">
             Diferenciais
           </div>
           
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-sync font-black text-white uppercase tracking-tight mb-4">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-sync font-black text-white uppercase tracking-tight mb-3.5 leading-tight">
             Música certa. <br className="hidden sm:inline" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400">
               No momento certo.
@@ -28,7 +28,7 @@ export const DifferentialsSection: React.FC = () => {
         </div>
 
         {/* Grid dos 7 Diferenciais */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mb-14 sm:mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mb-12 sm:mb-16">
           {DIFFERENTIALS.map((item, index) => (
             <div 
               key={index}

@@ -11,19 +11,19 @@ export const YouTubeShortsSection: React.FC = () => {
   };
 
   return (
-    <section id="shorts-section" className="py-20 sm:py-28 bg-[#050505] border-t border-white/5 relative overflow-hidden">
+    <section id="shorts-section" className="py-16 sm:py-24 bg-[#050505] border-t border-white/5 relative overflow-hidden">
       {/* Background Glow sutil */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-gradient-to-tr from-red-600/10 via-purple-600/10 to-transparent rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-5 sm:px-6 relative z-10">
         
         {/* Cabeçalho Direto e Limpo */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-red-500/10 text-red-400 text-[10px] font-black uppercase tracking-[0.3em] mb-4 border border-red-500/20">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-red-500/10 text-red-400 text-[10px] font-black uppercase tracking-[0.3em] mb-3.5 border border-red-500/20">
             <i className="fab fa-youtube text-xs"></i> Experiência ao Vivo
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-sync font-black text-white uppercase tracking-tight mb-4">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-sync font-black text-white uppercase tracking-tight mb-3.5 leading-tight">
             Veja meus <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-purple-400">trabalhos</span>
           </h2>
 
@@ -34,7 +34,7 @@ export const YouTubeShortsSection: React.FC = () => {
 
         {/* CONTAINER DE VÍDEOS: Carrossel no Mobile (1 card + preview do próximo), Grid 3 Colunas x 2 Linhas no Desktop */}
         <div className="
-          flex md:grid overflow-x-auto md:overflow-visible pb-6 md:pb-0 gap-5 sm:gap-6 
+          flex md:grid overflow-x-auto md:overflow-visible pb-5 md:pb-0 gap-4 sm:gap-6 
           snap-x snap-mandatory md:snap-none no-scrollbar -mx-5 px-5 sm:mx-0 sm:px-0
           md:grid-cols-2 lg:grid-cols-3
         ">
@@ -45,7 +45,7 @@ export const YouTubeShortsSection: React.FC = () => {
               <div 
                 key={item.id}
                 className="
-                  snap-center shrink-0 w-[78vw] xs:w-[72vw] sm:w-[48vw] md:w-auto 
+                  snap-center shrink-0 w-[76vw] xs:w-[70vw] sm:w-[46vw] md:w-auto 
                   rounded-3xl overflow-hidden border border-white/15 relative group
                   aspect-[9/16] bg-[#0c0c0e] flex flex-col justify-between
                   shadow-[0_15px_40px_rgba(0,0,0,0.7)] hover:border-red-500/50 hover:shadow-[0_20px_50px_rgba(239,68,68,0.25)] 

@@ -108,13 +108,13 @@ const App: React.FC = () => {
         <AddonsSection />
 
         {/* 8. DEPOIMENTOS REAIS */}
-        <section id="depoimentos-section" className="py-20 sm:py-28 bg-[#050505] border-t border-white/5 relative overflow-hidden">
+        <section id="depoimentos-section" className="py-16 sm:py-24 bg-[#050505] border-t border-white/5 relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-5 sm:px-6 relative z-10">
-            <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-              <div className="inline-block px-4 py-1 rounded-full bg-blue-500/10 text-blue-400 text-[10px] font-black uppercase tracking-[0.3em] mb-4 border border-blue-500/20">
+            <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+              <div className="inline-block px-4 py-1 rounded-full bg-blue-500/10 text-blue-400 text-[10px] font-black uppercase tracking-[0.3em] mb-3.5 border border-blue-500/20">
                 Depoimentos Reais
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-sync font-black text-white uppercase tracking-tight mb-4">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-sync font-black text-white uppercase tracking-tight mb-3.5 leading-tight">
                 Feedback dos <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Clientes</span>
               </h2>
               <p className="text-gray-300 text-sm sm:text-base leading-relaxed font-normal">

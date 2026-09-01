@@ -23,7 +23,7 @@ export const PackagesSection: React.FC = () => {
   };
 
   return (
-    <section id="pacotes-section" className="py-20 sm:py-28 bg-[#070707] border-t border-white/5 relative overflow-hidden">
+    <section id="pacotes-section" className="py-16 sm:py-24 bg-[#070707] border-t border-white/5 relative overflow-hidden">
       {/* Background Orbs */}
       <div className="absolute top-1/3 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-10 left-0 w-96 h-96 bg-purple-600/10 rounded-full blur-[140px] pointer-events-none" />
@@ -31,11 +31,11 @@ export const PackagesSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-5 sm:px-6 relative z-10">
         
         {/* Cabeçalho da Seção de Pacotes */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-block px-4 py-1 rounded-full bg-blue-500/10 text-blue-400 text-[10px] font-black uppercase tracking-[0.3em] mb-4 border border-blue-500/20">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="inline-block px-4 py-1 rounded-full bg-blue-500/10 text-blue-400 text-[10px] font-black uppercase tracking-[0.3em] mb-3.5 border border-blue-500/20">
             Estrutura & Investimento
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-sync font-black text-white uppercase tracking-tight mb-4">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-sync font-black text-white uppercase tracking-tight mb-3.5 leading-tight">
             Escolha o formato ideal para a sua pista
           </h2>
           <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed font-normal">
@@ -44,20 +44,20 @@ export const PackagesSection: React.FC = () => {
         </div>
 
         {/* 1. SEÇÃO: TODOS OS PACOTES INCLUEM */}
-        <div className="glass p-6 sm:p-8 rounded-3xl border border-blue-500/20 bg-blue-500/[0.03] mb-12 sm:mb-16 shadow-[0_10px_35px_rgba(0,0,0,0.3)]">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="glass p-5 sm:p-7 md:p-8 rounded-3xl border border-blue-500/20 bg-blue-500/[0.03] mb-10 sm:mb-14 shadow-[0_10px_35px_rgba(0,0,0,0.3)]">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-5 sm:gap-6">
             <div className="text-center md:text-left max-w-sm">
               <div className="inline-flex items-center gap-2 text-blue-400 text-xs font-sync font-bold uppercase tracking-widest mb-1">
                 <i className="fas fa-shield-check"></i> Padrão de Qualidade
               </div>
-              <h3 className="text-xl sm:text-2xl font-sync font-bold text-white uppercase tracking-tight">
+              <h3 className="text-lg sm:text-2xl font-sync font-bold text-white uppercase tracking-tight">
                 Todos os pacotes incluem
               </h3>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 w-full md:max-w-3xl">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3.5 w-full md:max-w-3xl">
               {ALL_PACKAGES_INCLUDE.map((item, idx) => (
-                <div key={idx} className="flex items-center gap-3 p-2.5 rounded-xl bg-white/5 border border-white/5">
+                <div key={idx} className="flex items-center gap-2.5 p-2.5 rounded-xl bg-white/5 border border-white/5">
                   <div className="w-5 h-5 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-[10px] shrink-0">
                     <i className="fas fa-check"></i>
                   </div>
@@ -69,7 +69,7 @@ export const PackagesSection: React.FC = () => {
         </div>
 
         {/* 2. CARDS DOS PACOTES */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-7 items-stretch mb-12 sm:mb-16">
           {DJ_PACKAGES.map((pkg) => {
             const isImpacto = pkg.id === 'impacto';
             const isExperiencia = pkg.id === 'experiencia';
@@ -80,7 +80,7 @@ export const PackagesSection: React.FC = () => {
                 className={`
                   rounded-3xl flex flex-col justify-between transition-all duration-500 relative overflow-hidden group
                   ${isImpacto 
-                    ? 'border-2 border-indigo-500/70 bg-gradient-to-b from-indigo-950/30 via-[#0e121e] to-[#070707] shadow-[0_20px_50px_rgba(99,102,241,0.25)] md:-translate-y-3 z-10 ring-1 ring-indigo-500/30' 
+                    ? 'border-2 border-indigo-500/70 bg-gradient-to-b from-indigo-950/30 via-[#0e121e] to-[#070707] shadow-[0_20px_50px_rgba(99,102,241,0.25)] md:-translate-y-2 z-10 ring-1 ring-indigo-500/30' 
                     : isExperiencia
                     ? 'border border-blue-500/40 bg-gradient-to-b from-blue-950/20 via-[#0d1017] to-[#070707] shadow-lg'
                     : 'border border-white/10 bg-[#0d0d0d] hover:border-white/20 shadow-md'}
@@ -105,22 +105,22 @@ export const PackagesSection: React.FC = () => {
                 </div>
 
                 {/* Conteúdo do Card */}
-                <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+                <div className="p-5 sm:p-7 md:p-8 flex-1 flex flex-col justify-between">
                   <div>
-                    <h3 className="text-2xl font-sync font-bold text-white mb-2 uppercase tracking-tight flex items-center justify-between">
+                    <h3 className="text-xl sm:text-2xl font-sync font-bold text-white mb-1.5 uppercase tracking-tight flex items-center justify-between">
                       <span>{pkg.name}</span>
                     </h3>
                     
-                    <p className={`text-xs font-semibold mb-4 leading-snug ${isImpacto ? 'text-indigo-300' : 'text-blue-400'}`}>
+                    <p className={`text-xs font-semibold mb-3 leading-snug ${isImpacto ? 'text-indigo-300' : 'text-blue-400'}`}>
                       {pkg.subtitle}
                     </p>
 
-                    <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-6">
+                    <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-5">
                       {pkg.description}
                     </p>
 
                     {/* Diferenciais exclusivos deste pacote */}
-                    <div className="space-y-3 mb-8 pt-4 border-t border-white/5">
+                    <div className="space-y-2.5 mb-6 pt-4 border-t border-white/5">
                       <div className="text-[10px] font-sync font-bold text-gray-500 uppercase tracking-wider">
                         Estrutura específica:
                       </div>
@@ -134,7 +134,7 @@ export const PackagesSection: React.FC = () => {
                   </div>
 
                   {/* Preço e Botão */}
-                  <div className="pt-5 border-t border-white/5">
+                  <div className="pt-4 border-t border-white/5">
                     <div className="mb-4">
                       <span className="text-[10px] text-gray-400 uppercase tracking-widest font-bold block mb-1">Investimento</span>
                       <div className="flex items-baseline gap-1.5 flex-wrap">
@@ -166,12 +166,12 @@ export const PackagesSection: React.FC = () => {
         </div>
 
         {/* 3. SEÇÃO: PERSONALIZAÇÃO DOS PACOTES ("Seu evento, do seu jeito") */}
-        <div className="glass p-8 sm:p-12 rounded-3xl border border-purple-500/20 bg-gradient-to-r from-purple-950/30 via-[#0a0a0f] to-blue-950/30 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
+        <div className="glass p-6 sm:p-10 md:p-12 rounded-3xl border border-purple-500/20 bg-gradient-to-r from-purple-950/30 via-[#0a0a0f] to-blue-950/30 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8 shadow-xl">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/15 text-purple-300 text-[10px] font-black uppercase tracking-widest mb-3 border border-purple-500/30">
               <i className="fas fa-sliders"></i> Flexibilidade Total
             </div>
-            <h3 className="text-2xl sm:text-3xl font-sync font-bold text-white uppercase tracking-tight mb-3">
+            <h3 className="text-2xl sm:text-3xl font-sync font-bold text-white uppercase tracking-tight mb-2.5">
               Seu evento, do seu jeito.
             </h3>
             <p className="text-gray-300 text-xs sm:text-sm md:text-base leading-relaxed">
@@ -181,7 +181,7 @@ export const PackagesSection: React.FC = () => {
 
           <button
             onClick={handleCustomPackage}
-            className="shrink-0 px-8 py-4 sm:py-5 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-sans font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-[0_10px_30px_rgba(168,85,247,0.4)] active:scale-95 cursor-pointer inline-flex items-center gap-3"
+            className="shrink-0 w-full sm:w-auto px-8 py-4 sm:py-4.5 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-sans font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-[0_10px_30px_rgba(168,85,247,0.4)] active:scale-95 cursor-pointer inline-flex items-center justify-center gap-3"
           >
             <span>Montar meu pacote</span>
             <i className="fab fa-whatsapp text-base"></i>

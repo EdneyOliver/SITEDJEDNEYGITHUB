@@ -39,31 +39,31 @@ export const FinalCtaSection: React.FC = () => {
   };
 
   return (
-    <section id="contato-section" className="py-20 sm:py-28 bg-[#050505] border-t border-white/5 relative overflow-hidden">
+    <section id="contato-section" className="py-20 sm:py-28 md:py-32 bg-[#050505] border-t border-white/5 relative overflow-hidden">
       {/* Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-blue-600/15 via-purple-600/15 to-transparent rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-5xl mx-auto px-5 sm:px-6 relative z-10">
         
         {/* Bloco Principal de Conversão */}
-        <div className="p-8 sm:p-14 md:p-16 rounded-3xl border border-blue-500/40 bg-gradient-to-b from-blue-950/30 via-[#0d1017] to-[#070707] text-center shadow-[0_25px_60px_rgba(0,0,0,0.8)] mb-12 ring-1 ring-blue-500/20">
+        <div className="p-6 sm:p-12 md:p-14 rounded-3xl border border-blue-500/40 bg-gradient-to-b from-blue-950/30 via-[#0d1017] to-[#070707] text-center shadow-[0_25px_60px_rgba(0,0,0,0.8)] mb-10 sm:mb-12 ring-1 ring-blue-500/20">
           
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/15 text-blue-300 text-[10px] font-black uppercase tracking-[0.3em] mb-6 border border-blue-500/30">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/15 text-blue-300 text-[10px] font-black uppercase tracking-[0.3em] mb-5 sm:mb-6 border border-blue-500/30">
             <i className="fas fa-paper-plane text-xs"></i> Próximo Passo
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sync font-black text-white uppercase tracking-tight mb-6 leading-tight">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-sync font-black text-white uppercase tracking-tight mb-4 sm:mb-6 leading-tight">
             Vamos fazer sua festa <br className="hidden sm:inline" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400">
               acontecer?
             </span>
           </h2>
 
-          <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
+          <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed font-normal">
             Conte a data, cidade e tipo do seu evento e vamos encontrar a estrutura ideal para você.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-lg mx-auto mb-10">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-lg mx-auto mb-8 sm:mb-10">
             <button
               onClick={handleWhatsAppClick}
               className="w-full py-4 sm:py-5 px-6 sm:px-8 rounded-full bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-sans font-bold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-[0_12px_40px_rgba(37,99,235,0.5)] active:scale-95 cursor-pointer inline-flex items-center justify-center gap-3 text-center"
@@ -74,7 +74,7 @@ export const FinalCtaSection: React.FC = () => {
           </div>
 
           {/* Dados de Contato e Compartilhamento */}
-          <div className="pt-8 border-t border-white/5 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs text-gray-400">
+          <div className="pt-6 sm:pt-8 border-t border-white/5 flex flex-wrap items-center justify-center gap-4 sm:gap-8 md:gap-10 text-xs text-gray-400">
             <div className="flex items-center gap-2">
               <i className="fab fa-whatsapp text-green-400 text-sm"></i>
               <span className="text-gray-200 font-semibold">{APP_CONFIG.phone}</span>
@@ -101,7 +101,7 @@ export const FinalCtaSection: React.FC = () => {
 
           {/* Modal/Box QR Code */}
           {showQR && (
-            <div className="mt-8 p-6 bg-white rounded-3xl max-w-xs mx-auto text-center animate-fade-in shadow-2xl">
+            <div className="mt-6 sm:mt-8 p-6 bg-white rounded-3xl max-w-xs mx-auto text-center animate-fade-in shadow-2xl">
               <h3 className="text-black font-sync font-bold text-[10px] uppercase mb-3">Escaneie com a Câmera</h3>
               <div className="bg-white p-2 rounded-xl border border-gray-100 mb-3 flex justify-center">
                 <img 
