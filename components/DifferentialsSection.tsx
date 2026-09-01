@@ -61,33 +61,31 @@ export const DifferentialsSection: React.FC = () => {
         </div>
 
         {/* BANNER VISUAL DE TRANSIÇÃO (Respiro Visual com Pista & Luz Real) */}
-        <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl group">
-          <div className="aspect-[21/9] sm:aspect-[24/8] w-full relative">
-            <img 
-              src="/images/insta-3.webp" 
-              alt="Estrutura de Iluminação e Pista Real - DJ Edney"
-              loading="lazy"
-              decoding="async"
-              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-black/80" />
-            
-            <div className="absolute inset-0 flex flex-col sm:flex-row items-center justify-between p-6 sm:p-10 z-10 gap-4 text-center sm:text-left">
-              <div className="max-w-xl">
-                <span className="inline-block px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-[10px] font-sync font-bold uppercase tracking-wider mb-2 border border-purple-500/30">
-                  Experiência Visual & Sonora
-                </span>
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-sync font-black text-white uppercase tracking-tight">
-                  Cada detalhe projetado para valorizar o seu espaço
-                </h3>
-              </div>
-              <div className="flex items-center gap-3 shrink-0">
-                <span className="text-xs text-gray-300 font-sync font-bold uppercase tracking-wider hidden md:inline">
-                  Conheça os Pacotes
-                </span>
-                <div className="w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white">
-                  <i className="fas fa-arrow-down text-xs animate-bounce"></i>
-                </div>
+        <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl group min-h-[180px] sm:min-h-[160px] md:min-h-[180px] flex items-center">
+          <img 
+            src="/images/insta-3.webp" 
+            alt="Estrutura de Iluminação e Pista Real - DJ Edney"
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 pointer-events-none"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-black/95 via-black/80 to-black/75" />
+          
+          <div className="relative z-10 w-full flex flex-col sm:flex-row items-center justify-between p-5 sm:p-8 md:p-10 gap-4 text-center sm:text-left">
+            <div className="max-w-xl">
+              <span className="inline-block px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-[10px] font-sync font-bold uppercase tracking-wider mb-2 border border-purple-500/30">
+                Experiência Visual & Sonora
+              </span>
+              <h3 className="text-base sm:text-xl md:text-2xl lg:text-3xl font-sync font-black text-white uppercase tracking-tight leading-snug">
+                Cada detalhe projetado para valorizar o seu espaço
+              </h3>
+            </div>
+            <div className="flex items-center gap-3 shrink-0">
+              <span className="text-xs text-gray-300 font-sync font-bold uppercase tracking-wider hidden md:inline">
+                Conheça os Pacotes
+              </span>
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white shrink-0">
+                <i className="fas fa-arrow-down text-xs animate-bounce"></i>
               </div>
             </div>
           </div>
