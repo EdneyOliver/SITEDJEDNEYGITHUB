@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { APP_CONFIG } from '../constants';
+import { trackWhatsAppLead, trackSocialClick } from '../utils/analytics';
 
 export const FinalCtaSection: React.FC = () => {
   const [showQR, setShowQR] = useState(false);
@@ -7,6 +8,7 @@ export const FinalCtaSection: React.FC = () => {
   const officialAppUrl = APP_CONFIG.appUrl;
 
   const handleWhatsAppClick = () => {
+    trackWhatsAppLead('final_cta');
     const fbq = (window as any).fbq;
     if (fbq) {
       fbq('track', 'Contact', { content_name: 'WhatsApp CTA Final' });
@@ -131,6 +133,7 @@ export const FinalCtaSection: React.FC = () => {
             href={APP_CONFIG.instagram} 
             target="_blank" 
             rel="noopener noreferrer"
+            onClick={() => trackSocialClick('instagram')}
             className="glass p-4 sm:p-5 rounded-2xl border border-white/5 hover:border-pink-500/40 transition-all duration-300 flex items-center gap-3.5 group min-w-0"
           >
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 flex items-center justify-center text-white text-lg shrink-0 group-hover:scale-110 transition-transform shadow-md">
@@ -148,6 +151,7 @@ export const FinalCtaSection: React.FC = () => {
             href={APP_CONFIG.youtube} 
             target="_blank" 
             rel="noopener noreferrer"
+            onClick={() => trackSocialClick('youtube')}
             className="glass p-4 sm:p-5 rounded-2xl border border-white/5 hover:border-red-500/40 transition-all duration-300 flex items-center gap-3.5 group min-w-0"
           >
             <div className="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center text-white text-lg shrink-0 group-hover:scale-110 transition-transform shadow-md">
@@ -165,6 +169,7 @@ export const FinalCtaSection: React.FC = () => {
             href={APP_CONFIG.tiktok} 
             target="_blank" 
             rel="noopener noreferrer"
+            onClick={() => trackSocialClick('tiktok')}
             className="glass p-4 sm:p-5 rounded-2xl border border-white/5 hover:border-white/40 transition-all duration-300 flex items-center gap-3.5 group min-w-0"
           >
             <div className="w-10 h-10 rounded-xl bg-black border border-white/20 flex items-center justify-center text-white text-lg shrink-0 group-hover:scale-110 transition-transform shadow-md">
@@ -182,6 +187,7 @@ export const FinalCtaSection: React.FC = () => {
             href={APP_CONFIG.facebook} 
             target="_blank" 
             rel="noopener noreferrer"
+            onClick={() => trackSocialClick('facebook')}
             className="glass p-4 sm:p-5 rounded-2xl border border-white/5 hover:border-blue-500/40 transition-all duration-300 flex items-center gap-3.5 group min-w-0"
           >
             <div className="w-10 h-10 rounded-xl bg-[#1877F2] flex items-center justify-center text-white text-lg shrink-0 group-hover:scale-110 transition-transform shadow-md">

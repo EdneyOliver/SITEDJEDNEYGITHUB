@@ -1,8 +1,11 @@
 import React from 'react';
 import { DJ_PACKAGES, ALL_PACKAGES_INCLUDE, APP_CONFIG } from '../constants';
+import { trackPackageSelection, trackCustomPackage } from '../utils/analytics';
 
 export const PackagesSection: React.FC = () => {
-  const handleSelectPackage = (pkgName: string, price: string) => {
+  const handleSelectPackage = (pkgName: string, price: string, pkgId: string) => {
+    const buttonLocation = `package_${pkgId}`;
+    trackPackageSelection(pkgName, price, buttonLocation);
     const fbq = (window as any).fbq;
     if (fbq) {
       fbq('track', 'Contact', { content_name: `WhatsApp Pacote - ${pkgName}` });
@@ -13,6 +16,7 @@ export const PackagesSection: React.FC = () => {
   };
 
   const handleCustomPackage = () => {
+    trackCustomPackage('custom_package');
     const fbq = (window as any).fbq;
     if (fbq) {
       fbq('track', 'Contact', { content_name: 'WhatsApp Pacote Personalizado' });
@@ -146,7 +150,7 @@ export const PackagesSection: React.FC = () => {
                     </div>
 
                     <button
-                      onClick={() => handleSelectPackage(pkg.name, pkg.price)}
+                      onClick={() => handleSelectPackage(pkg.name, pkg.price, pkg.id)}
                       className={`w-full py-3.5 px-4 rounded-xl font-sans font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer ${
                         isImpacto
                           ? 'bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-[0_10px_30px_rgba(99,102,241,0.45)] active:scale-95'

@@ -1,8 +1,10 @@
 import React from 'react';
 import { DJ_ADDONS, APP_CONFIG } from '../constants';
+import { trackWhatsAppLead } from '../utils/analytics';
 
 export const AddonsSection: React.FC = () => {
   const handleRequestAddon = (name: string) => {
+    trackWhatsAppLead('addons');
     const fbq = (window as any).fbq;
     if (fbq) {
       fbq('track', 'Contact', { content_name: `WhatsApp Adicional - ${name}` });

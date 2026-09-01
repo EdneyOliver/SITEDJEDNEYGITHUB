@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { APP_CONFIG } from '../constants';
+import { trackSocialClick, trackWhatsAppLead } from '../utils/analytics';
 
 export const SocialLinks: React.FC = () => {
   const links = [
@@ -9,35 +10,40 @@ export const SocialLinks: React.FC = () => {
       icon: 'fab fa-instagram',
       url: APP_CONFIG.instagram,
       color: 'bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600',
-      label: '@djedneyoliver'
+      label: '@djedneyoliver',
+      onClick: () => trackSocialClick('instagram')
     },
     {
       name: 'TikTok',
       icon: 'fab fa-tiktok',
       url: APP_CONFIG.tiktok,
       color: 'bg-black',
-      label: '@djedneyoliver'
+      label: '@djedneyoliver',
+      onClick: () => trackSocialClick('tiktok')
     },
     {
       name: 'Facebook',
       icon: 'fab fa-facebook-f',
       url: APP_CONFIG.facebook,
       color: 'bg-[#1877F2]',
-      label: 'DJ Edney'
+      label: 'DJ Edney',
+      onClick: () => trackSocialClick('facebook')
     },
     {
       name: 'YouTube',
       icon: 'fab fa-youtube',
       url: APP_CONFIG.youtube,
       color: 'bg-[#FF0000]',
-      label: 'Canal Oficial'
+      label: 'Canal Oficial',
+      onClick: () => trackSocialClick('youtube')
     },
     {
       name: 'WhatsApp',
       icon: 'fab fa-whatsapp',
       url: `https://wa.me/${APP_CONFIG.phone.replace(/\D/g, '')}`,
       color: 'bg-[#25D366]',
-      label: 'Solicitar'
+      label: 'Solicitar',
+      onClick: () => trackWhatsAppLead('social_links')
     }
   ];
 
@@ -56,6 +62,7 @@ export const SocialLinks: React.FC = () => {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={link.onClick}
               className="flex items-center gap-4 p-4 glass rounded-2xl hover:scale-[1.02] transition-all duration-300 group border border-white/5"
             >
               <div className={`w-12 h-12 ${link.color} rounded-xl flex items-center justify-center text-white text-xl shadow-lg`}>

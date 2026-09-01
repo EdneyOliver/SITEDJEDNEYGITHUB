@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FAQ_ITEMS, APP_CONFIG } from '../constants';
 import { FaqItem } from '../types';
+import { trackWhatsAppLead } from '../utils/analytics';
 
 export const FaqSection: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -10,6 +11,7 @@ export const FaqSection: React.FC = () => {
   };
 
   const handleWhatsApp = () => {
+    trackWhatsAppLead('faq');
     const message = "Olá DJ Edney! Fiquei com uma dúvida sobre a contratação do evento.";
     window.open(`https://wa.me/${APP_CONFIG.phone.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`, '_blank');
   };

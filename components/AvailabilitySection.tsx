@@ -1,8 +1,10 @@
 import React from 'react';
 import { APP_CONFIG } from '../constants';
+import { trackWhatsAppLead } from '../utils/analytics';
 
 export const AvailabilitySection: React.FC = () => {
   const handleWhatsAppClick = () => {
+    trackWhatsAppLead('availability');
     const fbq = (window as any).fbq;
     if (fbq) {
       fbq('track', 'Contact', { content_name: 'WhatsApp Disponibilidade' });

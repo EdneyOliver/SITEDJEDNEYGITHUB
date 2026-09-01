@@ -1,8 +1,10 @@
 import React from 'react';
 import { EVENT_TYPES, APP_CONFIG } from '../constants';
+import { trackWhatsAppLead } from '../utils/analytics';
 
 export const ExperienceSection: React.FC = () => {
   const handleWhatsApp = () => {
+    trackWhatsAppLead('experience_special_project');
     const message = "Olá DJ Edney! Gostaria de conversar sobre a experiência musical para meu evento.";
     window.open(`https://wa.me/${APP_CONFIG.phone.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`, '_blank');
   };

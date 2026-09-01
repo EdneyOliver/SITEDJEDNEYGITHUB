@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import { YOUTUBE_SHORTS, APP_CONFIG } from '../constants';
 import { YouTubeShortItem } from '../types';
+import { trackShortVideoClick, trackYouTubeChannelClick } from '../utils/analytics';
 
 export const YouTubeShortsSection: React.FC = () => {
   const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
   const shorts = YOUTUBE_SHORTS;
 
-  const handlePlayVideo = (id: string) => {
-    setActiveVideoId(id);
+  const handlePlayVideo = (item: YouTubeShortItem, position: number) => {
+    trackShortVideoClick(item.title, item.youtubeUrl, position);
+    setActiveVideoId(item.id);
+  };
+
+  const handleMoreShortsClick = () => {
+    trackYouTubeChannelClick('shorts_section');
   };
 
   return (
@@ -38,7 +44,7 @@ export const YouTubeShortsSection: React.FC = () => {
           snap-x snap-mandatory md:snap-none no-scrollbar -mx-5 px-5 sm:mx-0 sm:px-0
           md:grid-cols-2 lg:grid-cols-3
         ">
-          {shorts.map((item: YouTubeShortItem) => {
+          {shorts.map((item: YouTubeShortItem, index: number) => {
             const isPlaying = activeVideoId === item.id;
 
             return (
@@ -72,7 +78,7 @@ export const YouTubeShortsSection: React.FC = () => {
                   </div>
                 ) : (
                   <div 
-                    onClick={() => handlePlayVideo(item.id)}
+                    onClick={() => handlePlayVideo(item, index + 1)}
                     className="absolute inset-0 w-full h-full cursor-pointer flex flex-col justify-between p-5 sm:p-6 z-10 select-none group"
                   >
                     {/* Imagem Real de Alta Qualidade (Protagonista da Vitrine) */}
@@ -141,6 +147,7 @@ export const YouTubeShortsSection: React.FC = () => {
             href={`${APP_CONFIG.youtube}/shorts`}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={handleMoreShortsClick}
             className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-white/5 border border-white/15 hover:bg-red-600 hover:border-red-500 hover:text-white text-gray-200 font-sans font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 active:scale-95 shadow-md"
           >
             <i className="fab fa-youtube text-lg text-red-500"></i>

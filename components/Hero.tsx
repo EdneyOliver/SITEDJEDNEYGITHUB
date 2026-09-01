@@ -1,9 +1,11 @@
 
 import React from 'react';
 import { APP_CONFIG } from '../constants';
+import { trackWhatsAppLead } from '../utils/analytics';
 
 export const Hero: React.FC = () => {
   const handleWhatsAppClick = () => {
+    trackWhatsAppLead('hero');
     const fbq = (window as any).fbq;
     if (fbq) {
       fbq('track', 'Contact', { content_name: 'WhatsApp Hero - Consultar Data' });
