@@ -77,16 +77,17 @@ export const PackagesSection: React.FC = () => {
           {DJ_PACKAGES.map((pkg) => {
             const isImpacto = pkg.id === 'impacto';
             const isExperiencia = pkg.id === 'experiencia';
+            const badge = (pkg as any).badge;
 
             return (
               <div 
                 key={pkg.id} 
                 className={`
                   rounded-3xl flex flex-col justify-between transition-all duration-500 relative overflow-hidden group
-                  ${isImpacto 
-                    ? 'border-2 border-indigo-500/70 bg-gradient-to-b from-indigo-950/30 via-[#0e121e] to-[#070707] shadow-[0_20px_50px_rgba(99,102,241,0.25)] md:-translate-y-2 z-10 ring-1 ring-indigo-500/30' 
-                    : isExperiencia
-                    ? 'border border-blue-500/40 bg-gradient-to-b from-blue-950/20 via-[#0d1017] to-[#070707] shadow-lg'
+                  ${isExperiencia
+                    ? 'border-2 border-blue-500/60 bg-gradient-to-b from-blue-950/30 via-[#0d121c] to-[#070707] shadow-[0_15px_40px_rgba(59,130,246,0.2)] ring-1 ring-blue-500/20'
+                    : isImpacto 
+                    ? 'border border-purple-500/40 bg-gradient-to-b from-purple-950/20 via-[#0e1018] to-[#070707] shadow-lg'
                     : 'border border-white/10 bg-[#0d0d0d] hover:border-white/20 shadow-md'}
                 `}
               >
@@ -106,22 +107,41 @@ export const PackagesSection: React.FC = () => {
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-transparent opacity-80" />
+
+                  {/* Selo / Destaque Elegante */}
+                  {badge && (
+                    <div className="absolute top-3.5 right-3.5 z-20">
+                      <span 
+                        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-sync font-bold uppercase tracking-wider backdrop-blur-md shadow-sm border ${
+                          isExperiencia 
+                            ? 'bg-blue-500/25 text-blue-200 border-blue-400/40 shadow-[0_2px_12px_rgba(59,130,246,0.3)]' 
+                            : 'bg-purple-500/25 text-purple-200 border-purple-400/40 shadow-[0_2px_12px_rgba(168,85,247,0.25)]'
+                        }`}
+                      >
+                        {isExperiencia && <i className="fas fa-star text-[9px] text-blue-300"></i>}
+                        {isImpacto && <i className="fas fa-crown text-[9px] text-purple-300"></i>}
+                        {badge}
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Conteúdo do Card */}
                 <div className="p-5 sm:p-7 md:p-8 flex-1 flex flex-col justify-between">
                   <div>
-                    <h3 className="text-xl sm:text-2xl font-sync font-bold text-white mb-1.5 uppercase tracking-tight flex items-center justify-between">
-                      <span>{pkg.name}</span>
-                    </h3>
-                    
-                    <p className={`text-xs font-semibold mb-3 leading-snug ${isImpacto ? 'text-indigo-300' : 'text-blue-400'}`}>
-                      {pkg.subtitle}
-                    </p>
+                    <div className="min-h-[130px] sm:min-h-[140px] md:min-h-[145px] flex flex-col">
+                      <h3 className="text-xl sm:text-2xl font-sync font-bold text-white mb-1.5 uppercase tracking-tight flex items-center justify-between">
+                        <span>{pkg.name}</span>
+                      </h3>
+                      
+                      <p className={`text-xs font-semibold mb-2.5 leading-snug ${isImpacto ? 'text-purple-300' : isExperiencia ? 'text-blue-400' : 'text-gray-400'}`}>
+                        {pkg.subtitle}
+                      </p>
 
-                    <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-5">
-                      {pkg.description}
-                    </p>
+                      <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
+                        {pkg.description}
+                      </p>
+                    </div>
 
                     {/* Diferenciais exclusivos deste pacote */}
                     <div className="space-y-2.5 mb-6 pt-4 border-t border-white/5">
@@ -130,7 +150,7 @@ export const PackagesSection: React.FC = () => {
                       </div>
                       {pkg.features.map((feature, i) => (
                         <div key={i} className="flex items-start gap-2.5">
-                          <i className={`fas fa-check-circle text-xs mt-0.5 shrink-0 ${isImpacto ? 'text-indigo-400' : isExperiencia ? 'text-blue-400' : 'text-purple-400'}`}></i>
+                          <i className={`fas fa-check-circle text-xs mt-0.5 shrink-0 ${isImpacto ? 'text-purple-400' : isExperiencia ? 'text-blue-400' : 'text-blue-400/80'}`}></i>
                           <span className="text-gray-200 text-xs leading-snug">{feature}</span>
                         </div>
                       ))}
@@ -142,9 +162,20 @@ export const PackagesSection: React.FC = () => {
                     <div className="mb-4">
                       <span className="text-[10px] text-gray-400 uppercase tracking-widest font-bold block mb-1">Investimento</span>
                       <div className="flex items-baseline gap-1.5 flex-wrap">
-                        <span className={`text-2xl sm:text-3xl font-sync font-black whitespace-nowrap tracking-tight ${isImpacto ? 'text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 via-white to-purple-300' : 'text-white'}`}>
-                          {pkg.price}
-                        </span>
+                        {pkg.price.startsWith('A partir de ') ? (
+                          <>
+                            <span className="text-xs sm:text-sm text-gray-300 font-sans font-medium whitespace-nowrap">
+                              A partir de
+                            </span>
+                            <span className={`text-2xl sm:text-3xl font-sync font-black whitespace-nowrap tracking-tight ${isImpacto ? 'text-transparent bg-clip-text bg-gradient-to-r from-purple-200 via-white to-indigo-200' : 'text-white'}`}>
+                              {pkg.price.replace('A partir de ', '')}
+                            </span>
+                          </>
+                        ) : (
+                          <span className={`text-2xl sm:text-3xl font-sync font-black whitespace-nowrap tracking-tight ${isImpacto ? 'text-transparent bg-clip-text bg-gradient-to-r from-purple-200 via-white to-indigo-200' : 'text-white'}`}>
+                            {pkg.price}
+                          </span>
+                        )}
                         <span className="text-xs text-gray-400 whitespace-nowrap">/ evento</span>
                       </div>
                     </div>
@@ -152,10 +183,10 @@ export const PackagesSection: React.FC = () => {
                     <button
                       onClick={() => handleSelectPackage(pkg.name, pkg.price, pkg.id)}
                       className={`w-full py-3.5 px-4 rounded-xl font-sans font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer ${
-                        isImpacto
-                          ? 'bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-[0_10px_30px_rgba(99,102,241,0.45)] active:scale-95'
-                          : isExperiencia
+                        isExperiencia
                           ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-[0_10px_25px_rgba(59,130,246,0.35)] active:scale-95'
+                          : isImpacto
+                          ? 'bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white shadow-[0_10px_30px_rgba(168,85,247,0.35)] active:scale-95'
                           : 'bg-white/5 hover:bg-blue-600 hover:text-white text-gray-200 border border-white/10 active:scale-95'
                       }`}
                     >
@@ -167,6 +198,16 @@ export const PackagesSection: React.FC = () => {
               </div>
             );
           })}
+        </div>
+
+        {/* Observação discreta abaixo dos preços/pacotes */}
+        <div className="text-center max-w-3xl mx-auto -mt-6 sm:-mt-8 mb-12 sm:mb-16 px-4">
+          <p className="text-xs sm:text-[13px] text-gray-400 font-normal leading-relaxed flex items-center justify-center gap-2">
+            <i className="fas fa-circle-info text-blue-400/80 text-xs shrink-0"></i>
+            <span>
+              Valores a partir dos pacotes apresentados. A estrutura pode ser personalizada conforme o número de convidados, local, duração e necessidades do evento.
+            </span>
+          </p>
         </div>
 
         {/* 3. SEÇÃO: PERSONALIZAÇÃO DOS PACOTES ("Seu evento, do seu jeito") */}

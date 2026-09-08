@@ -86,7 +86,7 @@ export const DJ_PACKAGES = [
     imageUrl: "/images/essencial.webp", 
     fallbackUrl: "https://i.postimg.cc/xjbn4pNH/essencial-02-sem-moving.png",
     imagePosition: "center 80%",
-    price: "R$ 950",
+    price: "A partir de R$ 1.100",
     features: [
       "Recomendado para ambientes fechados e pequenos",
       "Sonorização de alta qualidade equilibrada para o espaço",
@@ -103,7 +103,8 @@ export const DJ_PACKAGES = [
     imageUrl: "/images/experiencia.webp",
     fallbackUrl: "https://i.postimg.cc/C1FQY1mj/EXPERIENCIA-TOP.png",
     imagePosition: "center 40%",
-    price: "R$ 1.500",
+    price: "A partir de R$ 1.700",
+    badge: "MAIS ESCOLHIDO",
     features: [
       "Sonorização potente para ambientes médios e grandes",
       "Iluminação estilo balada com efeitos e movimentos",
@@ -115,17 +116,18 @@ export const DJ_PACKAGES = [
   {
     id: "impacto",
     name: "Impacto",
-    subtitle: "Som, iluminação e estrutura visual para uma presença ainda mais marcante.",
-    description: "A mesma energia da pista com visual imponente. Estrutura Box Truss que valoriza o layout do seu espaço.",
+    subtitle: "Som, iluminação e visual cenográfico para presença marcante.",
+    description: "A mesma sonorização e iluminação do Pacote Experiência, valorizada por um layout especial com Box Truss. Uma montagem mais imponente, organizada e sofisticada para o seu espaço.",
     imageUrl: "/images/impacto.webp",
     fallbackUrl: "https://i.postimg.cc/D0NsCjS5/Premium-top.png",
     imagePosition: "center 20%",
-    price: "R$ 1.600",
+    price: "A partir de R$ 1.900",
+    badge: "VISUAL PREMIUM",
     features: [
       "Toda a sonorização e iluminação do Pacote Experiência",
-      "Estrutura Box Truss para elevação e posicionamento da luz",
-      "Layout imponente com cenografia de alto impacto visual",
-      "Visual marcante e elegante para fotos e vídeos"
+      "Layout especial com Box Truss para valorização estética do espaço",
+      "Montagem imponente, organizada e visualmente sofisticada",
+      "Cenografia marcante e elegante que valoriza fotos e vídeos"
     ],
     highlight: false
   }
