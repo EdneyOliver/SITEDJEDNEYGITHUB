@@ -108,18 +108,18 @@ export const PackagesSection: React.FC = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-transparent opacity-80" />
 
-                  {/* Selo / Destaque Elegante */}
+                  {/* Selo / Destaque Elegante Centralizado e Discreto */}
                   {badge && (
-                    <div className="absolute top-3.5 right-3.5 z-20">
+                    <div className="absolute top-2.5 sm:top-3 inset-x-0 flex justify-center z-20 pointer-events-none">
                       <span 
-                        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-sync font-bold uppercase tracking-wider backdrop-blur-md shadow-sm border ${
+                        className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[9px] font-sync font-bold uppercase tracking-wider backdrop-blur-md shadow-sm border ${
                           isExperiencia 
-                            ? 'bg-blue-500/25 text-blue-200 border-blue-400/40 shadow-[0_2px_12px_rgba(59,130,246,0.3)]' 
-                            : 'bg-purple-500/25 text-purple-200 border-purple-400/40 shadow-[0_2px_12px_rgba(168,85,247,0.25)]'
+                            ? 'bg-blue-500/25 text-blue-200 border-blue-400/40 shadow-[0_2px_10px_rgba(59,130,246,0.25)]' 
+                            : 'bg-purple-500/25 text-purple-200 border-purple-400/40 shadow-[0_2px_10px_rgba(168,85,247,0.2)]'
                         }`}
                       >
-                        {isExperiencia && <i className="fas fa-star text-[9px] text-blue-300"></i>}
-                        {isImpacto && <i className="fas fa-crown text-[9px] text-purple-300"></i>}
+                        {isExperiencia && <i className="fas fa-star text-[8px] text-blue-300"></i>}
+                        {isImpacto && <i className="fas fa-crown text-[8px] text-purple-300"></i>}
                         {badge}
                       </span>
                     </div>
