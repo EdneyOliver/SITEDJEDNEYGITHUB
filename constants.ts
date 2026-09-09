@@ -12,6 +12,7 @@ export const APP_CONFIG: DJConfig = {
   instagram: "https://www.instagram.com/djedneyoliver/",
   facebook: "https://www.facebook.com/djedneyoliver",
   youtube: "https://www.youtube.com/@djedneyoliver",
+  youtubeChannelId: "UCF2V46ZnlIHBQwKS5CdQYPg",
   tiktok: "https://www.tiktok.com/@djedneyoliver",
   email: "edney_oliver@hotmail.com",
   googleCalendarId: "edney.and@gmail.com", 
@@ -135,40 +136,74 @@ export const DJ_PACKAGES = [
 
 export const YOUTUBE_SHORTS: YouTubeShortItem[] = [
   {
+    id: "9fxOe5jII2U",
+    title: "💍 Casamento Débora & Diego | 05.09.2026",
+    thumbnailUrl: "https://i.ytimg.com/vi/9fxOe5jII2U/maxresdefault.jpg",
+    youtubeUrl: "https://www.youtube.com/shorts/9fxOe5jII2U",
+    pubDate: "2026-09-09 18:10:00"
+  },
+  {
+    id: "sEwEJzJs6kU",
+    title: "Do clássico ao groove atual! 🔥🎧",
+    thumbnailUrl: "https://i.ytimg.com/vi/sEwEJzJs6kU/maxresdefault.jpg",
+    youtubeUrl: "https://www.youtube.com/shorts/sEwEJzJs6kU",
+    pubDate: "2026-09-09 14:53:16"
+  },
+  {
+    id: "WDO-zMme3yA",
+    title: "Essa transição ficou boa? 👀🎧 | Weekend Sessions",
+    thumbnailUrl: "https://i.ytimg.com/vi/WDO-zMme3yA/maxresdefault.jpg",
+    youtubeUrl: "https://www.youtube.com/shorts/WDO-zMme3yA",
+    pubDate: "2026-09-08 15:23:52"
+  },
+  {
     id: "u8I3zOSSwz8",
     title: "Aniversário Vanessa - Pista Animada",
     thumbnailUrl: "https://i.ytimg.com/vi/u8I3zOSSwz8/maxresdefault.jpg",
-    youtubeUrl: "https://www.youtube.com/shorts/u8I3zOSSwz8"
+    youtubeUrl: "https://www.youtube.com/shorts/u8I3zOSSwz8",
+    pubDate: "2026-08-24 20:42:46"
   },
   {
     id: "dBVgAvi8TNM",
     title: "Aniversário Paula - Momentos Especiais",
     thumbnailUrl: "https://i.ytimg.com/vi/dBVgAvi8TNM/maxresdefault.jpg",
-    youtubeUrl: "https://www.youtube.com/shorts/dBVgAvi8TNM"
+    youtubeUrl: "https://www.youtube.com/shorts/dBVgAvi8TNM",
+    pubDate: "2026-08-02 16:28:22"
   },
   {
     id: "OyB3lHrt00U",
     title: "Festa de 15 Anos - Lara",
     thumbnailUrl: "https://i.ytimg.com/vi/OyB3lHrt00U/maxresdefault.jpg",
-    youtubeUrl: "https://www.youtube.com/shorts/OyB3lHrt00U"
+    youtubeUrl: "https://www.youtube.com/shorts/OyB3lHrt00U",
+    pubDate: "2026-07-06 17:19:10"
   },
   {
     id: "ErZpFVgzf0g",
     title: "Festa Temática - Muita Energia",
     thumbnailUrl: "https://i.ytimg.com/vi/ErZpFVgzf0g/maxresdefault.jpg",
-    youtubeUrl: "https://www.youtube.com/shorts/ErZpFVgzf0g"
+    youtubeUrl: "https://www.youtube.com/shorts/ErZpFVgzf0g",
+    pubDate: "2026-07-01 20:45:55"
   },
   {
     id: "JguYy1VSVdw",
     title: "15 Anos da Ana - Pista Cheia",
     thumbnailUrl: "https://i.ytimg.com/vi/JguYy1VSVdw/maxresdefault.jpg",
-    youtubeUrl: "https://www.youtube.com/shorts/JguYy1VSVdw"
+    youtubeUrl: "https://www.youtube.com/shorts/JguYy1VSVdw",
+    pubDate: "2026-07-01 14:57:31"
+  },
+  {
+    id: "0CGzcAumco8",
+    title: "DJ Set & Pista em Alta Energia",
+    thumbnailUrl: "https://i.ytimg.com/vi/0CGzcAumco8/maxresdefault.jpg",
+    youtubeUrl: "https://www.youtube.com/shorts/0CGzcAumco8",
+    pubDate: "2026-06-26 11:36:54"
   },
   {
     id: "Vj1wUYybyQs",
     title: "15 Anos da Rafa - Momento Inesquecível",
     thumbnailUrl: "https://i.ytimg.com/vi/Vj1wUYybyQs/maxresdefault.jpg",
-    youtubeUrl: "https://www.youtube.com/shorts/Vj1wUYybyQs"
+    youtubeUrl: "https://www.youtube.com/shorts/Vj1wUYybyQs",
+    pubDate: "2026-06-22 18:00:00"
   }
 ];
 

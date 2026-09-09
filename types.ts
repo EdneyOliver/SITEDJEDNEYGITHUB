@@ -32,6 +32,7 @@ export interface YouTubeShortItem {
   thumbnailUrl: string;
   youtubeUrl: string;
   category?: string;
+  pubDate?: string;
 }
 
 export interface FaqItem {
@@ -52,6 +53,7 @@ export interface DJConfig {
   appUrl: string;
   spotify?: string;
   youtube?: string;
+  youtubeChannelId?: string;
   facebook?: string;
   tiktok?: string;
   email: string;

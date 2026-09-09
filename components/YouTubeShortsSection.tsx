@@ -1,11 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { YOUTUBE_SHORTS, APP_CONFIG } from '../constants';
 import { YouTubeShortItem } from '../types';
 import { trackShortVideoClick, trackYouTubeChannelClick } from '../utils/analytics';
+import { fetchLatestYouTubeShorts, getCachedYouTubeShorts } from '../utils/youtube';
 
 export const YouTubeShortsSection: React.FC = () => {
   const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
-  const shorts = YOUTUBE_SHORTS;
+  const [shorts, setShorts] = useState<YouTubeShortItem[]>(() => {
+    const cached = getCachedYouTubeShorts();
+    return cached && cached.length > 0 ? cached : YOUTUBE_SHORTS;
+  });
+  const [isSyncing, setIsSyncing] = useState<boolean>(false);
+
+  // Sincronização automática em segundo plano com o feed oficial do YouTube
+  useEffect(() => {
+    let isMounted = true;
+
+    const syncFeed = async () => {
+      try {
+        const latest = await fetchLatestYouTubeShorts();
+        if (isMounted && latest && latest.length > 0) {
+          setShorts(latest);
+        }
+      } catch (err) {
+        console.warn('Sincronização em segundo plano:', err);
+      }
+    };
+
+    syncFeed();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const handleManualRefresh = async () => {
+    if (isSyncing) return;
+    setIsSyncing(true);
+    try {
+      const latest = await fetchLatestYouTubeShorts(true);
+      if (latest && latest.length > 0) {
+        setShorts(latest);
+      }
+    } catch (err) {
+      console.warn('Erro ao atualizar vídeos:', err);
+    } finally {
+      setTimeout(() => setIsSyncing(false), 600);
+    }
+  };
 
   const handlePlayVideo = (item: YouTubeShortItem, position: number) => {
     trackShortVideoClick(item.title, item.youtubeUrl, position);
@@ -25,8 +67,20 @@ export const YouTubeShortsSection: React.FC = () => {
         
         {/* Cabeçalho Direto e Limpo */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-red-500/10 text-red-400 text-[10px] font-black uppercase tracking-[0.3em] mb-3.5 border border-red-500/20">
-            <i className="fab fa-youtube text-xs"></i> Experiência ao Vivo
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-3.5">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-500/10 text-red-400 text-[10px] font-black uppercase tracking-[0.25em] border border-red-500/20">
+              <i className="fab fa-youtube text-xs"></i> Experiência ao Vivo
+            </div>
+            <button
+              onClick={handleManualRefresh}
+              disabled={isSyncing}
+              title="Sincronizar com os vídeos mais recentes postados no YouTube"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 hover:bg-white/10 text-gray-300 text-[10px] font-sans font-medium border border-white/10 transition-colors cursor-pointer active:scale-95"
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${isSyncing ? 'bg-amber-400 animate-ping' : 'bg-emerald-400'}`}></span>
+              <span>{isSyncing ? 'Buscando novidades...' : 'Canal Sincronizado'}</span>
+              <i className={`fas fa-rotate-right text-[9px] text-gray-400 ml-0.5 ${isSyncing ? 'animate-spin' : ''}`}></i>
+            </button>
           </div>
 
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-sync font-black text-white uppercase tracking-tight mb-3.5 leading-tight">
@@ -46,6 +100,7 @@ export const YouTubeShortsSection: React.FC = () => {
         ">
           {shorts.map((item: YouTubeShortItem, index: number) => {
             const isPlaying = activeVideoId === item.id;
+            const isRecent = index < 2;
 
             return (
               <div 
@@ -71,7 +126,7 @@ export const YouTubeShortsSection: React.FC = () => {
                     <button
                       onClick={() => setActiveVideoId(null)}
                       aria-label="Fechar vídeo"
-                      className="absolute top-3 right-3 z-30 w-8 h-8 rounded-full bg-black/80 backdrop-blur-md text-white border border-white/20 flex items-center justify-center text-xs hover:bg-red-600 transition-colors"
+                      className="absolute top-3 right-3 z-30 w-8 h-8 rounded-full bg-black/80 backdrop-blur-md text-white border border-white/20 flex items-center justify-center text-xs hover:bg-red-600 transition-colors cursor-pointer"
                     >
                       <i className="fas fa-times"></i>
                     </button>
@@ -103,12 +158,18 @@ export const YouTubeShortsSection: React.FC = () => {
                     {/* Gradiente ultra suave no topo para a badge */}
                     <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black/60 to-transparent pointer-events-none" />
 
-                    {/* Top Bar: Referência sutil da plataforma */}
-                    <div className="relative z-10 flex items-center justify-between">
+                    {/* Top Bar: Referência da plataforma + Tag Recente */}
+                    <div className="relative z-10 flex items-center justify-between gap-2">
                       <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white text-[10px] font-sans font-semibold tracking-wide shadow-md">
                         <i className="fab fa-youtube text-red-500 text-xs"></i>
                         <span>YouTube Short</span>
                       </span>
+                      {isRecent && (
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-red-600/90 backdrop-blur-md text-white text-[9px] font-black uppercase tracking-wider shadow-lg">
+                          <span className="w-1 h-1 rounded-full bg-white animate-pulse"></span>
+                          Novo
+                        </span>
+                      )}
                     </div>
 
                     {/* Botão de Play Centralizado Elegante com Brilho Harmônico */}
