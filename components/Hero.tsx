@@ -37,7 +37,7 @@ export const Hero: React.FC = () => {
         {/* 1. QUEM É O PROFISSIONAL (Foto Real do DJ + Identificação) */}
         <div className="mb-4 sm:mb-6 flex flex-col items-center">
           <div className="relative group/avatar">
-            <div className="w-24 h-24 xs:w-28 xs:h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-full overflow-hidden border-2 sm:border-4 border-blue-500/50 p-1 bg-black shadow-[0_0_40px_rgba(59,130,246,0.4)] transition-all duration-500 group-hover/avatar:scale-105 group-hover/avatar:border-blue-400">
+            <div className="w-28 h-28 xs:w-32 xs:h-32 sm:w-44 sm:h-44 md:w-52 md:h-52 rounded-full overflow-hidden border-2 sm:border-4 border-blue-500/50 p-1 sm:p-1.5 bg-black shadow-[0_0_50px_rgba(59,130,246,0.45)] transition-all duration-500 group-hover/avatar:scale-105 group-hover/avatar:border-blue-400">
               <img 
                 src="/images/hero-edney.webp" 
                 alt="DJ Edney Oliver - DJ Profissional para Casamentos e Eventos em Campinas, Paulínia e Região Metropolitana" 
@@ -45,12 +45,12 @@ export const Hero: React.FC = () => {
                 loading="eager"
                 decoding="async"
                 fetchPriority="high"
-                style={{ objectPosition: 'center 20%' }}
+                style={{ objectPosition: 'center 18%' }}
                 className="w-full h-full object-cover rounded-full transition-all duration-700"
               />
             </div>
-            <div className="absolute bottom-0 right-1 sm:bottom-1 sm:right-3 w-6 h-6 sm:w-8 sm:h-8 bg-blue-600 rounded-full flex items-center justify-center border-2 sm:border-3 border-[#050505] shadow-lg">
-              <i className="fas fa-check text-[9px] sm:text-xs text-white"></i>
+            <div className="absolute bottom-0 right-1 sm:bottom-1 sm:right-3 w-7 h-7 sm:w-9 sm:h-9 bg-blue-600 rounded-full flex items-center justify-center border-2 sm:border-3 border-[#050505] shadow-lg">
+              <i className="fas fa-check text-[10px] sm:text-xs text-white"></i>
             </div>
           </div>
         </div>
