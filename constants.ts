@@ -101,8 +101,8 @@ export const DJ_PACKAGES = [
     subtitle: "Uma experiência completa de som e iluminação para sua pista.",
     description: "Festa animada com clima de balada e pista empolgante do começo ao fim.",
     imageUrl: "/images/experiencia.webp",
-    fallbackUrl: "https://i.postimg.cc/C1FQY1mj/EXPERIENCIA-TOP.png",
-    imagePosition: "center 40%",
+    fallbackUrl: "https://i.postimg.cc/FK5NHB46/PACOTE-EXPERIENCIA.png",
+    imagePosition: "center 55%",
     price: "A partir de R$ 1.700",
     badge: "MAIS ESCOLHIDO",
     features: [
@@ -119,8 +119,8 @@ export const DJ_PACKAGES = [
     subtitle: "Som, iluminação e visual cenográfico para presença marcante.",
     description: "A mesma sonorização e iluminação do Pacote Experiência, valorizada por um layout especial com Box Truss. Uma montagem mais imponente, organizada e sofisticada para o seu espaço.",
     imageUrl: "/images/impacto.webp",
-    fallbackUrl: "https://i.postimg.cc/D0NsCjS5/Premium-top.png",
-    imagePosition: "center 20%",
+    fallbackUrl: "https://i.postimg.cc/wMZTcxSk/PACOTE-IMAPCTO-AR-LIVRE.png",
+    imagePosition: "center 30%",
     price: "A partir de R$ 1.900",
     badge: "VISUAL PREMIUM",
     features: [

@@ -92,12 +92,13 @@ export const PackagesSection: React.FC = () => {
                 `}
               >
                 {/* Imagem do Setup */}
-                <div className="relative aspect-[16/10] overflow-hidden bg-black/60 border-b border-white/5">
+                <div className="relative aspect-[4/3] overflow-hidden bg-black/60 border-b border-white/5">
                   <img 
                     src={pkg.imageUrl} 
                     alt={`Estrutura e Sonorização do ${pkg.name} - DJ Edney em Campinas e região`}
                     loading="lazy"
                     decoding="async"
+                    referrerPolicy="no-referrer"
                     style={{ objectPosition: pkg.imagePosition || 'center center' }}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     onError={(e) => {
@@ -106,7 +107,7 @@ export const PackagesSection: React.FC = () => {
                       }
                     }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-transparent opacity-80" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d]/60 via-transparent to-transparent opacity-70" />
 
                   {/* Selo / Destaque Elegante Centralizado e Discreto */}
                   {badge && (
