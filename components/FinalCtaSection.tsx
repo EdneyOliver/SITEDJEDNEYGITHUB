@@ -11,9 +11,9 @@ export const FinalCtaSection: React.FC = () => {
     trackWhatsAppLead('final_cta');
     const fbq = (window as any).fbq;
     if (fbq) {
-      fbq('track', 'Contact', { content_name: 'WhatsApp CTA Final' });
+      fbq('track', 'Contact', { content_name: 'WhatsApp CTA Final - Solicitar Orçamento' });
     }
-    const message = "Olá DJ Edney! Gostaria de consultar a disponibilidade e solicitar um orçamento para o meu evento.";
+    const message = "Olá DJ Edney! Gostaria de solicitar um orçamento para o meu evento.";
     const whatsappUrl = `https://wa.me/${APP_CONFIG.phone.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
@@ -41,42 +41,42 @@ export const FinalCtaSection: React.FC = () => {
   };
 
   return (
-    <section id="contato-section" className="py-20 sm:py-28 md:py-32 bg-[#050505] border-t border-white/5 relative overflow-hidden">
+    <section id="contato-section" className="py-12 sm:py-16 md:py-20 bg-[#050505] border-t border-white/5 relative overflow-hidden">
       {/* Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-blue-600/15 via-purple-600/15 to-transparent rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-blue-600/15 via-purple-600/15 to-transparent rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="max-w-5xl mx-auto px-5 sm:px-6 relative z-10">
+      <div className="max-w-4xl mx-auto px-5 sm:px-6 relative z-10">
         
         {/* Bloco Principal de Conversão */}
-        <div className="p-6 sm:p-12 md:p-14 rounded-3xl border border-blue-500/40 bg-gradient-to-b from-blue-950/30 via-[#0d1017] to-[#070707] text-center shadow-[0_25px_60px_rgba(0,0,0,0.8)] mb-10 sm:mb-12 ring-1 ring-blue-500/20">
+        <div className="p-6 sm:p-9 md:p-10 rounded-3xl border border-blue-500/40 bg-gradient-to-b from-blue-950/30 via-[#0d1017] to-[#070707] text-center shadow-[0_20px_50px_rgba(0,0,0,0.8)] mb-6 sm:mb-8 ring-1 ring-blue-500/20">
           
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/15 text-blue-300 text-[10px] font-black uppercase tracking-[0.3em] mb-5 sm:mb-6 border border-blue-500/30">
-            <i className="fas fa-paper-plane text-xs"></i> Próximo Passo
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/15 text-blue-300 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.25em] mb-3 sm:mb-4 border border-blue-500/30">
+            <i className="fas fa-paper-plane text-[10px]"></i> Próximo Passo
           </div>
 
-          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-sync font-black text-white uppercase tracking-tight mb-4 sm:mb-6 leading-tight">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[40px] font-sync font-black text-white uppercase tracking-tight mb-3 sm:mb-4 leading-tight">
             Vamos fazer sua festa <br className="hidden sm:inline" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400">
               acontecer?
             </span>
           </h2>
 
-          <p className="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed font-normal">
-            Conte a data, cidade e tipo do seu evento e vamos encontrar a estrutura ideal para você.
+          <p className="text-gray-300 text-xs sm:text-sm md:text-base max-w-xl mx-auto mb-6 sm:mb-7 leading-relaxed font-normal">
+            Conte o tipo de evento, cidade e número de convidados. Eu te ajudo a escolher a estrutura ideal.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-lg mx-auto mb-8 sm:mb-10">
+          <div className="flex items-center justify-center max-w-md mx-auto mb-6 sm:mb-7">
             <button
               onClick={handleWhatsAppClick}
-              className="w-full py-4 sm:py-5 px-6 sm:px-8 rounded-full bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-sans font-bold text-sm sm:text-base uppercase tracking-wider transition-all duration-300 shadow-[0_12px_40px_rgba(37,99,235,0.5)] active:scale-95 cursor-pointer inline-flex items-center justify-center gap-3 text-center"
+              className="w-full sm:w-auto min-w-[280px] sm:min-w-[320px] py-3 sm:py-3.5 px-6 sm:px-7 rounded-full bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-sans font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-[0_8px_30px_rgba(37,99,235,0.4)] active:scale-95 cursor-pointer inline-flex items-center justify-center gap-2.5 text-center"
             >
-              <span>Consultar disponibilidade no WhatsApp</span>
-              <i className="fab fa-whatsapp text-xl shrink-0"></i>
+              <span>SOLICITAR ORÇAMENTO NO WHATSAPP</span>
+              <i className="fab fa-whatsapp text-lg shrink-0"></i>
             </button>
           </div>
 
           {/* Dados de Contato e Compartilhamento */}
-          <div className="pt-6 sm:pt-8 border-t border-white/5 flex flex-wrap items-center justify-center gap-4 sm:gap-8 md:gap-10 text-xs text-gray-400">
+          <div className="pt-5 sm:pt-6 border-t border-white/5 flex flex-wrap items-center justify-center gap-4 sm:gap-8 md:gap-10 text-xs text-gray-400">
             <div className="flex items-center gap-2">
               <i className="fab fa-whatsapp text-green-400 text-sm"></i>
               <span className="text-gray-200 font-semibold">{APP_CONFIG.phone}</span>

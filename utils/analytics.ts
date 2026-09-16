@@ -101,3 +101,19 @@ export const trackSocialClick = (platform: 'instagram' | 'youtube' | 'tiktok' | 
     platform: platform,
   });
 };
+
+/**
+ * 7. Calendar Availability Check (check_availability)
+ * Informative GA4 event fired whenever a visitor checks a date in the calendar.
+ * Note: This does NOT replace generate_lead.
+ */
+export const trackCheckAvailability = (
+  selectedDate: string,
+  availabilityStatus?: 'disponivel' | 'ocupado' | 'erro' | 'consultando'
+) => {
+  trackGA4Event('check_availability', {
+    selected_date: selectedDate,
+    status: availabilityStatus,
+  });
+};
+

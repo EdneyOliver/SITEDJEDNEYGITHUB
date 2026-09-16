@@ -1,18 +1,19 @@
 
 import React from 'react';
 import { APP_CONFIG } from '../constants';
-import { trackWhatsAppLead } from '../utils/analytics';
 
 export const Hero: React.FC = () => {
-  const handleWhatsAppClick = () => {
-    trackWhatsAppLead('hero');
-    const fbq = (window as any).fbq;
-    if (fbq) {
-      fbq('track', 'Contact', { content_name: 'WhatsApp Hero - Consultar Data' });
+  const handleScrollToCalendar = () => {
+    const target = document.getElementById('consultar-data') || document.getElementById('consulte-sua-data');
+    if (target) {
+      const headerOffset = window.innerWidth < 640 ? 70 : 85;
+      const elementPosition = target.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
-    const message = "Olá DJ Edney! Gostaria de consultar a disponibilidade para o meu evento.";
-    const whatsappUrl = `https://wa.me/${APP_CONFIG.phone.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
   };
 
   return (
@@ -81,11 +82,11 @@ export const Hero: React.FC = () => {
         {/* Botão Principal de Conversão */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
           <button
-            onClick={handleWhatsAppClick}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 sm:py-4.5 rounded-full bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 text-white font-sans font-bold text-sm sm:text-base uppercase tracking-wider hover:from-blue-500 hover:to-indigo-500 transition-all duration-300 shadow-[0_10px_35px_-5px_rgba(37,99,235,0.6)] active:scale-95 cursor-pointer"
+            onClick={handleScrollToCalendar}
+            className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 sm:py-4.5 rounded-full bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 text-white font-sans font-bold text-sm sm:text-base uppercase tracking-wider hover:from-blue-500 hover:to-indigo-500 transition-all duration-300 shadow-[0_10px_35px_-5px_rgba(37,99,235,0.6)] active:scale-95 cursor-pointer"
           >
             <span>Consultar minha data</span>
-            <i className="fab fa-whatsapp text-lg sm:text-xl"></i>
+            <i className="fas fa-arrow-down text-xs sm:text-sm text-blue-100 transition-transform duration-300 group-hover:translate-y-1"></i>
           </button>
         </div>
 

@@ -5,6 +5,7 @@ import { ExperienceSection } from './components/ExperienceSection';
 import { DifferentialsSection } from './components/DifferentialsSection';
 import { PackagesSection } from './components/PackagesSection';
 import { YouTubeShortsSection } from './components/YouTubeShortsSection';
+import { DateAvailabilitySection } from './components/DateAvailabilitySection';
 import { AddonsSection } from './components/AddonsSection';
 import { NewsFeed } from './components/NewsFeed';
 import { FaqSection } from './components/FaqSection';
@@ -103,6 +104,9 @@ const App: React.FC = () => {
 
         {/* 6. VÍDEOS / YOUTUBE SHORTS */}
         <YouTubeShortsSection />
+
+        {/* 6.1. CONSULTE SUA DATA (AGENDA EM TEMPO REAL) */}
+        <DateAvailabilitySection />
 
         {/* 7. ESTRUTURAS E ADICIONAIS */}
         <AddonsSection />
