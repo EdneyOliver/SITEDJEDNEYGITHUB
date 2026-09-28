@@ -1,13 +1,12 @@
 /**
- * Utilitário para rolagem suave controlada (smooth scroll com duração personalizada)
- * Permite que a rolagem seja lenta o suficiente para o usuário visualizar as seções
- * intermediárias (como Pacotes, Diferenciais, etc.), e cancela suavemente se o usuário
- * interagir (scroll do mouse, toque no celular, etc.).
+ * Utilitário para rolagem suave lenta e controlada (smooth scroll cinemático)
+ * Permite que a descida pela página seja suave e visível o suficiente para o cliente
+ * visualizar as seções intermediárias (como Diferenciais, Pacotes e Vídeos).
  */
 
 interface SmoothScrollOptions {
-  duration?: number; // Duração em milissegundos (padrão: 2400ms para permitir leitura visual dos blocos)
-  offset?: number;   // Compensação de cabeçalho fixo (offset)
+  duration?: number; // Duração em ms (padrão: 4200ms para uma descida agradável e perceptível)
+  offset?: number;   // Compensação da altura do cabeçalho fixo
   onComplete?: () => void;
 }
 
@@ -18,7 +17,7 @@ export function smoothScrollToElement(
   if (typeof window === 'undefined') return () => {};
 
   const {
-    duration = 2400,
+    duration = 4200,
     offset = 80,
     onComplete
   } = options;
@@ -26,19 +25,30 @@ export function smoothScrollToElement(
   const element = typeof target === 'string' ? document.getElementById(target) : target;
   if (!element) return () => {};
 
-  // Respeita acessibilidade para quem prefere movimento reduzido
-  const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
-  
-  const elementPosition = element.getBoundingClientRect().top;
-  const startY = window.pageYOffset || document.documentElement.scrollTop;
-  const targetY = Math.max(0, elementPosition + startY - offset);
+  // Forçar scroll-behavior 'auto' temporariamente para evitar conflitos com animações nativas do navegador
+  const htmlElem = document.documentElement;
+  const bodyElem = document.body;
+  const prevHtmlScrollBehavior = htmlElem.style.scrollBehavior;
+  const prevBodyScrollBehavior = bodyElem.style.scrollBehavior;
+
+  htmlElem.style.scrollBehavior = 'auto';
+  bodyElem.style.scrollBehavior = 'auto';
+
+  // Obter posição atual de rolagem de forma compatível com todos os navegadores
+  const getScrollY = (): number => {
+    return window.pageYOffset || htmlElem.scrollTop || bodyElem.scrollTop || 0;
+  };
+
+  const startY = getScrollY();
+  const elementRect = element.getBoundingClientRect();
+  const targetY = Math.max(0, elementRect.top + startY - offset);
   const distance = targetY - startY;
 
-  if (prefersReducedMotion || duration <= 0 || Math.abs(distance) < 10) {
-    window.scrollTo({
-      top: targetY,
-      behavior: 'auto'
-    });
+  // Se a distância for insignificante, apenas posiciona
+  if (Math.abs(distance) < 15) {
+    window.scrollTo(0, targetY);
+    htmlElem.style.scrollBehavior = prevHtmlScrollBehavior;
+    bodyElem.style.scrollBehavior = prevBodyScrollBehavior;
     onComplete?.();
     return () => {};
   }
@@ -46,20 +56,42 @@ export function smoothScrollToElement(
   let startTime: number | null = null;
   let animationFrameId: number | null = null;
   let isCancelled = false;
+  let canCancel = false;
 
-  // Curva de aceleração e desaceleração suave (easeInOutCubic)
-  // Início gradual, velocidade de cruzeiro controlada e frenagem sutil
-  const easeInOutCubic = (t: number): number => {
-    return t < 0.5 
-      ? 4 * t * t * t 
-      : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  // Permitir cancelamento por interação manual apenas após 600ms de carência
+  // Isso evita que o próprio clique do botão ou eventos residuais de toque cancelem a animação no início
+  const graceTimer = window.setTimeout(() => {
+    canCancel = true;
+  }, 600);
+
+  /**
+   * Curva easeInOutSine:
+   * Aceleração suave no início, velocidade de cruzeiro constante e moderada
+   * (velocidade máxima de apenas ~1.57x a média, sem picos bruscos como o cubic),
+   * e desaceleração suave ao chegar no destino.
+   */
+  const easeInOutSine = (t: number): number => {
+    return -(Math.cos(Math.PI * t) - 1) / 2;
   };
 
-  const removeListeners = () => {
-    window.removeEventListener('wheel', cancelOnInteraction);
-    window.removeEventListener('touchstart', cancelOnInteraction);
-    window.removeEventListener('pointerdown', cancelOnInteraction);
-    window.removeEventListener('keydown', cancelOnInteraction);
+  const setScrollPosition = (y: number) => {
+    window.scrollTo({
+      top: y,
+      left: 0,
+      behavior: 'instant' as ScrollBehavior
+    });
+    // Fallback garantido para navegadores mais antigos ou WebViews
+    htmlElem.scrollTop = y;
+    bodyElem.scrollTop = y;
+  };
+
+  const cleanup = () => {
+    window.clearTimeout(graceTimer);
+    window.removeEventListener('wheel', onWheelInteraction);
+    window.removeEventListener('touchmove', onTouchMoveInteraction);
+    window.removeEventListener('keydown', onKeyInteraction);
+    htmlElem.style.scrollBehavior = prevHtmlScrollBehavior;
+    bodyElem.style.scrollBehavior = prevBodyScrollBehavior;
   };
 
   const cancel = () => {
@@ -68,19 +100,35 @@ export function smoothScrollToElement(
       if (animationFrameId !== null) {
         cancelAnimationFrame(animationFrameId);
       }
-      removeListeners();
+      cleanup();
     }
   };
 
-  function cancelOnInteraction() {
+  function onWheelInteraction(e: WheelEvent) {
+    if (!canCancel) return;
+    // Cancela apenas se houver movimento intencional da roda do mouse (evita micro-jitters)
+    if (Math.abs(e.deltaY) > 15 || Math.abs(e.deltaX) > 15) {
+      cancel();
+    }
+  }
+
+  function onTouchMoveInteraction() {
+    if (!canCancel) return;
+    // Cancela se o usuário arrastar a tela com o dedo
     cancel();
   }
 
-  // Se o usuário tocar ou rolar a página manualmente, encerra a animação imediatamente
-  window.addEventListener('wheel', cancelOnInteraction, { passive: true });
-  window.addEventListener('touchstart', cancelOnInteraction, { passive: true });
-  window.addEventListener('pointerdown', cancelOnInteraction, { passive: true });
-  window.addEventListener('keydown', cancelOnInteraction, { passive: true });
+  function onKeyInteraction(e: KeyboardEvent) {
+    if (!canCancel) return;
+    // Cancela se o usuário pressionar teclas de rolagem
+    if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(e.key)) {
+      cancel();
+    }
+  }
+
+  window.addEventListener('wheel', onWheelInteraction, { passive: true });
+  window.addEventListener('touchmove', onTouchMoveInteraction, { passive: true });
+  window.addEventListener('keydown', onKeyInteraction, { passive: true });
 
   const step = (currentTime: number) => {
     if (isCancelled) return;
@@ -91,14 +139,16 @@ export function smoothScrollToElement(
 
     const elapsed = currentTime - startTime;
     const progress = Math.min(elapsed / duration, 1);
-    const easedProgress = easeInOutCubic(progress);
+    const easedProgress = easeInOutSine(progress);
 
-    window.scrollTo(0, startY + (distance * easedProgress));
+    const currentY = startY + (distance * easedProgress);
+    setScrollPosition(currentY);
 
     if (progress < 1) {
       animationFrameId = requestAnimationFrame(step);
     } else {
-      removeListeners();
+      setScrollPosition(targetY);
+      cleanup();
       onComplete?.();
     }
   };

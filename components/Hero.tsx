@@ -7,9 +7,12 @@ export const Hero: React.FC = () => {
   const handleScrollToCalendar = () => {
     const target = document.getElementById('consultar-data') || document.getElementById('consulte-sua-data');
     if (target) {
-      const headerOffset = window.innerWidth < 640 ? 70 : 85;
+      const isMobile = window.innerWidth < 640;
+      const headerOffset = isMobile ? 70 : 85;
+      const scrollDuration = isMobile ? 4400 : 3800;
+
       smoothScrollToElement(target, {
-        duration: 2400,
+        duration: scrollDuration,
         offset: headerOffset
       });
     }
