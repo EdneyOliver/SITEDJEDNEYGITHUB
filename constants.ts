@@ -136,6 +136,27 @@ export const DJ_PACKAGES = [
 
 export const YOUTUBE_SHORTS: YouTubeShortItem[] = [
   {
+    id: "nNh5KIFo0z8",
+    title: "Agenda 2027 já está aberta!!! 2026 ainda tem data disponível!!!",
+    thumbnailUrl: "https://i.ytimg.com/vi/nNh5KIFo0z8/maxresdefault.jpg",
+    youtubeUrl: "https://www.youtube.com/shorts/nNh5KIFo0z8",
+    pubDate: "2026-09-28 14:34:22"
+  },
+  {
+    id: "mvxwFZv7LDM",
+    title: "Bodas de Prata da Selma & Bertinho",
+    thumbnailUrl: "https://i.ytimg.com/vi/mvxwFZv7LDM/maxresdefault.jpg",
+    youtubeUrl: "https://www.youtube.com/shorts/mvxwFZv7LDM",
+    pubDate: "2026-09-28 13:27:22"
+  },
+  {
+    id: "6nYcpigqXsk",
+    title: "🎧 Precisa de um DJ para a sua festa?",
+    thumbnailUrl: "https://i.ytimg.com/vi/6nYcpigqXsk/maxresdefault.jpg",
+    youtubeUrl: "https://www.youtube.com/shorts/6nYcpigqXsk",
+    pubDate: "2026-09-20 21:07:44"
+  },
+  {
     id: "9fxOe5jII2U",
     title: "💍 Casamento Débora & Diego | 05.09.2026",
     thumbnailUrl: "https://i.ytimg.com/vi/9fxOe5jII2U/maxresdefault.jpg",

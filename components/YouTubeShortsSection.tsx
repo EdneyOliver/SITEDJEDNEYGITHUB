@@ -11,6 +11,7 @@ export const YouTubeShortsSection: React.FC = () => {
     return cached && cached.length > 0 ? cached : YOUTUBE_SHORTS;
   });
   const [isSyncing, setIsSyncing] = useState<boolean>(false);
+  const [syncStatus, setSyncStatus] = useState<string | null>(null);
 
   // Sincronização automática em segundo plano com o feed oficial do YouTube
   useEffect(() => {
@@ -37,15 +38,21 @@ export const YouTubeShortsSection: React.FC = () => {
   const handleManualRefresh = async () => {
     if (isSyncing) return;
     setIsSyncing(true);
+    setSyncStatus(null);
     try {
       const latest = await fetchLatestYouTubeShorts(true);
       if (latest && latest.length > 0) {
         setShorts(latest);
+        setSyncStatus('Vídeos atualizados!');
+      } else {
+        setSyncStatus('Canal atualizado');
       }
     } catch (err) {
       console.warn('Erro ao atualizar vídeos:', err);
+      setSyncStatus('Erro ao consultar');
     } finally {
-      setTimeout(() => setIsSyncing(false), 600);
+      setIsSyncing(false);
+      setTimeout(() => setSyncStatus(null), 4000);
     }
   };
 
@@ -77,8 +84,14 @@ export const YouTubeShortsSection: React.FC = () => {
               title="Sincronizar com os vídeos mais recentes postados no YouTube"
               className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 hover:bg-white/10 text-gray-300 text-[10px] font-sans font-medium border border-white/10 transition-colors cursor-pointer active:scale-95"
             >
-              <span className={`w-1.5 h-1.5 rounded-full ${isSyncing ? 'bg-amber-400 animate-ping' : 'bg-emerald-400'}`}></span>
-              <span>{isSyncing ? 'Buscando novidades...' : 'Canal Sincronizado'}</span>
+              <span className={`w-1.5 h-1.5 rounded-full ${isSyncing ? 'bg-amber-400 animate-ping' : syncStatus ? 'bg-cyan-400' : 'bg-emerald-400'}`}></span>
+              <span>
+                {isSyncing 
+                  ? 'Buscando novidades...' 
+                  : syncStatus 
+                    ? syncStatus 
+                    : 'Sincronizar Canal'}
+              </span>
               <i className={`fas fa-rotate-right text-[9px] text-gray-400 ml-0.5 ${isSyncing ? 'animate-spin' : ''}`}></i>
             </button>
           </div>
