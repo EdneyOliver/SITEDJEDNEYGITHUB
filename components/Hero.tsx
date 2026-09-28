@@ -1,17 +1,16 @@
 
 import React from 'react';
 import { APP_CONFIG } from '../constants';
+import { smoothScrollToElement } from '../utils/scroll';
 
 export const Hero: React.FC = () => {
   const handleScrollToCalendar = () => {
     const target = document.getElementById('consultar-data') || document.getElementById('consulte-sua-data');
     if (target) {
       const headerOffset = window.innerWidth < 640 ? 70 : 85;
-      const elementPosition = target.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
+      smoothScrollToElement(target, {
+        duration: 2400,
+        offset: headerOffset
       });
     }
   };
