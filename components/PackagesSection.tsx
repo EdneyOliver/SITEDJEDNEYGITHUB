@@ -75,8 +75,8 @@ export const PackagesSection: React.FC = () => {
         {/* 2. CARDS DOS PACOTES */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-7 items-stretch mb-12 sm:mb-16">
           {DJ_PACKAGES.map((pkg) => {
-            const isImpacto = pkg.id === 'impacto';
-            const isExperiencia = pkg.id === 'experiencia';
+            const isCompleto = pkg.id === 'completo' || pkg.id === 'impacto';
+            const isIntermediario = pkg.id === 'intermediario' || pkg.id === 'experiencia';
             const badge = (pkg as any).badge;
 
             return (
@@ -84,9 +84,9 @@ export const PackagesSection: React.FC = () => {
                 key={pkg.id} 
                 className={`
                   rounded-3xl flex flex-col justify-between transition-all duration-500 relative overflow-hidden group
-                  ${isExperiencia
+                  ${isIntermediario
                     ? 'border-2 border-blue-500/60 bg-gradient-to-b from-blue-950/30 via-[#0d121c] to-[#070707] shadow-[0_15px_40px_rgba(59,130,246,0.2)] ring-1 ring-blue-500/20'
-                    : isImpacto 
+                    : isCompleto 
                     ? 'border border-purple-500/40 bg-gradient-to-b from-purple-950/20 via-[#0e1018] to-[#070707] shadow-lg'
                     : 'border border-white/10 bg-[#0d0d0d] hover:border-white/20 shadow-md'}
                 `}
@@ -114,13 +114,13 @@ export const PackagesSection: React.FC = () => {
                     <div className="absolute top-2.5 sm:top-3 inset-x-0 flex justify-center z-20 pointer-events-none">
                       <span 
                         className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[9px] font-sync font-bold uppercase tracking-wider backdrop-blur-md shadow-sm border ${
-                          isExperiencia 
+                          isIntermediario 
                             ? 'bg-blue-500/25 text-blue-200 border-blue-400/40 shadow-[0_2px_10px_rgba(59,130,246,0.25)]' 
                             : 'bg-purple-500/25 text-purple-200 border-purple-400/40 shadow-[0_2px_10px_rgba(168,85,247,0.2)]'
                         }`}
                       >
-                        {isExperiencia && <i className="fas fa-star text-[8px] text-blue-300"></i>}
-                        {isImpacto && <i className="fas fa-crown text-[8px] text-purple-300"></i>}
+                        {isIntermediario && <i className="fas fa-star text-[8px] text-blue-300"></i>}
+                        {isCompleto && <i className="fas fa-crown text-[8px] text-purple-300"></i>}
                         {badge}
                       </span>
                     </div>
@@ -135,7 +135,7 @@ export const PackagesSection: React.FC = () => {
                         <span>{pkg.name}</span>
                       </h3>
                       
-                      <p className={`text-xs font-semibold mb-2.5 leading-snug ${isImpacto ? 'text-purple-300' : isExperiencia ? 'text-blue-400' : 'text-gray-400'}`}>
+                      <p className={`text-xs font-semibold mb-2.5 leading-snug ${isCompleto ? 'text-purple-300' : isIntermediario ? 'text-blue-400' : 'text-gray-400'}`}>
                         {pkg.subtitle}
                       </p>
 
@@ -151,7 +151,7 @@ export const PackagesSection: React.FC = () => {
                       </div>
                       {pkg.features.map((feature, i) => (
                         <div key={i} className="flex items-start gap-2.5">
-                          <i className={`fas fa-check-circle text-xs mt-0.5 shrink-0 ${isImpacto ? 'text-purple-400' : isExperiencia ? 'text-blue-400' : 'text-blue-400/80'}`}></i>
+                          <i className={`fas fa-check-circle text-xs mt-0.5 shrink-0 ${isCompleto ? 'text-purple-400' : isIntermediario ? 'text-blue-400' : 'text-blue-400/80'}`}></i>
                           <span className="text-gray-200 text-xs leading-snug">{feature}</span>
                         </div>
                       ))}
@@ -168,12 +168,12 @@ export const PackagesSection: React.FC = () => {
                             <span className="text-xs sm:text-sm text-gray-300 font-sans font-medium whitespace-nowrap">
                               A partir de
                             </span>
-                            <span className={`text-2xl sm:text-3xl font-sync font-black whitespace-nowrap tracking-tight ${isImpacto ? 'text-transparent bg-clip-text bg-gradient-to-r from-purple-200 via-white to-indigo-200' : 'text-white'}`}>
+                            <span className={`text-2xl sm:text-3xl font-sync font-black whitespace-nowrap tracking-tight ${isCompleto ? 'text-transparent bg-clip-text bg-gradient-to-r from-purple-200 via-white to-indigo-200' : 'text-white'}`}>
                               {pkg.price.replace('A partir de ', '')}
                             </span>
                           </>
                         ) : (
-                          <span className={`text-2xl sm:text-3xl font-sync font-black whitespace-nowrap tracking-tight ${isImpacto ? 'text-transparent bg-clip-text bg-gradient-to-r from-purple-200 via-white to-indigo-200' : 'text-white'}`}>
+                          <span className={`text-2xl sm:text-3xl font-sync font-black whitespace-nowrap tracking-tight ${isCompleto ? 'text-transparent bg-clip-text bg-gradient-to-r from-purple-200 via-white to-indigo-200' : 'text-white'}`}>
                             {pkg.price}
                           </span>
                         )}
@@ -184,9 +184,9 @@ export const PackagesSection: React.FC = () => {
                     <button
                       onClick={() => handleSelectPackage(pkg.name, pkg.price, pkg.id)}
                       className={`w-full py-3.5 px-4 rounded-xl font-sans font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer ${
-                        isExperiencia
+                        isIntermediario
                           ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-[0_10px_25px_rgba(59,130,246,0.35)] active:scale-95'
-                          : isImpacto
+                          : isCompleto
                           ? 'bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white shadow-[0_10px_30px_rgba(168,85,247,0.35)] active:scale-95'
                           : 'bg-white/5 hover:bg-blue-600 hover:text-white text-gray-200 border border-white/10 active:scale-95'
                       }`}

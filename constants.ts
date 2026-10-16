@@ -80,14 +80,14 @@ export const ALL_PACKAGES_INCLUDE = [
 
 export const DJ_PACKAGES = [
   {
-    id: "essencial",
-    name: "Essencial",
+    id: "basico",
+    name: "Básico",
     subtitle: "Para celebrações menores e eventos intimistas.",
     description: "Recomendado para ambientes fechados e de pequeno porte. Ideal para aniversários em salões de condomínio e reuniões familiares.",
     imageUrl: "/images/essencial.webp", 
     fallbackUrl: "https://i.postimg.cc/xjbn4pNH/essencial-02-sem-moving.png",
     imagePosition: "center 80%",
-    price: "A partir de R$ 1.100",
+    price: "A partir de R$ 999,00",
     features: [
       "Recomendado para ambientes fechados e pequenos",
       "Sonorização de alta qualidade equilibrada para o espaço",
@@ -97,14 +97,14 @@ export const DJ_PACKAGES = [
     highlight: false
   },
   {
-    id: "experiencia",
-    name: "Experiência",
+    id: "intermediario",
+    name: "Intermediário",
     subtitle: "Uma experiência completa de som e iluminação para sua pista.",
     description: "Festa animada com clima de balada e pista empolgante do começo ao fim.",
     imageUrl: "/images/experiencia.webp",
     fallbackUrl: "https://i.postimg.cc/FK5NHB46/PACOTE-EXPERIENCIA.png",
     imagePosition: "center 55%",
-    price: "A partir de R$ 1.700",
+    price: "A partir de R$ 1.499,00",
     badge: "MAIS ESCOLHIDO",
     features: [
       "Sonorização potente para ambientes médios e grandes",
@@ -115,17 +115,17 @@ export const DJ_PACKAGES = [
     highlight: true
   },
   {
-    id: "impacto",
-    name: "Impacto",
+    id: "completo",
+    name: "Completo",
     subtitle: "Som, iluminação e visual cenográfico para presença marcante.",
-    description: "A mesma sonorização e iluminação do Pacote Experiência, valorizada por um layout especial com Box Truss. Uma montagem mais imponente, organizada e sofisticada para o seu espaço.",
+    description: "A mesma sonorização e iluminação do Pacote Intermediário, valorizada por um layout especial com Box Truss. Uma montagem mais imponente, organizada e sofisticada para o seu espaço.",
     imageUrl: "/images/impacto.webp",
     fallbackUrl: "https://i.postimg.cc/wMZTcxSk/PACOTE-IMAPCTO-AR-LIVRE.png",
     imagePosition: "center 30%",
-    price: "A partir de R$ 1.900",
+    price: "A partir de R$ 1.699,00",
     badge: "VISUAL PREMIUM",
     features: [
-      "Toda a sonorização e iluminação do Pacote Experiência",
+      "Toda a sonorização e iluminação do Pacote Intermediário",
       "Layout especial com Box Truss para valorização estética do espaço",
       "Montagem imponente, organizada e visualmente sofisticada",
       "Cenografia marcante e elegante que valoriza fotos e vídeos"
