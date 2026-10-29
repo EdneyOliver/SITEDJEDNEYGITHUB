@@ -80,56 +80,43 @@ export const ALL_PACKAGES_INCLUDE = [
 
 export const DJ_PACKAGES = [
   {
-    id: "basico",
-    name: "Básico",
-    subtitle: "Para celebrações menores e eventos intimistas.",
-    description: "Recomendado para ambientes fechados e de pequeno porte. Ideal para aniversários em salões de condomínio e reuniões familiares.",
+    id: "eventos-sociais",
+    tag: "01 · EVENTOS SOCIAIS",
+    name: "Eventos Sociais",
+    subtitle: "Celebrações e encontros",
+    description: "Aniversários, confraternizações, churrascos e comemorações particulares.",
+    detail: "Sonorização, iluminação e seleção musical adequadas ao espaço e ao perfil dos convidados.",
     imageUrl: "/images/essencial.webp", 
     fallbackUrl: "https://i.postimg.cc/xjbn4pNH/essencial-02-sem-moving.png",
     imagePosition: "center 80%",
-    price: "A partir de R$ 999,00",
-    features: [
-      "Recomendado para ambientes fechados e pequenos",
-      "Sonorização de alta qualidade equilibrada para o espaço",
-      "Iluminação decorativa para valorizar o ambiente",
-      "Mesa de DJ compacta e organizada"
-    ],
+    whatsappMessage: "Olá DJ Edney! Gostaria de solicitar uma proposta para Eventos Sociais (aniversário / confraternização).",
     highlight: false
   },
   {
-    id: "intermediario",
-    name: "Intermediário",
-    subtitle: "Uma experiência completa de som e iluminação para sua pista.",
-    description: "Festa animada com clima de balada e pista empolgante do começo ao fim.",
+    id: "casamentos",
+    tag: "02 · CASAMENTOS",
+    name: "Casamentos",
+    subtitle: "Uma festa com a sua identidade",
+    description: "Cerimônias e recepções planejadas de acordo com os momentos do evento.",
+    detail: "Curadoria musical personalizada, estrutura adequada e atenção aos detalhes.",
     imageUrl: "/images/experiencia.webp",
     fallbackUrl: "https://i.postimg.cc/FK5NHB46/PACOTE-EXPERIENCIA.png",
     imagePosition: "center 55%",
-    price: "A partir de R$ 1.499,00",
+    whatsappMessage: "Olá DJ Edney! Gostaria de solicitar uma proposta para Casamento (cerimônia / recepção).",
     badge: "MAIS ESCOLHIDO",
-    features: [
-      "Sonorização potente para ambientes médios e grandes",
-      "Iluminação estilo balada com efeitos e movimentos",
-      "Máquina de fumaça inclusa para realçar os feixes de luz",
-      "Estrutura completa para criar clima de pista de dança"
-    ],
     highlight: true
   },
   {
-    id: "completo",
-    name: "Completo",
-    subtitle: "Som, iluminação e visual cenográfico para presença marcante.",
-    description: "A mesma sonorização e iluminação do Pacote Intermediário, valorizada por um layout especial com Box Truss. Uma montagem mais imponente, organizada e sofisticada para o seu espaço.",
+    id: "eventos-festas",
+    tag: "03 · EVENTOS E FESTAS",
+    name: "Eventos e Festas",
+    subtitle: "Som, luz e pista de dança",
+    description: "Festas de debutante, eventos corporativos, bares e inaugurações.",
+    detail: "Montagem definida conforme o ambiente, o público e a proposta musical.",
     imageUrl: "/images/impacto.webp",
     fallbackUrl: "https://i.postimg.cc/wMZTcxSk/PACOTE-IMAPCTO-AR-LIVRE.png",
     imagePosition: "center 30%",
-    price: "A partir de R$ 1.699,00",
-    badge: "VISUAL PREMIUM",
-    features: [
-      "Toda a sonorização e iluminação do Pacote Intermediário",
-      "Layout especial com Box Truss para valorização estética do espaço",
-      "Montagem imponente, organizada e visualmente sofisticada",
-      "Cenografia marcante e elegante que valoriza fotos e vídeos"
-    ],
+    whatsappMessage: "Olá DJ Edney! Gostaria de solicitar uma proposta para Eventos e Festas (debutante / corporativo).",
     highlight: false
   }
 ];
