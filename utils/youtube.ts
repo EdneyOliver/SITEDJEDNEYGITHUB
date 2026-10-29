@@ -1,7 +1,7 @@
 import { YouTubeShortItem } from '../types';
 import { YOUTUBE_SHORTS, APP_CONFIG } from '../constants';
 
-const CACHE_KEY = 'djedney_youtube_shorts_cache_v4';
+const CACHE_KEY = 'djedney_youtube_shorts_cache_v5';
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutos
 
 interface ShortsCachePayload {

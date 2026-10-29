@@ -123,6 +123,20 @@ export const DJ_PACKAGES = [
 
 export const YOUTUBE_SHORTS: YouTubeShortItem[] = [
   {
+    id: "tpzcrg3f7wY",
+    title: "🎧🎉 Um dia especial, cheio de música, alegria e sorrisos!",
+    thumbnailUrl: "https://i.ytimg.com/vi/tpzcrg3f7wY/maxresdefault.jpg",
+    youtubeUrl: "https://www.youtube.com/shorts/tpzcrg3f7wY",
+    pubDate: "2026-10-25 15:00:00"
+  },
+  {
+    id: "AsUYWufsACE",
+    title: "Sábado foi dia de celebrar o amor no casamento da Débora e do João! ❤️🎧",
+    thumbnailUrl: "https://i.ytimg.com/vi/AsUYWufsACE/maxresdefault.jpg",
+    youtubeUrl: "https://www.youtube.com/shorts/AsUYWufsACE",
+    pubDate: "2026-10-18 16:30:00"
+  },
+  {
     id: "nNh5KIFo0z8",
     title: "Agenda 2027 já está aberta!!! 2026 ainda tem data disponível!!!",
     thumbnailUrl: "https://i.ytimg.com/vi/nNh5KIFo0z8/maxresdefault.jpg",
