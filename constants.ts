@@ -123,6 +123,20 @@ export const DJ_PACKAGES = [
 
 export const YOUTUBE_SHORTS: YouTubeShortItem[] = [
   {
+    id: "PrDfJ4iPLoM",
+    title: "Um dia especial merece uma trilha sonora à altura! ❤️🎧",
+    thumbnailUrl: "https://i.ytimg.com/vi/PrDfJ4iPLoM/maxresdefault.jpg",
+    youtubeUrl: "https://www.youtube.com/shorts/PrDfJ4iPLoM",
+    pubDate: "2026-11-05 10:00:00"
+  },
+  {
+    id: "yAXVI00WDxA",
+    title: "Um pouquinho de como foi essa festa especial! 🎶❤️ Marina, muito obrigado pelo convite e pelo carinho!",
+    thumbnailUrl: "https://i.ytimg.com/vi/yAXVI00WDxA/maxresdefault.jpg",
+    youtubeUrl: "https://www.youtube.com/shorts/yAXVI00WDxA",
+    pubDate: "2026-11-04 02:08:02"
+  },
+  {
     id: "tpzcrg3f7wY",
     title: "🎧🎉 Um dia especial, cheio de música, alegria e sorrisos!",
     thumbnailUrl: "https://i.ytimg.com/vi/tpzcrg3f7wY/maxresdefault.jpg",

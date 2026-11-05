@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { YOUTUBE_SHORTS, APP_CONFIG } from '../constants';
 import { YouTubeShortItem } from '../types';
 import { trackShortVideoClick, trackYouTubeChannelClick } from '../utils/analytics';
-import { fetchLatestYouTubeShorts, getCachedYouTubeShorts } from '../utils/youtube';
+import { 
+  fetchLatestYouTubeShorts, 
+  getCachedYouTubeShorts, 
+  fetchShortInfoByUrlOrId, 
+  saveCustomShort 
+} from '../utils/youtube';
 
 export const YouTubeShortsSection: React.FC = () => {
   const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
@@ -12,16 +17,22 @@ export const YouTubeShortsSection: React.FC = () => {
   });
   const [isSyncing, setIsSyncing] = useState<boolean>(false);
   const [syncStatus, setSyncStatus] = useState<string | null>(null);
+  
+  // Modal de adição rápida por link/ID
+  const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
+  const [videoInputUrl, setVideoInputUrl] = useState<string>('');
+  const [isAddingVideo, setIsAddingVideo] = useState<boolean>(false);
+  const [addFeedback, setAddFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
-  // Sincronização automática em segundo plano com o feed oficial do YouTube
+  // Sincronização automática em segundo plano (respeita cache de 3 horas para não estourar rate limit)
   useEffect(() => {
     let isMounted = true;
 
     const syncFeed = async () => {
       try {
-        const latest = await fetchLatestYouTubeShorts();
-        if (isMounted && latest && latest.length > 0) {
-          setShorts(latest);
+        const result = await fetchLatestYouTubeShorts(false);
+        if (isMounted && result.shorts && result.shorts.length > 0) {
+          setShorts(result.shorts);
         }
       } catch (err) {
         console.warn('Sincronização em segundo plano:', err);
@@ -40,10 +51,16 @@ export const YouTubeShortsSection: React.FC = () => {
     setIsSyncing(true);
     setSyncStatus(null);
     try {
-      const latest = await fetchLatestYouTubeShorts(true);
-      if (latest && latest.length > 0) {
-        setShorts(latest);
-        setSyncStatus('Vídeos atualizados!');
+      const result = await fetchLatestYouTubeShorts(true);
+      if (result.shorts && result.shorts.length > 0) {
+        setShorts(result.shorts);
+        if (result.newVideosCount > 0) {
+          setSyncStatus(`${result.newVideosCount} novo(s) vídeo(s)!`);
+        } else if (result.success) {
+          setSyncStatus('Canal já atualizado');
+        } else {
+          setSyncStatus('Vídeos recarregados');
+        }
       } else {
         setSyncStatus('Canal atualizado');
       }
@@ -52,7 +69,53 @@ export const YouTubeShortsSection: React.FC = () => {
       setSyncStatus('Erro ao consultar');
     } finally {
       setIsSyncing(false);
-      setTimeout(() => setSyncStatus(null), 4000);
+      setTimeout(() => setSyncStatus(null), 4500);
+    }
+  };
+
+  const handleAddVideoSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!videoInputUrl.trim() || isAddingVideo) return;
+
+    setIsAddingVideo(true);
+    setAddFeedback(null);
+
+    try {
+      const newItem = await fetchShortInfoByUrlOrId(videoInputUrl);
+      if (!newItem) {
+        setAddFeedback({
+          type: 'error',
+          message: 'Link inválido. Insira um link válido do YouTube Shorts (ex: youtube.com/shorts/...)'
+        });
+        setIsAddingVideo(false);
+        return;
+      }
+
+      // Salva no armazenamento persistente e atualiza tela
+      saveCustomShort(newItem);
+      setShorts(prev => {
+        const filtered = prev.filter(x => x.id !== newItem.id);
+        return [newItem, ...filtered];
+      });
+
+      setAddFeedback({
+        type: 'success',
+        message: 'Vídeo adicionado com sucesso ao site!'
+      });
+      setVideoInputUrl('');
+
+      setTimeout(() => {
+        setIsAddModalOpen(false);
+        setAddFeedback(null);
+      }, 1500);
+    } catch (err) {
+      console.error('Erro ao adicionar short:', err);
+      setAddFeedback({
+        type: 'error',
+        message: 'Erro ao processar o vídeo. Verifique sua conexão e tente novamente.'
+      });
+    } finally {
+      setIsAddingVideo(false);
     }
   };
 
@@ -78,6 +141,8 @@ export const YouTubeShortsSection: React.FC = () => {
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-500/10 text-red-400 text-[10px] font-black uppercase tracking-[0.25em] border border-red-500/20">
               <i className="fab fa-youtube text-xs"></i> Experiência ao Vivo
             </div>
+
+            {/* Botão de Sincronização com o Canal */}
             <button
               onClick={handleManualRefresh}
               disabled={isSyncing}
@@ -94,7 +159,79 @@ export const YouTubeShortsSection: React.FC = () => {
               </span>
               <i className={`fas fa-rotate-right text-[9px] text-gray-400 ml-0.5 ${isSyncing ? 'animate-spin' : ''}`}></i>
             </button>
+
+            {/* Botão para Inserir Short pelo Link (Garante atualização instantânea) */}
+            <button
+              onClick={() => setIsAddModalOpen(prev => !prev)}
+              title="Adicionar um Short recém-postado pelo link"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-500/10 hover:bg-red-500/20 text-red-300 hover:text-white text-[10px] font-sans font-medium border border-red-500/30 transition-colors cursor-pointer active:scale-95"
+            >
+              <i className="fas fa-plus text-[9px] text-red-400"></i>
+              <span>Adicionar por Link</span>
+            </button>
           </div>
+
+          {/* Mini-Painel de Inserção por Link */}
+          {isAddModalOpen && (
+            <div className="mb-6 p-4 rounded-2xl bg-[#111114] border border-red-500/30 max-w-lg mx-auto shadow-2xl text-left animate-in fade-in zoom-in-95 duration-200">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-sync font-bold text-white flex items-center gap-1.5">
+                  <i className="fab fa-youtube text-red-500"></i>
+                  Adicionar Novo Short ao Site
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsAddModalOpen(false);
+                    setAddFeedback(null);
+                  }}
+                  className="text-gray-400 hover:text-white text-xs p-1"
+                >
+                  <i className="fas fa-times"></i>
+                </button>
+              </div>
+              <p className="text-[11px] text-gray-400 mb-3">
+                Cole o link ou ID de qualquer Short recém-postado no seu canal para colocá-lo no topo imediatamente.
+              </p>
+              <form onSubmit={handleAddVideoSubmit} className="flex flex-col sm:flex-row gap-2">
+                <input
+                  type="text"
+                  value={videoInputUrl}
+                  onChange={(e) => setVideoInputUrl(e.target.value)}
+                  placeholder="https://www.youtube.com/shorts/..."
+                  className="flex-1 bg-black/60 border border-white/15 focus:border-red-500 rounded-xl px-3 py-2 text-xs text-white placeholder-gray-500 outline-none"
+                  disabled={isAddingVideo}
+                  autoFocus
+                />
+                <button
+                  type="submit"
+                  disabled={isAddingVideo || !videoInputUrl.trim()}
+                  className="px-4 py-2 bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white font-sync font-bold text-[11px] rounded-xl uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap flex items-center justify-center gap-1.5"
+                >
+                  {isAddingVideo ? (
+                    <>
+                      <i className="fas fa-circle-notch animate-spin text-[10px]"></i>
+                      <span>Carregando...</span>
+                    </>
+                  ) : (
+                    <>
+                      <i className="fas fa-check text-[10px]"></i>
+                      <span>Adicionar</span>
+                    </>
+                  )}
+                </button>
+              </form>
+
+              {addFeedback && (
+                <div className={`mt-2.5 text-[11px] px-3 py-1.5 rounded-lg flex items-center gap-2 ${
+                  addFeedback.type === 'success' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-red-500/20 text-red-300 border border-red-500/30'
+                }`}>
+                  <i className={`fas ${addFeedback.type === 'success' ? 'fa-check-circle' : 'fa-exclamation-triangle'}`}></i>
+                  <span>{addFeedback.message}</span>
+                </div>
+              )}
+            </div>
+          )}
 
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-sync font-black text-white uppercase tracking-tight mb-3.5 leading-tight">
             Veja meus <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-pink-500 to-purple-400">trabalhos</span>
