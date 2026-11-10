@@ -123,6 +123,20 @@ export const DJ_PACKAGES = [
 
 export const YOUTUBE_SHORTS: YouTubeShortItem[] = [
   {
+    id: "H21k9nmkyDM",
+    title: "No dia 7 de novembro, foi dia de celebrar os 15 anos da Luíza! 🎉",
+    thumbnailUrl: "https://i.ytimg.com/vi/H21k9nmkyDM/maxresdefault.jpg",
+    youtubeUrl: "https://www.youtube.com/shorts/H21k9nmkyDM",
+    pubDate: "2026-11-09 18:00:00"
+  },
+  {
+    id: "ZBXbiILhFOc",
+    title: "Uma noite muito especial! 🎧❤️",
+    thumbnailUrl: "https://i.ytimg.com/vi/ZBXbiILhFOc/maxresdefault.jpg",
+    youtubeUrl: "https://www.youtube.com/shorts/ZBXbiILhFOc",
+    pubDate: "2026-11-08 19:00:00"
+  },
+  {
     id: "PrDfJ4iPLoM",
     title: "Um dia especial merece uma trilha sonora à altura! ❤️🎧",
     thumbnailUrl: "https://i.ytimg.com/vi/PrDfJ4iPLoM/maxresdefault.jpg",

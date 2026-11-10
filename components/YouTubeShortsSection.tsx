@@ -6,13 +6,16 @@ import { trackShortVideoClick, trackYouTubeChannelClick } from '../utils/analyti
 export const YouTubeShortsSection: React.FC = () => {
   const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
 
+  // Exibe estritamente os 6 últimos Shorts postados
+  const visibleShorts = YOUTUBE_SHORTS.slice(0, 6);
+
   const handlePlayVideo = (item: YouTubeShortItem, position: number) => {
     trackShortVideoClick(item.title, item.youtubeUrl, position);
     setActiveVideoId(item.id);
   };
 
   const handleMoreShortsClick = () => {
-    trackYouTubeChannelClick('shorts_section');
+    trackYouTubeChannelClick('shorts_section_see_more');
   };
 
   return (
@@ -37,13 +40,13 @@ export const YouTubeShortsSection: React.FC = () => {
           </p>
         </div>
 
-        {/* CONTAINER DE VÍDEOS: Carrossel no Mobile (1 card + preview do próximo), Grid 3 Colunas x 2 Linhas no Desktop */}
+        {/* CONTAINER DE VÍDEOS: Grid perfeito de 6 cards (3x2 no desktop, 2x3 no tablet, carrossel no mobile) */}
         <div className="
           flex md:grid overflow-x-auto md:overflow-visible pb-5 md:pb-0 gap-4 sm:gap-6 
           snap-x snap-mandatory md:snap-none no-scrollbar -mx-5 px-5 sm:mx-0 sm:px-0
           md:grid-cols-2 lg:grid-cols-3
         ">
-          {YOUTUBE_SHORTS.map((item: YouTubeShortItem, index: number) => {
+          {visibleShorts.map((item: YouTubeShortItem, index: number) => {
             const isPlaying = activeVideoId === item.id;
             const isRecent = index < 2;
 
@@ -144,22 +147,25 @@ export const YouTubeShortsSection: React.FC = () => {
         {/* Indicador de Swipe no Mobile */}
         <div className="md:hidden text-center mt-3 text-gray-400 text-[11px] font-sans font-medium uppercase tracking-widest flex items-center justify-center gap-2">
           <i className="fas fa-arrows-left-right text-[10px] text-red-400"></i>
-          <span>Deslize para ver mais momentos</span>
+          <span>Deslize para ver os 6 últimos momentos</span>
         </div>
 
-        {/* Botão para Ver Mais no Canal Oficial do YouTube */}
-        <div className="mt-12 text-center">
+        {/* Botão para Ver Mais no Canal Oficial do YouTube Shorts */}
+        <div className="mt-12 sm:mt-14 text-center">
           <a
             href={`${APP_CONFIG.youtube}/shorts`}
             target="_blank"
             rel="noopener noreferrer"
             onClick={handleMoreShortsClick}
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-white/5 border border-white/15 hover:bg-red-600 hover:border-red-500 hover:text-white text-gray-200 font-sans font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 active:scale-95 shadow-md"
+            className="inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 rounded-2xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-sync font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-[0_10px_30px_rgba(220,38,38,0.35)] hover:shadow-[0_15px_40px_rgba(220,38,38,0.5)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
           >
-            <i className="fab fa-youtube text-lg text-red-500"></i>
-            <span>Ver mais Shorts no YouTube</span>
-            <i className="fas fa-arrow-up-right-from-square text-[10px]"></i>
+            <i className="fab fa-youtube text-lg"></i>
+            <span>Ver mais vídeos no YouTube Shorts</span>
+            <i className="fas fa-arrow-up-right-from-square text-xs opacity-80"></i>
           </a>
+          <p className="text-gray-400 text-xs mt-3 font-sans">
+            Acompanhe novas gravações e festas semanais diretamente no nosso canal
+          </p>
         </div>
 
       </div>
